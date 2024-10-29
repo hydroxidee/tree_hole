@@ -2,9 +2,10 @@
     <string name="app_name">TreeHole</string>
     <string name="loginlogo">LoginLogo</string>
     <string name="usc_treehole"><b>USC TreeHole</b></string>
-    <string name="enter_username_here">"     Enter Username Here:"</string>
+    <string name="enter_username_here">"     Enter Email Here:"</string>
     <string name="enter_password_here">"     Enter Password Here:"</string>
-    <string name="username">Username:</string>
+    <string name="username">Email:</string>
     <string name="password">Password:</string>
     <string name="not_a_member_sign_up_now">Not a member? Sign Up Now!</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
