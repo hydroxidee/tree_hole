@@ -18,11 +18,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
-    //
+    // database information
     private FirebaseDatabase root;
     private DatabaseReference reference;
 
-
+    // user's information
     EditText userInput;
     EditText passInput;
 
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/");
         reference = root.getReference();
 
+        // checks if sign up page was visited, and the results of that.
         int update = getIntent().getIntExtra("update", -1);
         TextView updateMsg = findViewById(R.id.updateMessage);
 
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // navigates to sign up page
     public void onSignUpClick(View view) {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }, 0);
     }
 
+    // signs the user in
     public void onSignInClick(View view) {
         userInput = findViewById(R.id.userInput);
         passInput = findViewById(R.id.passInput);

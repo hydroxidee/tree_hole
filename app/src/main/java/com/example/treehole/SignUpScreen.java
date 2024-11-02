@@ -112,7 +112,6 @@ public class SignUpScreen extends AppCompatActivity {
             info.put("bio", bio);
             info.put("phone number", phoneNum);
 
-            boolean isNewUser = true;
             DatabaseReference userRef = reference.child("users").child(shortEmail);
             ValueEventListener eventListener = new ValueEventListener() {
                 @Override
@@ -137,6 +136,7 @@ public class SignUpScreen extends AppCompatActivity {
         }
     }
 
+    // creates new user and navigates back to sign in screen to prompt sign in
     private void makeNewUser(String shortEmail, HashMap<String, String> info){
         reference.child("users").child(shortEmail).setValue(info);
 
@@ -148,6 +148,7 @@ public class SignUpScreen extends AppCompatActivity {
         }, 0);
     }
 
+    // navigates back to sign in screen and notifies that the user already exists
     private void userExists()
     {
         Handler handler = new Handler();
