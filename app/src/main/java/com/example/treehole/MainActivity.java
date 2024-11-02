@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         HashMap<String, String> info = (HashMap<String, String>) dataSnapshot.getValue();
                         TextView updateMsg = findViewById(R.id.updateMessage);
                         // checks if password is correct
-                        if(Objects.equals(info.get("password"), password))
+                        if(Objects.equals(info != null ? info.get("password") : null, password))
                         {
                             SignIn();
                         }
@@ -138,12 +138,14 @@ public class MainActivity extends AppCompatActivity {
         return validUser;
     }
 
+    // allows user to sign in
     @SuppressLint("SetTextI18n")
     private void SignIn() {
         TextView updateMsg = findViewById(R.id.updateMessage);
         updateMsg.setText("Sign In Successful!");
     }
 
+    // prints different sign in errors
     @SuppressLint("SetTextI18n")
     private void SignInError(int type) {
         TextView updateMsg = findViewById(R.id.updateMessage);
@@ -151,27 +153,5 @@ public class MainActivity extends AppCompatActivity {
             updateMsg.setText("** User does not exist, please sign up");
         else if(type == 1)
             updateMsg.setText("** Incorrect Password");
-    }
-
-    public void getPassword(String username) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(username);
-
-        databaseReference.child("password").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // Retrieve the password value as a String
-                    String password = dataSnapshot.getValue(String.class);
-                    System.out.println("Password: " + password);
-                } else {
-                    System.out.println("User not found or password field does not exist.");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("Error: " + databaseError.getMessage());
-            }
-        });
     }
 }
