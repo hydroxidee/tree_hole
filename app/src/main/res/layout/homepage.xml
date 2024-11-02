@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f7f3ad"
+    android:background="@color/yellow"
     tools:context=".MainActivity">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_height="67dp"
         android:text="@string/home"
         android:textAlignment="center"
-        android:textColor="#990000"
+        android:textColor="@color/red"
         android:textSize="50sp"
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,7 +29,7 @@
         android:layout_width="326dp"
         android:layout_height="130dp"
         android:text="@string/following"
-        android:textColor="#990000"
+        android:textColor="@color/red"
         android:textSize="20sp"
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,7 +44,7 @@
         android:layout_width="326dp"
         android:layout_height="130dp"
         android:text="@string/explore"
-        android:textColor="#990000"
+        android:textColor="@color/red"
         android:textSize="20sp"
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -58,7 +58,7 @@
         android:id="@+id/AcademicButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#990000"
+        android:backgroundTint="@color/red"
         android:onClick="academicPage"
         android:text="@string/academic"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -72,7 +72,7 @@
         android:id="@+id/LifeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#990000"
+        android:backgroundTint="@color/red"
         android:onClick="LifePage"
         android:text="@string/life"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -86,7 +86,7 @@
         android:id="@+id/EventButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#990000"
+        android:backgroundTint="@color/red"
         android:onClick="EventPage"
         android:text="@string/event"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -95,6 +95,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.473" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/darkred"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/darkred"
+        android:onClick="ProfilePage"
+        android:src="@drawable/profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/darkred"
+        android:src="@drawable/tree"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:src="@drawable/bell"
+        android:backgroundTint="@color/darkred"
+        android:onClick="NotificationPage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
