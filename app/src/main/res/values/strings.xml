@@ -19,4 +19,11 @@
     <string name="enter_phone_number_here">"     (123)–456–7890"</string>
     <string name="sign_in">Sign In</string>
     <string name="required_field">* required field</string>
+    <string name="home">Home</string>
+    <string name="following">Following:</string>
+    <string name="explore">Explore:</string>
+    <string name="academic">Academic</string>
+    <string name="life">Life</string>
+    <string name="event">Event</string>
+    <string name="bell">bell</string>
 </resources>
