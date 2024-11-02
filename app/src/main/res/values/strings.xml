@@ -2,10 +2,21 @@
     <string name="app_name">TreeHole</string>
     <string name="loginlogo">LoginLogo</string>
     <string name="usc_treehole"><b>USC TreeHole</b></string>
-    <string name="enter_username_here">"     Enter Email Here:"</string>
-    <string name="enter_password_here">"     Enter Password Here:"</string>
-    <string name="username">Email:</string>
-    <string name="password">Password:</string>
+    <string name="enter_username_here">"     tommytrojan@usc.edu"</string>
+    <string name="enter_password_here">"     Password"</string>
+    <string name="username">Email: *</string>
+    <string name="password">Password: *</string>
     <string name="not_a_member_sign_up_now">Not a member? Sign Up Now!</string>
     <string name="sign_up">Sign Up</string>
+    <string name="first_name">First Name: *</string>
+    <string name="last_name">Last Name: *</string>
+    <string name="profile_picture">Profile Picture: *</string>
+    <string name="bio_optional">Bio: </string>
+    <string name="phone_number">Phone Number: *</string>
+    <string name="enter_first_name_here">"     Tommy"</string>
+    <string name="enter_last_name_here">"     Trojan"</string>
+    <string name="enter_biography_here">"     Tell Us About Yourself"</string>
+    <string name="enter_phone_number_here">"     (123)–456–7890"</string>
+    <string name="sign_in">Sign In</string>
+    <string name="required_field">* required field</string>
 </resources>

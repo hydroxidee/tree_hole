@@ -8,6 +8,18 @@
     android:background="#f7f3ad"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="197dp"
+        android:layout_height="44dp"
+        android:text="@string/not_a_member_sign_up_now"
+        android:textColor="#990000"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.919" />
+
     <ImageView
         android:id="@+id/icon"
         android:layout_width="410dp"
@@ -86,28 +98,46 @@
         app:layout_constraintVertical_bias="0.765" />
 
     <TextView
-        android:layout_width="197dp"
-        android:layout_height="44dp"
-        android:text="@string/not_a_member_sign_up_now"
+        android:id="@+id/updateMessage"
+        android:layout_width="347dp"
+        android:layout_height="42dp"
+        android:text=""
         android:textColor="#990000"
         android:typeface="sans"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.879" />
+        app:layout_constraintVertical_bias="0.076" />
+
+    <Button
+        android:id="@+id/toSignIn"
+        android:layout_width="103dp"
+        android:layout_height="34dp"
+        android:backgroundTint="#990000"
+        android:text="@string/sign_in"
+        android:onClick="onSignInClick"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.824" />
 
     <Button
         android:id="@+id/toSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#990000"
+        android:onClick="onSignUpClick"
         android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.915" />
+        app:layout_constraintVertical_bias="0.959" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "68237128439",
+    "project_id": "treehole-database",
+    "storage_bucket": "treehole-database.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68237128439:android:9b580f27f00e08b3a519f2",
+        "android_client_info": {
+          "package_name": "com.example.treehole"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPCZeUUKuU2902neRQYRj4J7Xo1MmkvjQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
