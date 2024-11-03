@@ -72,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
     public void onSignUpClick(View view) {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            Intent intent = new Intent(MainActivity.this, SignUpScreen.class);
+            Intent intent = new Intent(MainActivity.this, AddChangeUserScreen.class);
+            //makes Add Change User Screen a Sign Up screen
+            intent.putExtra("type", 0);
             startActivity(intent);
         }, 0);
     }

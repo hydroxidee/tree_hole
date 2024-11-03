@@ -9,8 +9,10 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="172dp"
+        android:id="@+id/titleName"
+        android:layout_width="344dp"
         android:layout_height="67dp"
+        android:gravity="center"
         android:text="@string/sign_up"
         android:textColor="#990000"
         android:textSize="50sp"

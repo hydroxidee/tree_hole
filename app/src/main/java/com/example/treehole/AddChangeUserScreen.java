@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,17 +27,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
+import org.w3c.dom.Text;
 
-public class SignUpScreen extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+public class AddChangeUserScreen extends AppCompatActivity {
     private FirebaseDatabase root;
     private DatabaseReference reference;
 
+    private int type;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.sign_up_screen);
+        setContentView(R.layout.add_change_user_screen);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -46,8 +53,61 @@ public class SignUpScreen extends AppCompatActivity {
         root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/");
         reference = root.getReference();
 
+        type = getIntent().getIntExtra("type", 0);
+        TextView title = findViewById(R.id.titleName);
+        Button button = findViewById(R.id.signUpButton);
+
+        // make it a sign up screen
+        if(type == 0)
+        {
+            title.setText("Sign Up");
+            button.setText("Sign Up");
+        }
+        //make it an edit profile screen
+        else if(type == 1)
+        {
+            title.setText("Edit Profile");
+            button.setText("Save");
+
+            EditText firstInput = findViewById(R.id.firstNameInput);
+            EditText lastInput = findViewById(R.id.lastNameInput);
+            EditText userInput = findViewById(R.id.userInput);
+            EditText passInput = findViewById(R.id.passInput);
+            EditText bioInput = findViewById(R.id.bioInput);
+            EditText numIDInput = findViewById(R.id.numIDInput);
+            @SuppressLint("CutPasteId") Spinner roleTypeInput = findViewById(R.id.roleTypes);
+
+            DatabaseReference userRef = reference.child("users").child(UserInfo.GetUser());
+
+            ValueEventListener eventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        HashMap<String, String> info = (HashMap<String, String>) dataSnapshot.getValue();
+                        firstInput.setText(info.get("first"));
+                        lastInput.setText(info.get("last"));
+                        userInput.setText(info.get("username") + "@usc.edu");
+                        passInput.setText(info.get("password"));
+                        if(!Objects.requireNonNull(info.get("bio")).isEmpty())
+                        {
+                            bioInput.setText(info.get("bio"));
+                        }
+                        numIDInput.setText(info.get("ID"));
+                        roleTypeInput.setSelection(UserInfo.getRoleIndex(roleTypeInput.getSelectedItem().toString()));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.w(TAG, "loadPost:onCancelled", error.toException());
+                }
+            };
+            userRef.addListenerForSingleValueEvent(eventListener);
+        }
+
+
         // Sets up Spinner
-        Spinner spinner = findViewById(R.id.roleTypes);
+        @SuppressLint("CutPasteId") Spinner spinner = findViewById(R.id.roleTypes);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.role_types, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -115,7 +175,7 @@ public class SignUpScreen extends AppCompatActivity {
 
             // creates user info map
             String shortEmail = user.substring(0, user.indexOf("@"));
-            HashMap<String, String> info = new HashMap<>();
+            HashMap<String, Object> info = new HashMap<>();
             info.put("first", first);
             info.put("last", last);
             info.put("username", shortEmail);
@@ -128,13 +188,20 @@ public class SignUpScreen extends AppCompatActivity {
             ValueEventListener eventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(!dataSnapshot.exists()) {
+                    //sign in - create new user
+                    if(type == 0 && !dataSnapshot.exists()) {
                         //create new user
                         makeNewUser(shortEmail, info);
                     }
-                    else
+                    //sign in - user exists
+                    else if (type == 0 && dataSnapshot.exists())
                     {
                         userExists();
+                    }
+                    //edit profile - save new info
+                    else if(type == 1)
+                    {
+                        UpdateUser(shortEmail, info);
                     }
                 }
 
@@ -149,13 +216,25 @@ public class SignUpScreen extends AppCompatActivity {
     }
 
     // creates new user and navigates back to sign in screen to prompt sign in
-    private void makeNewUser(String shortEmail, HashMap<String, String> info){
+    private void makeNewUser(String shortEmail, HashMap<String, Object> info){
         reference.child("users").child(shortEmail).setValue(info);
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            Intent intent = new Intent(SignUpScreen.this, MainActivity.class);
+            Intent intent = new Intent(AddChangeUserScreen.this, MainActivity.class);
             intent.putExtra("update", 1);
+            startActivity(intent);
+        }, 0);
+    }
+
+    // updates user info then goes back to profile page
+    private void UpdateUser(String shortEmail, HashMap<String, Object> info){
+        reference.child("users").child(shortEmail).updateChildren(info);
+
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Intent intent = new Intent(AddChangeUserScreen.this, ProfilePage.class);
+            intent.putExtra("type", 1);
             startActivity(intent);
         }, 0);
     }
@@ -165,7 +244,7 @@ public class SignUpScreen extends AppCompatActivity {
     {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            Intent intent = new Intent(SignUpScreen.this, MainActivity.class);
+            Intent intent = new Intent(AddChangeUserScreen.this, MainActivity.class);
             intent.putExtra("update", 0);
             startActivity(intent);
         }, 0);
