@@ -143,6 +143,12 @@ public class MainActivity extends AppCompatActivity {
     private void SignIn() {
         TextView updateMsg = findViewById(R.id.updateMessage);
         updateMsg.setText("Sign In Successful!");
+
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Intent intent = new Intent(MainActivity.this, Homepage.class);
+            startActivity(intent);
+        }, 0);
     }
 
     // prints different sign in errors
