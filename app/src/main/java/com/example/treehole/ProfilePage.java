@@ -118,4 +118,16 @@ public class ProfilePage extends AppCompatActivity {
             startActivity(intent);
         }, 0);
     }
+
+    //signs user out of account
+    public void onSignOutClick(View view)
+    {
+        UserInfo.SetUser("");
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Intent intent = new Intent(ProfilePage.this, MainActivity.class);
+            intent.putExtra("update", 2);
+            startActivity(intent);
+        }, 0);
+    }
 }

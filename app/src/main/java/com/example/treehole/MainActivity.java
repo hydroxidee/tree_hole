@@ -66,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
         {
             updateMsg.setText("Account already exists. Please Sign In");
         }
+        else if(update == 2)
+        {
+            updateMsg.setText("Successfully Signed Out");
+        }
     }
 
     // navigates to sign up page
