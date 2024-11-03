@@ -36,6 +36,7 @@
     <string name="tell_us_about_yourself">Tell Us About Yourself!</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="role_type">Role Type: *</string>
+    <string name="upload">Upload</string>
     <string-array name="role_types">
         <item>Undergrad Student</item>
         <item>Graduate Student</item>

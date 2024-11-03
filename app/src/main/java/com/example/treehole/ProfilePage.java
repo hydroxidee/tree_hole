@@ -4,10 +4,12 @@ import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -71,11 +73,16 @@ public class ProfilePage extends AppCompatActivity {
                     TextView role = findViewById(R.id.roleType);
                     TextView email = findViewById(R.id.email);
                     TextView bio = findViewById(R.id.bio);
+                    ImageView profile = findViewById(R.id.profilePhoto);
 
                     name.setText(info.get("first") + " " + info.get("last"));
                     IDNum.setText(info.get("ID"));
                     role.setText(info.get("role"));
                     email.setText(info.get("username") + "@usc.edu");
+
+                    Bitmap profilePhoto = PhotoUtils.Base64ToBitMap(info.get("photo"));
+                    profile.setImageBitmap(profilePhoto);
+
 
                     if(!Objects.requireNonNull(info.get("bio")).isEmpty())
                     {

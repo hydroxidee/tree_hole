@@ -4,40 +4,58 @@ import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 public class AddChangeUserScreen extends AppCompatActivity {
     private FirebaseDatabase root;
     private DatabaseReference reference;
 
+    // to get images
+    ImageView imageView;
+    Uri imageUri;
+
     private int type;
+    String imageURL = "";
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +112,8 @@ public class AddChangeUserScreen extends AppCompatActivity {
                         }
                         numIDInput.setText(info.get("ID"));
                         roleTypeInput.setSelection(UserInfo.getRoleIndex(roleTypeInput.getSelectedItem().toString()));
+
+                        imageURL = info.get("photo");
                     }
                 }
 
@@ -166,6 +186,11 @@ public class AddChangeUserScreen extends AppCompatActivity {
             valid = false;
             error.setText("** ID Number must be a valid ID Number");
         }
+        else if(type == 0 && imageURL.isEmpty())
+        {
+            valid = false;
+            error.setText("** Please add a Profile Photo");
+        }
 
 
         //created new user if validation checks all pass
@@ -183,6 +208,7 @@ public class AddChangeUserScreen extends AppCompatActivity {
             info.put("bio", bio);
             info.put("ID", numID);
             info.put("role", roleType);
+            info.put("photo", imageURL);
 
             DatabaseReference userRef = reference.child("users").child(shortEmail);
             ValueEventListener eventListener = new ValueEventListener() {
@@ -249,4 +275,30 @@ public class AddChangeUserScreen extends AppCompatActivity {
             startActivity(intent);
         }, 0);
     }
+
+    public void onUploadPhotoClick(View view)
+    {
+        openGallery();
+    }
+
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, 1);
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == 1 && data != null) {
+            imageUri = data.getData();
+            imageURL = PhotoUtils.UriToBase64(this, imageUri);
+
+            TextView success = findViewById(R.id.pictureSuccess);
+            success.setText("** Uploaded");
+//            imageView.setImageURI(imageUri); // Display selected image
+        }
+    }
+
 }

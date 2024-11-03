@@ -68,6 +68,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.047" />
 
+    <ImageView
+        android:id="@+id/profilePhoto"
+        android:layout_width="69dp"
+        android:layout_height="90dp"
+        android:contentDescription="@string/loginlogo"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.152"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.321" />
+
     <TextView
         android:id="@+id/IDNum"
         android:layout_width="247dp"
