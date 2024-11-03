@@ -58,8 +58,8 @@ public class SignUpScreen extends AppCompatActivity {
         String pass = passInput.getText().toString();
         EditText bioInput = findViewById(R.id.bioInput);
         String bio = bioInput.getText().toString();
-        EditText phoneNumInput = findViewById(R.id.phoneNumInput);
-        String phoneNum = phoneNumInput.getText().toString();
+        EditText numIDInput = findViewById(R.id.numIDInput);
+        String numID = numIDInput.getText().toString();
 
         TextView error = findViewById(R.id.errorMessage);
 
@@ -90,10 +90,10 @@ public class SignUpScreen extends AppCompatActivity {
             valid = false;
             error.setText("** Bio must not exceed 300 characters");
         }
-        else if(phoneNum.isEmpty() || !phoneNum.matches("^(\\(\\d{3}\\)-?|\\d{3}-?)?\\d{3}-?\\d{4}$"))
+        else if(numID.isEmpty() || !numID.matches("\\d{10}"))
         {
             valid = false;
-            error.setText("** Phone number must be a valid phone number");
+            error.setText("** ID Number must be a valid ID Number");
         }
 
 
@@ -110,7 +110,7 @@ public class SignUpScreen extends AppCompatActivity {
             info.put("username", shortEmail);
             info.put("password", pass);
             info.put("bio", bio);
-            info.put("phone number", phoneNum);
+            info.put("ID", numID);
 
             DatabaseReference userRef = reference.child("users").child(shortEmail);
             ValueEventListener eventListener = new ValueEventListener() {

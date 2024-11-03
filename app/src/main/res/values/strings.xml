@@ -12,11 +12,11 @@
     <string name="last_name">Last Name: *</string>
     <string name="profile_picture">Profile Picture: *</string>
     <string name="bio_optional">Bio: </string>
-    <string name="phone_number">Phone Number: *</string>
+    <string name="phone_number">USC 10-Digit ID: *</string>
     <string name="enter_first_name_here">"     Tommy"</string>
     <string name="enter_last_name_here">"     Trojan"</string>
     <string name="enter_biography_here">"     Tell Us About Yourself"</string>
-    <string name="enter_phone_number_here">"     (123)–456–7890"</string>
+    <string name="enter_phone_number_here">"     1234567890"</string>
     <string name="sign_in">Sign In</string>
     <string name="required_field">* required field</string>
     <string name="home">Home</string>
@@ -26,4 +26,13 @@
     <string name="life">Life</string>
     <string name="event">Event</string>
     <string name="bell">bell</string>
+    <string name="profile"><b>Profile Page</b></string>
+    <string name="tommy_trojan">Tommy Trojan</string>
+    <string name="_1234567890">1234567890</string>
+    <string name="student">Student</string>
+    <string name="tommytrojan_usc_edu">tommytrojan@usc.edu</string>
+    <string name="email">Email:</string>
+    <string name="bio">Bio:</string>
+    <string name="tell_us_about_yourself">Tell Us About Yourself!</string>
+    <string name="edit_profile">Edit Profile</string>
 </resources>
