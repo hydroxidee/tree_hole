@@ -37,6 +37,7 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="role_type">Role Type: *</string>
     <string name="upload">Upload</string>
+    <string name="sign_out">Sign Out</string>
     <string-array name="role_types">
         <item>Undergrad Student</item>
         <item>Graduate Student</item>
