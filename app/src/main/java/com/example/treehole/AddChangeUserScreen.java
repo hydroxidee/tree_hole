@@ -276,11 +276,13 @@ public class AddChangeUserScreen extends AppCompatActivity {
         }, 0);
     }
 
+    //chick "Upload Photo" Button, prompt to open gallery
     public void onUploadPhotoClick(View view)
     {
         openGallery();
     }
 
+    // open's phone gallery
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, 1);
@@ -291,13 +293,13 @@ public class AddChangeUserScreen extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        //saves gotten photo image url
         if (resultCode == RESULT_OK && requestCode == 1 && data != null) {
             imageUri = data.getData();
             imageURL = PhotoUtils.UriToBase64(this, imageUri);
 
             TextView success = findViewById(R.id.pictureSuccess);
             success.setText("** Uploaded");
-//            imageView.setImageURI(imageUri); // Display selected image
         }
     }
 
