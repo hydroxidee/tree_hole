@@ -3,6 +3,7 @@ package com.example.treehole;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,6 +31,10 @@ public class Homepage extends AppCompatActivity {
 
     // takes user to profile page
     public void onProfileClick(View view) {
-
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Intent intent = new Intent(Homepage.this, ProfilePage.class);
+            startActivity(intent);
+        }, 0);
     }
 }
