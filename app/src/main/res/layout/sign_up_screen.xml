@@ -96,10 +96,22 @@
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.694"
+        app:layout_constraintHorizontal_bias="0.682"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.615" />
+        app:layout_constraintVertical_bias="0.716" />
+
+    <EditText
+        android:id="@+id/bioInput"
+        android:layout_width="293dp"
+        android:layout_height="39dp"
+        android:background="@color/white"
+        android:hint="@string/enter_biography_here"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.812" />
 
     <TextView
         android:layout_width="326dp"
@@ -109,10 +121,10 @@
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.694"
+        app:layout_constraintHorizontal_bias="0.682"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.716" />
+        app:layout_constraintVertical_bias="0.817" />
 
     <TextView
         android:layout_width="326dp"
@@ -125,7 +137,20 @@
         app:layout_constraintHorizontal_bias="0.694"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.817" />
+        app:layout_constraintVertical_bias="0.615" />
+
+    <EditText
+        android:id="@+id/numIDInput"
+        android:layout_width="293dp"
+        android:layout_height="39dp"
+        android:background="@color/white"
+        android:hint="@string/enter_phone_number_here"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.619" />
 
     <EditText
         android:id="@+id/firstNameInput"
@@ -177,31 +202,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.524" />
-
-    <EditText
-        android:id="@+id/bioInput"
-        android:layout_width="293dp"
-        android:layout_height="39dp"
-        android:background="@color/white"
-        android:hint="@string/enter_biography_here"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.716" />
-
-    <EditText
-        android:id="@+id/phoneNumInput"
-        android:layout_width="293dp"
-        android:layout_height="39dp"
-        android:background="@color/white"
-        android:hint="@string/enter_phone_number_here"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.813" />
 
     <TextView
         android:layout_width="127dp"

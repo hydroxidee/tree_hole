@@ -142,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void SignIn() {
         TextView updateMsg = findViewById(R.id.updateMessage);
-        updateMsg.setText("Sign In Successful!");
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
