@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -30,6 +32,7 @@ public class ProfilePage extends AppCompatActivity {
     private FirebaseDatabase root;
     private DatabaseReference reference;
 
+    @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -42,6 +45,18 @@ public class ProfilePage extends AppCompatActivity {
 
         root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/");
         reference = root.getReference();
+
+        int type = getIntent().getIntExtra("type", 0);
+        TextView msg = findViewById(R.id.userMsg);
+        if(type == 0)
+        {
+            msg.setText("");
+        }
+        // coming back to profile page from edit profile
+        else if (type == 1)
+        {
+            msg.setText("** Profile Updated!");
+        }
 
         DatabaseReference userRef = reference.child("users").child(UserInfo.GetUser());
 
@@ -62,7 +77,7 @@ public class ProfilePage extends AppCompatActivity {
                     role.setText(info.get("role"));
                     email.setText(info.get("username") + "@usc.edu");
 
-                    if(!info.get("bio").isEmpty())
+                    if(!Objects.requireNonNull(info.get("bio")).isEmpty())
                     {
                         bio.setText(info.get("bio"));
                     }
@@ -81,6 +96,15 @@ public class ProfilePage extends AppCompatActivity {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             Intent intent = new Intent(ProfilePage.this, Homepage.class);
+            startActivity(intent);
+        }, 0);
+    }
+
+    public void onEditClick(View view) {
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Intent intent = new Intent(ProfilePage.this, AddChangeUserScreen.class);
+            intent.putExtra("type", 1);
             startActivity(intent);
         }, 0);
     }

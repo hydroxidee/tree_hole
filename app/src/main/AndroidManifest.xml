@@ -19,7 +19,7 @@
             android:name=".Homepage"
             android:exported="false" />
         <activity
-            android:name=".SignUpScreen"
+            android:name=".AddChangeUserScreen"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

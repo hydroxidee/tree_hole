@@ -23,7 +23,22 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.048" />
+        app:layout_constraintVertical_bias="0.009" />
+
+    <TextView
+        android:id="@+id/userMsg"
+        android:layout_width="326dp"
+        android:layout_height="67dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#990000"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.079" />
 
     <TextView
         android:layout_width="362dp"
