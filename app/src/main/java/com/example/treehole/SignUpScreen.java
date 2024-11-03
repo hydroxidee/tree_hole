@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -43,6 +45,13 @@ public class SignUpScreen extends AppCompatActivity {
 
         root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/");
         reference = root.getReference();
+
+        // Sets up Spinner
+        Spinner spinner = findViewById(R.id.roleTypes);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.role_types, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
     @SuppressLint("SetTextI18n")
@@ -60,6 +69,8 @@ public class SignUpScreen extends AppCompatActivity {
         String bio = bioInput.getText().toString();
         EditText numIDInput = findViewById(R.id.numIDInput);
         String numID = numIDInput.getText().toString();
+        Spinner roleTypeInput = findViewById(R.id.roleTypes);
+        String roleType = roleTypeInput.getSelectedItem().toString();
 
         TextView error = findViewById(R.id.errorMessage);
 
@@ -111,6 +122,7 @@ public class SignUpScreen extends AppCompatActivity {
             info.put("password", pass);
             info.put("bio", bio);
             info.put("ID", numID);
+            info.put("role", roleType);
 
             DatabaseReference userRef = reference.child("users").child(shortEmail);
             ValueEventListener eventListener = new ValueEventListener() {
