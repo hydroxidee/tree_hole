@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 public class PhotoUtils {
+    //converts image to base64 (for storage in firebase)
     public static String UriToBase64(Context context, Uri uri)
     {
         Bitmap temp = UriToBitMap(context, uri);
@@ -18,11 +19,13 @@ public class PhotoUtils {
         return BitMapToBase64(temp);
     }
 
+    //converts stored image to bitmap 64
     public static Bitmap Base64ToBitMap(String base64Image) {
         byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 
+    // converts uri to bitmap 64
     private static Bitmap UriToBitMap(Context context, Uri uri) {
         try {
             ContentResolver contentResolver = context.getContentResolver();
@@ -34,6 +37,7 @@ public class PhotoUtils {
         }
     }
 
+    // converts bitmap to base64
     private static String BitMapToBase64(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);

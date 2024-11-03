@@ -66,6 +66,7 @@ public class ProfilePage extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                // sets up user profile with correct information
                 if (dataSnapshot.exists()) {
                     HashMap<String, String> info = (HashMap<String, String>) dataSnapshot.getValue();
                     TextView name = findViewById(R.id.profileName);
@@ -99,6 +100,7 @@ public class ProfilePage extends AppCompatActivity {
         userRef.addListenerForSingleValueEvent(eventListener);
     }
 
+    //navigates back to homepage
     public void onHomeClick(View view) {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
@@ -107,6 +109,7 @@ public class ProfilePage extends AppCompatActivity {
         }, 0);
     }
 
+    //navigates to edit page
     public void onEditClick(View view) {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
