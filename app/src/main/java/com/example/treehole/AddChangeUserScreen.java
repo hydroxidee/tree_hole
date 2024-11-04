@@ -201,6 +201,8 @@ public class AddChangeUserScreen extends AppCompatActivity {
             // creates user info map
             String shortEmail = user.substring(0, user.indexOf("@"));
             HashMap<String, Object> info = new HashMap<>();
+            HashMap<String, Object> notifs = new HashMap<>();
+
             info.put("first", first);
             info.put("last", last);
             info.put("username", shortEmail);
@@ -209,6 +211,13 @@ public class AddChangeUserScreen extends AppCompatActivity {
             info.put("ID", numID);
             info.put("role", roleType);
             info.put("photo", imageURL);
+
+            notifs.put("academic", 0);
+            notifs.put("life", 0);
+            notifs.put("event", 0);
+
+            info.put("notifs", notifs);
+
 
             DatabaseReference userRef = reference.child("users").child(shortEmail);
             ValueEventListener eventListener = new ValueEventListener() {

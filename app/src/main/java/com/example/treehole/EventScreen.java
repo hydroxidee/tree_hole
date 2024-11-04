@@ -55,6 +55,16 @@ public class EventScreen extends AppCompatActivity {
         postAdapter = new PostAdapter(this, postList);
         listView.setAdapter(postAdapter);
 
+        // set notif bell
+        ImageButton bell = findViewById(R.id.pushNotifications);
+        if(UserInfo.isFollowingEvent())
+        {
+            bell.setImageResource(R.drawable.alertbell);
+        }
+        else
+        {
+            bell.setImageResource(R.drawable.bell);
+        }
     }
 
     public void onPlusClick(View view) {
@@ -74,5 +84,20 @@ public class EventScreen extends AppCompatActivity {
             Intent intent = new Intent(EventScreen.this, Homepage.class);
             startActivity(intent);
         }, 0);
+    }
+
+    public void onNotifBellClick(View view)
+    {
+        ImageButton bell = findViewById(R.id.pushNotifications);
+        if(UserInfo.isFollowingEvent())
+        {
+            UserInfo.unfollowEvent();
+            bell.setImageResource(R.drawable.bell);
+        }
+        else
+        {
+            UserInfo.followEvent();
+            bell.setImageResource(R.drawable.alertbell);
+        }
     }
 }

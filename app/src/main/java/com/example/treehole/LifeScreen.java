@@ -55,6 +55,17 @@ public class LifeScreen extends AppCompatActivity {
         postAdapter = new PostAdapter(this, postList);
         listView.setAdapter(postAdapter);
 
+        // set notif bell
+        ImageButton bell = findViewById(R.id.pushNotifications);
+        if(UserInfo.isFollowingLife())
+        {
+            bell.setImageResource(R.drawable.alertbell);
+        }
+        else
+        {
+            bell.setImageResource(R.drawable.bell);
+        }
+
     }
 
     public void onPlusClick(View view) {
@@ -74,5 +85,25 @@ public class LifeScreen extends AppCompatActivity {
             Intent intent = new Intent(LifeScreen.this, Homepage.class);
             startActivity(intent);
         }, 0);
+    }
+
+    public void onNotificationClick(View view)
+    {
+
+    }
+
+    public void onNotifBellClick(View view)
+    {
+        ImageButton bell = findViewById(R.id.pushNotifications);
+        if(UserInfo.isFollowingLife())
+        {
+            UserInfo.unfollowLife();
+            bell.setImageResource(R.drawable.bell);
+        }
+        else
+        {
+            UserInfo.followLife();
+            bell.setImageResource(R.drawable.alertbell);
+        }
     }
 }
