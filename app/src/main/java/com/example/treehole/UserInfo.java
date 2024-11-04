@@ -78,7 +78,7 @@ public class UserInfo {
     }
 
     public static void unfollowEvent(){
-        followingEvent=true;
+        followingEvent=false;
     }
 
     public static boolean isFollowingEvent()

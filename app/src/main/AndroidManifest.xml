@@ -15,9 +15,9 @@
         <activity
             android:name=".ProfilePage"
             android:exported="false" />
-        <activity
-            android:name=".Homepage"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".Homepage"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".AddChangeUserScreen"
             android:exported="false" />
@@ -40,7 +40,10 @@
             android:name=".LifeScreen"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".NotificationScreen"
+            android:exported="false" />
+        <activity
+            android:name=".Homepage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

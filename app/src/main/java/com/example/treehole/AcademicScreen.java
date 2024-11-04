@@ -101,4 +101,12 @@ public class AcademicScreen extends AppCompatActivity {
             bell.setImageResource(R.drawable.alertbell);
         }
     }
+    public void onNotificationClick(View view){
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Intent intent = new Intent(AcademicScreen.this, NotificationScreen.class);
+            startActivity(intent);
+        }, 0);
+    }
+
 }
