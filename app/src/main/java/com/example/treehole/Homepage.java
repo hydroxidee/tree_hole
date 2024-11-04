@@ -1,5 +1,6 @@
 package com.example.treehole;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ public class Homepage extends AppCompatActivity {
 
     ImageView imageView;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,9 @@ public class Homepage extends AppCompatActivity {
         //homepage raccoon GIF
         imageView = findViewById(R.id.raccoonImage);
         Glide.with(this).load(R.drawable.raccoon).into(imageView);
+
+        TextView speechBubble = findViewById(R.id.speechBubbleText);
+        speechBubble.setText("Hi " + UserInfo.getFirstName() + "!");
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

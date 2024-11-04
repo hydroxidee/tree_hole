@@ -5,6 +5,7 @@ import java.util.HashMap;
 //class stores the username (first part of usc email) so that it can be used once the user logs in
 public class UserInfo {
     static String username = "";
+    static String firstName = "";
     static HashMap<String, Integer> roleTypes;
 
     //communities
@@ -22,6 +23,16 @@ public class UserInfo {
     public static String GetUser()
     {
         return username;
+    }
+
+    public static void setFirstName(String first)
+    {
+        firstName = first;
+    }
+
+    public static String getFirstName()
+    {
+        return firstName;
     }
 
     // returns the index of the different roles (for dropdown menu)

@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                         // checks if password is correct
                         if(Objects.equals(info != null ? info.get("password") : null, password))
                         {
-                            SignIn(shortUser);
+                            SignIn(shortUser, info.get("first"));
                         }
                         else
                         {
@@ -145,10 +145,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // allows user to sign in
-    private void SignIn(String user) {
+    private void SignIn(String user, String firstName) {
         TextView updateMsg = findViewById(R.id.updateMessage);
 
         UserInfo.SetUser(user);
+        UserInfo.setFirstName(firstName);
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
