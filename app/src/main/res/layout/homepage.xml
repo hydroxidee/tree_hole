@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/homeTitleText"
         android:layout_width="150dp"
         android:layout_height="67dp"
         android:text="@string/home"
@@ -26,7 +26,7 @@
 
     <!-- Following block -->
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/followingText"
         android:layout_width="326dp"
         android:layout_height="130dp"
         android:text="@string/following"
@@ -97,7 +97,7 @@
 
     <!-- Explore section -->
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/exploreText"
         android:layout_width="326dp"
         android:layout_height="130dp"
         android:text="@string/explore"
@@ -164,14 +164,44 @@
     <!-- footer background -->
 
     <ImageView
+        android:id="@+id/raccoonImage"
         android:layout_width="175dp"
         android:layout_height="177dp"
-        android:id="@+id/raccoonImageView"
+        android:src="@drawable/raccoon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.237"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.812" />
+        app:layout_constraintVertical_bias="0.839" />
+
+    <ImageView
+        android:id="@+id/speechBubbleImage"
+        android:layout_width="175dp"
+        android:layout_height="118dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/speechbubble"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.881"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.668" />
+
+    <TextView
+        android:id="@+id/speechBubbleText"
+        android:layout_width="152dp"
+        android:layout_height="37dp"
+        android:text="@string/speechBubble"
+        android:textColor="@color/red"
+        android:textSize="20sp"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.891"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.646" />
 
     <View
         android:layout_width="match_parent"

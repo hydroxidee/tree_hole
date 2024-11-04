@@ -30,9 +30,9 @@ public class Homepage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.homepage);
-        // Initialize the ImageView
-        imageView = findViewById(R.id.raccoonImageView);
-        // Adding the gif here using glide library
+
+        //homepage raccoon GIF
+        imageView = findViewById(R.id.raccoonImage);
         Glide.with(this).load(R.drawable.raccoon).into(imageView);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
