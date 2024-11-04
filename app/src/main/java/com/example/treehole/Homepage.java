@@ -2,6 +2,7 @@ package com.example.treehole;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.metrics.Event;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -27,22 +28,58 @@ public class Homepage extends AppCompatActivity {
             return insets;
         });
 
-        Button myButton = findViewById(R.id.AcademicButton0);
+        Button myAcademicButton = findViewById(R.id.AcademicButton0);
         if(UserInfo.isFollowingAcademic())
         {
-            myButton.setClickable(true);
-            myButton.setEnabled(true);
+            myAcademicButton.setClickable(true);
+            myAcademicButton.setEnabled(true);
 
-            myButton.setBackgroundColor(Color.parseColor("#990000"));
-            myButton.setTextColor(Color.parseColor("#FFFFFF"));
+            myAcademicButton.setBackgroundColor(Color.parseColor("#990000"));
+            myAcademicButton.setTextColor(Color.parseColor("#FFFFFF"));
         }
         else
         {
-            myButton.setClickable(false);
-            myButton.setEnabled(false);
+            myAcademicButton.setClickable(false);
+            myAcademicButton.setEnabled(false);
 
-            myButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
-            myButton.setTextColor(Color.parseColor("#F7F3AD"));
+            myAcademicButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
+            myAcademicButton.setTextColor(Color.parseColor("#F7F3AD"));
+        }
+
+        Button myEventButton = findViewById(R.id.EventButton0);
+        if(UserInfo.isFollowingEvent())
+        {
+            myEventButton.setClickable(true);
+            myEventButton.setEnabled(true);
+
+            myEventButton.setBackgroundColor(Color.parseColor("#990000"));
+            myEventButton.setTextColor(Color.parseColor("#FFFFFF"));
+        }
+        else
+        {
+            myEventButton.setClickable(false);
+            myEventButton.setEnabled(false);
+
+            myEventButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
+            myEventButton.setTextColor(Color.parseColor("#F7F3AD"));
+        }
+
+        Button myLifeButton = findViewById(R.id.LifeButton0);
+        if(UserInfo.isFollowingLife())
+        {
+            myLifeButton.setClickable(true);
+            myLifeButton.setEnabled(true);
+
+            myLifeButton.setBackgroundColor(Color.parseColor("#990000"));
+            myLifeButton.setTextColor(Color.parseColor("#FFFFFF"));
+        }
+        else
+        {
+            myLifeButton.setClickable(false);
+            myLifeButton.setEnabled(false);
+
+            myLifeButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
+            myLifeButton.setTextColor(Color.parseColor("#F7F3AD"));
         }
     }
 
@@ -70,7 +107,11 @@ public class Homepage extends AppCompatActivity {
     public void onFollowLifeClick(View view){
         if(UserInfo.isFollowingLife())
         {
-
+            Handler handler = new Handler();
+            handler.postDelayed(()->{
+                Intent intent = new Intent(Homepage.this, LifeScreen.class);
+                startActivity(intent);
+            },0);
         }
 
 //        //initializing button
@@ -88,18 +129,12 @@ public class Homepage extends AppCompatActivity {
     public void onFollowEventClick(View view){
         if(UserInfo.isFollowingEvent())
         {
-
+            Handler handler = new Handler();
+            handler.postDelayed(()->{
+                Intent intent = new Intent(Homepage.this, EventScreen.class);
+                startActivity(intent);
+            },0);
         }
-//        //initializing button
-//        Button myButton = findViewById(R.id.EventButton0);
-//        myButton.setClickable(false);
-//        myButton.setEnabled(false);
-//
-//        //if following event community
-//            //set backround color to red
-//            myButton.setBackgroundColor(Color.parseColor("#990000"));
-//            //set text color to white
-//            myButton.setTextColor(Color.parseColor("#FFFFFF"));
     }
 
     public void onExploreAcademicClick(View view)
@@ -127,5 +162,12 @@ public class Homepage extends AppCompatActivity {
             Intent intent = new Intent(Homepage.this, EventScreen.class);
             startActivity(intent);
         }, 0);
+    }
+    public void OnNotificationPage(View view){
+        Handler handler = new Handler();
+        handler.postDelayed(()->{
+            Intent intent = new Intent(Homepage.this, NotificationScreen.class);
+            startActivity(intent);
+        },0);
     }
 }
