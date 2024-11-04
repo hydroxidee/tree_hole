@@ -8,9 +8,9 @@ public class UserInfo {
     static HashMap<String, Integer> roleTypes;
 
     //communities
-    boolean followingAcademic = false;
-    boolean followingLife = false;
-    boolean followingEvent = false;
+    static boolean followingAcademic = false;
+    static boolean followingLife = false;
+    static boolean followingEvent = false;
 
     // stores username
     public static void SetUser(String name)
@@ -45,18 +45,45 @@ public class UserInfo {
     }
 
     //set following academic
-    public void followAcademic(){
+    public static void followAcademic(){
         followingAcademic=true;
     }
 
+    public static void unfollowAcademic(){
+        followingAcademic=false;
+    }
+
+    public static boolean isFollowingAcademic()
+    {
+        return followingAcademic;
+    }
+
     //set following life
-    public void followLife(){
+    public static void followLife(){
         followingLife=true;
     }
 
+    public static void unfollowLife(){
+        followingLife=false;
+    }
+
+    public static boolean isFollowingLife()
+    {
+        return followingLife;
+    }
+
     //set following event
-    public void followEvent(){
+    public static void followEvent(){
         followingEvent=true;
+    }
+
+    public static void unfollowEvent(){
+        followingEvent=true;
+    }
+
+    public static boolean isFollowingEvent()
+    {
+        return followingEvent;
     }
 
 }

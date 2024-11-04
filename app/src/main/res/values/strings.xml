@@ -19,7 +19,7 @@
     <string name="enter_phone_number_here">"     1234567890"</string>
     <string name="sign_in">Sign In</string>
     <string name="required_field">* required field</string>
-    <string name="home">Home</string>
+    <string name="home"><b>Home</b></string>
     <string name="following">Following:</string>
     <string name="explore">Explore:</string>
     <string name="academic">Academic</string>
