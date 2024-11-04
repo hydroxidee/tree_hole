@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AcademicScreen extends AppCompatActivity {
+public class LifeScreen extends AppCompatActivity {
     private ListView listView;
     private PostAdapter postAdapter;
     private List<Post> postList;
@@ -41,7 +41,7 @@ public class AcademicScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.academics_page);
+        setContentView(R.layout.life_page);
 
         // Initialize ListView
         listView = findViewById(R.id.postListView);
@@ -58,20 +58,20 @@ public class AcademicScreen extends AppCompatActivity {
     }
 
     public void onPlusClick(View view) {
-        Intent intent = new Intent(AcademicScreen.this, PostAcademic.class);
+        Intent intent = new Intent(LifeScreen.this, PostLife.class);
         postAcademicLauncher.launch(intent);  // Launch PostAcademic with the launcher
     }
     public void onProfileClick(View view){
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            Intent intent = new Intent(AcademicScreen.this, ProfilePage.class);
+            Intent intent = new Intent(LifeScreen.this, ProfilePage.class);
             startActivity(intent);
         }, 0);
     }
     public void onHomeClick(View view){
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            Intent intent = new Intent(AcademicScreen.this, Homepage.class);
+            Intent intent = new Intent(LifeScreen.this, Homepage.class);
             startActivity(intent);
         }, 0);
     }

@@ -6,11 +6,22 @@
     android:background="@color/yellow">
 
     <!-- Top Button Layout -->
+
+    <!-- Title TextView -->
+
+    <!-- ListView for displaying posts -->
+
+    <!-- Bottom navigation with ImageButtons -->
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="164dp"
+        android:layout_above="@+id/postListView"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="-2dp"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -21,6 +32,7 @@
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Add"
+            android:layout_marginEnd="20dp"
             android:onClick="onPlusClick"
             android:scaleType="centerInside"
             android:src="@drawable/plus"
@@ -28,19 +40,19 @@
 
         <TextView
             android:id="@+id/titleText"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_width="260dp"
+            android:layout_height="55dp"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-medium"
-            android:gravity="bottom"
-            android:text="Academic Posts"
+            android:gravity="center"
+            android:text="Life Posts"
             android:textColor="@color/darkred"
             android:textSize="40sp" />
 
         <ImageButton
             android:id="@+id/pushNotifications"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Add"
             android:onClick="onNotifBellClick"
@@ -49,19 +61,12 @@
             app:tint="@color/darkred" />
     </LinearLayout>
 
-    <!-- Title TextView -->
-
-    <!-- ListView for displaying posts -->
-
-    <!-- Bottom navigation with ImageButtons -->
-
     <ListView
         android:id="@+id/postListView"
-        android:layout_width="399dp"
-        android:layout_height="529dp"
-        android:layout_above="@id/bottomNavigation"
-        android:layout_marginTop="93dp"
-        android:layout_marginBottom="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="514dp"
+        android:layout_above="@+id/bottomNavigation"
+        android:layout_marginBottom="6dp"
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
         android:dividerHeight="16dp"

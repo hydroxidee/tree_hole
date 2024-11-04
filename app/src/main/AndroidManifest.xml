@@ -15,17 +15,32 @@
         <activity
             android:name=".ProfilePage"
             android:exported="false" />
-        <activity
-            android:name=".Homepage"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".Homepage"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".AddChangeUserScreen"
             android:exported="false" />
         <activity
+            android:name=".PostAcademic"
+            android:exported="false"/>
+        <activity
             android:name=".AcademicScreen"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".PostEvent"
+            android:exported="false"/>
+        <activity
+            android:name=".EventScreen"
+            android:exported="false" />
+        <activity
+            android:name=".PostLife"
+            android:exported="false"/>
+        <activity
+            android:name=".LifeScreen"
+            android:exported="false" />
+        <activity
+            android:name=".Homepage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

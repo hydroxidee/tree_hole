@@ -34,7 +34,8 @@ public class PostAdapter extends ArrayAdapter<Post> {
         assert post != null;
         username.setText(post.getUsername());
         timestamp.setText(post.getTimestamp());
-        postTitle.setText(post.getText());
+        postTitle.setText(post.getPostTitle());
+        postContent.setText(post.getPostText());
 
         return convertView;
     }

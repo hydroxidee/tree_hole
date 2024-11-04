@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AcademicScreen extends AppCompatActivity {
+public class EventScreen extends AppCompatActivity {
     private ListView listView;
     private PostAdapter postAdapter;
     private List<Post> postList;
@@ -29,7 +29,7 @@ public class AcademicScreen extends AppCompatActivity {
                     String postTitle = data.getStringExtra("postTitle");
 
                     // Create a new Post object and add it to the list
-                    Post newPost = new Post(username, timestamp, postTitle,postText);
+                    Post newPost = new Post(username, timestamp,postTitle,postText);
                     postList.add(newPost);
 
                     // Notify adapter of data change
@@ -41,7 +41,7 @@ public class AcademicScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.academics_page);
+        setContentView(R.layout.event_page);
 
         // Initialize ListView
         listView = findViewById(R.id.postListView);
@@ -58,20 +58,20 @@ public class AcademicScreen extends AppCompatActivity {
     }
 
     public void onPlusClick(View view) {
-        Intent intent = new Intent(AcademicScreen.this, PostAcademic.class);
+        Intent intent = new Intent(EventScreen.this, PostEvent.class);
         postAcademicLauncher.launch(intent);  // Launch PostAcademic with the launcher
     }
     public void onProfileClick(View view){
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            Intent intent = new Intent(AcademicScreen.this, ProfilePage.class);
+            Intent intent = new Intent(EventScreen.this, ProfilePage.class);
             startActivity(intent);
         }, 0);
     }
     public void onHomeClick(View view){
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            Intent intent = new Intent(AcademicScreen.this, Homepage.class);
+            Intent intent = new Intent(EventScreen.this, Homepage.class);
             startActivity(intent);
         }, 0);
     }

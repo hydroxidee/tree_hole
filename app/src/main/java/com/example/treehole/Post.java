@@ -4,11 +4,13 @@ public class Post {
     private String username;
     private String timestamp;
     private String postText;
+    private String postTitle;
 
-    public Post(String username, String timestamp, String postText) {
+    public Post(String username, String timestamp, String PostTitle, String postText) {
         this.username = username;
         this.timestamp = timestamp;
         this.postText = postText;
+        this.postTitle = PostTitle;
     }
 
     // Getters
@@ -23,6 +25,7 @@ public class Post {
     public String getPostText() {
         return postText;
     }
+    public String getPostTitle(){return postTitle;}
 
     // Setters (optional, if you need to modify fields after creation)
     public void setUsername(String username) {
@@ -37,8 +40,5 @@ public class Post {
         this.postText = postText;
     }
 
-    public String getText() {
-        return postText;
-    }
 }
 

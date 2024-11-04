@@ -113,11 +113,19 @@ public class Homepage extends AppCompatActivity {
 
     public void onExploreLifeClick(View view)
     {
-
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Intent intent = new Intent(Homepage.this, LifeScreen.class);
+            startActivity(intent);
+        }, 0);
     }
 
     public void onExploreEventClick(View view)
     {
-
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Intent intent = new Intent(Homepage.this, EventScreen.class);
+            startActivity(intent);
+        }, 0);
     }
 }
