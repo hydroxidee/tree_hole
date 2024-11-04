@@ -13,32 +13,32 @@
 
     <!-- Post Button -->
 
-    <ImageButton
+    <Button
         android:id="@+id/exitButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="72dp"
+        android:layout_height="61dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Exit"
+        android:gravity="center"
         android:onClick="onExitClick"
-        android:scaleType="centerInside"
-        android:src="@drawable/x"
+        android:text="x"
+        android:textColor="@color/darkred"
+        android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/darkred" />
 
     <TextView
-        android:layout_width="259dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="449dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:scaleType="centerInside"
         android:text="Life"
         android:textColor="@color/darkred"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintHorizontal_bias="0.703"
         app:layout_constraintStart_toEndOf="@id/exitButton"
         app:layout_constraintTop_toTopOf="parent" />
 
