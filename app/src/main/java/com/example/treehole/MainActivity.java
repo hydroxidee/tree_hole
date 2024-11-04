@@ -66,13 +66,19 @@ public class MainActivity extends AppCompatActivity {
         {
             updateMsg.setText("Account already exists. Please Sign In");
         }
+        else if(update == 2)
+        {
+            updateMsg.setText("Successfully Signed Out");
+        }
     }
 
     // navigates to sign up page
     public void onSignUpClick(View view) {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            Intent intent = new Intent(MainActivity.this, SignUpScreen.class);
+            Intent intent = new Intent(MainActivity.this, AddChangeUserScreen.class);
+            //makes Add Change User Screen a Sign Up screen
+            intent.putExtra("type", 0);
             startActivity(intent);
         }, 0);
     }
@@ -99,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                         // checks if password is correct
                         if(Objects.equals(info != null ? info.get("password") : null, password))
                         {
-                            SignIn();
+                            SignIn(shortUser);
                         }
                         else
                         {
@@ -139,10 +145,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // allows user to sign in
-    @SuppressLint("SetTextI18n")
-    private void SignIn() {
+    private void SignIn(String user) {
         TextView updateMsg = findViewById(R.id.updateMessage);
-        updateMsg.setText("Sign In Successful!");
+
+        UserInfo.SetUser(user);
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
