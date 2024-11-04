@@ -100,4 +100,11 @@ public class EventScreen extends AppCompatActivity {
             bell.setImageResource(R.drawable.alertbell);
         }
     }
+    public void onNotificationClick(View view){
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Intent intent = new Intent(EventScreen.this, NotificationScreen.class);
+            startActivity(intent);
+        }, 0);
+    }
 }

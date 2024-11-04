@@ -2,6 +2,7 @@ package com.example.treehole;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.metrics.Event;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -30,7 +31,7 @@ public class Homepage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+      
         Button academicButton = findViewById(R.id.AcademicButton0);
         if(UserInfo.isFollowingAcademic())
         {
@@ -123,6 +124,7 @@ public class Homepage extends AppCompatActivity {
         if(UserInfo.isFollowingLife())
         {
             Handler handler = new Handler();
+
             handler.postDelayed(() -> {
                 Intent intent = new Intent(Homepage.this, LifeScreen.class);
                 startActivity(intent);
@@ -134,6 +136,7 @@ public class Homepage extends AppCompatActivity {
         if(UserInfo.isFollowingEvent())
         {
             Handler handler = new Handler();
+          
             handler.postDelayed(() -> {
                 Intent intent = new Intent(Homepage.this, EventScreen.class);
                 startActivity(intent);
@@ -166,5 +169,12 @@ public class Homepage extends AppCompatActivity {
             Intent intent = new Intent(Homepage.this, EventScreen.class);
             startActivity(intent);
         }, 0);
+    }
+    public void OnNotificationPage(View view){
+        Handler handler = new Handler();
+        handler.postDelayed(()->{
+            Intent intent = new Intent(Homepage.this, NotificationScreen.class);
+            startActivity(intent);
+        },0);
     }
 }
