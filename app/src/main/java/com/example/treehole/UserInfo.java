@@ -7,6 +7,11 @@ public class UserInfo {
     static String username = "";
     static HashMap<String, Integer> roleTypes;
 
+    //communities
+    boolean followingAcademic = false;
+    boolean followingLife = false;
+    boolean followingEvent = false;
+
     // stores username
     public static void SetUser(String name)
     {
@@ -38,4 +43,20 @@ public class UserInfo {
         roleTypes.put("Faculty", 2);
         roleTypes.put("Staff", 3);
     }
+
+    //set following academic
+    public void followAcademic(){
+        followingAcademic=true;
+    }
+
+    //set following life
+    public void followLife(){
+        followingLife=true;
+    }
+
+    //set following event
+    public void followEvent(){
+        followingEvent=true;
+    }
+
 }

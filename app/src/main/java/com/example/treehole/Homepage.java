@@ -37,4 +37,46 @@ public class Homepage extends AppCompatActivity {
             startActivity(intent);
         }, 0);
     }
+
+    //onClick functions for following communities
+    public void onClickAcademic(View view){
+        //initializing button
+        Button myButton = findViewById(R.id.AcademicButton0);
+        myButton.setClickable(false);
+        myButton.setEnabled(false);
+
+        //if following academic community
+            //set backround color to red
+            myButton.setBackgroundColor(Color.parseColor("#990000"));
+            //set text color to white
+            myButton.setTextColor(Color.parseColor("#FFFFFF"));
+    }
+
+    public void onClickLife(View view){
+        //initializing button
+        Button myButton = findViewById(R.id.LifeButton0);
+        myButton.setClickable(false);
+        myButton.setEnabled(false);
+
+        //if following life community
+            //set backround color to red
+            myButton.setBackgroundColor(Color.parseColor("#990000"));
+            //set text color to white
+            myButton.setTextColor(Color.parseColor("#FFFFFF"));
+    }
+
+    public void onClickEvent(View view){
+        //initializing button
+        Button myButton = findViewById(R.id.EventButton0);
+        myButton.setClickable(false);
+        myButton.setEnabled(false);
+
+        //if following event community
+            //set backround color to red
+            myButton.setBackgroundColor(Color.parseColor("#990000"));
+            //set text color to white
+            myButton.setTextColor(Color.parseColor("#FFFFFF"));
+    }
+
+
 }
