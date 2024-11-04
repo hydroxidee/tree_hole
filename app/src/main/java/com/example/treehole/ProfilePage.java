@@ -100,6 +100,11 @@ public class ProfilePage extends AppCompatActivity {
         userRef.addListenerForSingleValueEvent(eventListener);
     }
 
+    public void onProfileClick(View view)
+    {
+
+    }
+
     //navigates back to homepage
     public void onHomeClick(View view) {
         Handler handler = new Handler();
