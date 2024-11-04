@@ -52,6 +52,16 @@ public class Homepage extends AppCompatActivity {
         }, 0);
     }
 
+    public void onHomeClick(View view)
+    {
+
+    }
+
+    public void onNotificationClick(View view)
+    {
+
+    }
+
     //onClick functions for following communities
     public void onFollowAcademicClick(View view){
         if(UserInfo.isFollowingAcademic())

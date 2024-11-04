@@ -30,7 +30,16 @@ public class PhotoUtils {
         try {
             ContentResolver contentResolver = context.getContentResolver();
             InputStream inputStream = contentResolver.openInputStream(uri);
-            return BitmapFactory.decodeStream(inputStream);
+            Bitmap originalBitmap = BitmapFactory.decodeStream(inputStream);
+
+            // Compress the bitmap
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            originalBitmap.compress(Bitmap.CompressFormat.JPEG, 10, outputStream);
+
+            byte[] compressedBitmapData = outputStream.toByteArray();
+
+            // Convert the compressed byte array back to a bitmap
+            return BitmapFactory.decodeByteArray(compressedBitmapData, 0, compressedBitmapData.length);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
