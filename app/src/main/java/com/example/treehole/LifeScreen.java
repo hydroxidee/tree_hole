@@ -90,6 +90,11 @@ public class LifeScreen extends AppCompatActivity {
     public void onNotificationClick(View view)
     {
 
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Intent intent = new Intent(LifeScreen.this, NotificationScreen.class);
+            startActivity(intent);
+        }, 0);
     }
 
     public void onNotifBellClick(View view)

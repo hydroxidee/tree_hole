@@ -10,6 +10,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class NotificationScreen extends AppCompatActivity {
@@ -28,11 +29,20 @@ public class NotificationScreen extends AppCompatActivity {
 
         // Create sample data for posts
         postList = new ArrayList<>();
-        postList.add(new Post("Username1", "2 mins ago", "This is the first sample post."));
-        postList.add(new Post("Username2", "5 mins ago", "This is another example of a post."));
-        postList.add(new Post("Username3", "10 mins ago", "Here's some sample text for a post."));
+        postList.add(new Post("Username1", "2024-11-04 10:00:00", "This is the first sample post."));
+        postList.add(new Post("Username2", "2024-11-04 13:00:00", "This is another example of a post."));
+        postList.add(new Post("Username3", "2024-11-04 9:55:00", "Here's some sample text for a post."));
 
         // Set up the adapter and assign it to the ListView
+        // Sort the list by timestamp (newest to oldest)
+        postList.sort((post1, post2) -> {
+            Date date1 = post1.getParsedTimestamp();
+            Date date2 = post2.getParsedTimestamp();
+            if (date1 == null || date2 == null) {
+                return 0; // Handle null dates gracefully
+            }
+            return date2.compareTo(date1); // Newest first
+        });
         postAdapter = new PostAdapter(this, postList);
         listView.setAdapter(postAdapter);
 

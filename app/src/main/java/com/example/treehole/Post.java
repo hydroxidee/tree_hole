@@ -1,5 +1,10 @@
 package com.example.treehole;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Post {
     private String username;
     private String timestamp;
@@ -22,6 +27,15 @@ public class Post {
 
     public String getPostText() {
         return postText;
+    }
+    public Date getParsedTimestamp(){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        try {
+            return format.parse(timestamp);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // Setters (optional, if you need to modify fields after creation)
