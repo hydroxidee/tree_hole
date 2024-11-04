@@ -100,11 +100,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        HashMap<String, String> info = (HashMap<String, String>) dataSnapshot.getValue();
+                        HashMap<String, Object> info = (HashMap<String, Object>) dataSnapshot.getValue();
+                        HashMap<String, Long> notifs = (HashMap<String, Long>) info.get("notifs");
                         TextView updateMsg = findViewById(R.id.updateMessage);
                         // checks if password is correct
                         if(Objects.equals(info != null ? info.get("password") : null, password))
                         {
+                            updateUserFollowingBools(notifs);
                             SignIn(shortUser);
                         }
                         else
@@ -165,5 +167,24 @@ public class MainActivity extends AppCompatActivity {
             updateMsg.setText("** User does not exist, please sign up");
         else if(type == 1)
             updateMsg.setText("** Incorrect Password");
+    }
+
+    private void updateUserFollowingBools(HashMap<String, Long> bools)
+    {
+        UserInfo.initializeNotifs();
+        if(bools.get("academic") == 1)
+        {
+            UserInfo.followAcademic();
+        }
+
+        if(bools.get("life") == 1)
+        {
+            UserInfo.followLife();
+        }
+
+        if(bools.get("event") == 1)
+        {
+            UserInfo.followEvent();
+        }
     }
 }

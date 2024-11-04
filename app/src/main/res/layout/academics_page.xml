@@ -23,7 +23,6 @@
             android:contentDescription="Add"
             android:onClick="onPlusClick"
             android:scaleType="centerInside"
-            android:src="@drawable/plus"
             app:tint="@color/darkred" />
 
         <TextView

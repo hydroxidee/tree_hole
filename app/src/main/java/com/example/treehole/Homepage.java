@@ -15,8 +15,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Homepage extends AppCompatActivity {
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+
+public class Homepage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,60 +31,62 @@ public class Homepage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        Button myAcademicButton = findViewById(R.id.AcademicButton0);
+      
+        Button academicButton = findViewById(R.id.AcademicButton0);
         if(UserInfo.isFollowingAcademic())
         {
-            myAcademicButton.setClickable(true);
-            myAcademicButton.setEnabled(true);
+            academicButton.setClickable(true);
+            academicButton.setEnabled(true);
 
-            myAcademicButton.setBackgroundColor(Color.parseColor("#990000"));
-            myAcademicButton.setTextColor(Color.parseColor("#FFFFFF"));
+            academicButton.setBackgroundColor(Color.parseColor("#990000"));
+            academicButton.setTextColor(Color.parseColor("#FFFFFF"));
         }
         else
         {
-            myAcademicButton.setClickable(false);
-            myAcademicButton.setEnabled(false);
+            academicButton.setClickable(false);
+            academicButton.setEnabled(false);
 
-            myAcademicButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
-            myAcademicButton.setTextColor(Color.parseColor("#F7F3AD"));
+            academicButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
+            academicButton.setTextColor(Color.parseColor("#F7F3AD"));
         }
 
-        Button myEventButton = findViewById(R.id.EventButton0);
-        if(UserInfo.isFollowingEvent())
-        {
-            myEventButton.setClickable(true);
-            myEventButton.setEnabled(true);
-
-            myEventButton.setBackgroundColor(Color.parseColor("#990000"));
-            myEventButton.setTextColor(Color.parseColor("#FFFFFF"));
-        }
-        else
-        {
-            myEventButton.setClickable(false);
-            myEventButton.setEnabled(false);
-
-            myEventButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
-            myEventButton.setTextColor(Color.parseColor("#F7F3AD"));
-        }
-
-        Button myLifeButton = findViewById(R.id.LifeButton0);
+        Button lifeButton = findViewById(R.id.LifeButton0);
         if(UserInfo.isFollowingLife())
         {
-            myLifeButton.setClickable(true);
-            myLifeButton.setEnabled(true);
+            lifeButton.setClickable(true);
+            lifeButton.setEnabled(true);
 
-            myLifeButton.setBackgroundColor(Color.parseColor("#990000"));
-            myLifeButton.setTextColor(Color.parseColor("#FFFFFF"));
+            lifeButton.setBackgroundColor(Color.parseColor("#990000"));
+            lifeButton.setTextColor(Color.parseColor("#FFFFFF"));
         }
         else
         {
-            myLifeButton.setClickable(false);
-            myLifeButton.setEnabled(false);
+            lifeButton.setClickable(false);
+            lifeButton.setEnabled(false);
 
-            myLifeButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
-            myLifeButton.setTextColor(Color.parseColor("#F7F3AD"));
+            lifeButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
+            lifeButton.setTextColor(Color.parseColor("#F7F3AD"));
         }
+
+        Button eventButton = findViewById(R.id.EventButton0);
+        if(UserInfo.isFollowingEvent())
+        {
+            eventButton.setClickable(true);
+            eventButton.setEnabled(true);
+
+            eventButton.setBackgroundColor(Color.parseColor("#990000"));
+            eventButton.setTextColor(Color.parseColor("#FFFFFF"));
+        }
+        else
+        {
+            eventButton.setClickable(false);
+            eventButton.setEnabled(false);
+
+            eventButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
+            eventButton.setTextColor(Color.parseColor("#F7F3AD"));
+        }
+
+
     }
 
     // takes user to profile page
@@ -90,6 +96,16 @@ public class Homepage extends AppCompatActivity {
             Intent intent = new Intent(Homepage.this, ProfilePage.class);
             startActivity(intent);
         }, 0);
+    }
+
+    public void onHomeClick(View view)
+    {
+
+    }
+
+    public void onNotificationClick(View view)
+    {
+
     }
 
     //onClick functions for following communities
@@ -108,32 +124,23 @@ public class Homepage extends AppCompatActivity {
         if(UserInfo.isFollowingLife())
         {
             Handler handler = new Handler();
-            handler.postDelayed(()->{
+
+            handler.postDelayed(() -> {
                 Intent intent = new Intent(Homepage.this, LifeScreen.class);
                 startActivity(intent);
-            },0);
+            }, 0);
         }
-
-//        //initializing button
-//        Button myButton = findViewById(R.id.LifeButton0);
-//        myButton.setClickable(false);
-//        myButton.setEnabled(false);
-//
-//        //if following life community
-//            //set backround color to red
-//            myButton.setBackgroundColor(Color.parseColor("#990000"));
-//            //set text color to white
-//            myButton.setTextColor(Color.parseColor("#FFFFFF"));
     }
 
     public void onFollowEventClick(View view){
         if(UserInfo.isFollowingEvent())
         {
             Handler handler = new Handler();
-            handler.postDelayed(()->{
+          
+            handler.postDelayed(() -> {
                 Intent intent = new Intent(Homepage.this, EventScreen.class);
                 startActivity(intent);
-            },0);
+            }, 0);
         }
     }
 

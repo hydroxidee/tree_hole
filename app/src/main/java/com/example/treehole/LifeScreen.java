@@ -87,6 +87,11 @@ public class LifeScreen extends AppCompatActivity {
         }, 0);
     }
 
+    public void onNotificationClick(View view)
+    {
+
+    }
+
     public void onNotifBellClick(View view)
     {
         ImageButton bell = findViewById(R.id.pushNotifications);
@@ -100,12 +105,5 @@ public class LifeScreen extends AppCompatActivity {
             UserInfo.followLife();
             bell.setImageResource(R.drawable.alertbell);
         }
-    }
-    public void onNotificationClick(View view){
-        Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            Intent intent = new Intent(LifeScreen.this, NotificationScreen.class);
-            startActivity(intent);
-        }, 0);
     }
 }

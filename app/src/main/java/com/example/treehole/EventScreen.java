@@ -65,7 +65,6 @@ public class EventScreen extends AppCompatActivity {
         {
             bell.setImageResource(R.drawable.bell);
         }
-
     }
 
     public void onPlusClick(View view) {

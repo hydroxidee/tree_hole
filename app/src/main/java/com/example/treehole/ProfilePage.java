@@ -114,6 +114,11 @@ public class ProfilePage extends AppCompatActivity {
         }, 0);
     }
 
+    public void onNotificationClick(View view)
+    {
+
+    }
+
     //navigates to edit page
     public void onEditClick(View view) {
         Handler handler = new Handler();
