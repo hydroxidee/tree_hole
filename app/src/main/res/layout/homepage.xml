@@ -24,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.05" />
 
+    <!-- Following block -->
     <TextView
         android:id="@+id/textView2"
         android:layout_width="326dp"
@@ -39,6 +40,86 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.206" />
 
+    <!-- (following) Academic Button -->
+    <!-- **need to update the onClick to the name of the page Jess chooses -->
+    <!-- JAVA CODE to change "clickable" attribute when you are following the community
+            Button myButton = findViewById(R.id.myButton);
+            myButton.setClickable(false);
+            myButton.setEnabled(false);
+            //set backround color to red
+            myButton.setBackgroundColor(Color.parseColor("#990000"));
+            //set text color to white
+            myButton.setTextColor(Color.parseColor("#FFFFFF"));
+    -->
+    <!-- MORE JAVA CODE bc app keeps crashing when i click the invisible buttons
+
+             Button myButton = findViewById(R.id.myButton);
+             boolean isAllowed = /* some condition */;
+             if (isAllowed) {
+                 myButton.setClickable(true);
+                 myButton.setEnabled(true);
+                 myButton.setOnClickListener(v -> {
+                     // Your click handling code here
+                 });
+             } else {
+                 myButton.setClickable(false);
+                 myButton.setEnabled(false);
+                 myButton.setOnClickListener(null);  // Remove click listener
+             }
+    -->
+    <Button
+        android:id="@+id/AcademicButton0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/yellow"
+        android:textColor="@color/yellow"
+        android:clickable="false"
+        android:onClick="onClickAcademic"
+        android:text="@string/academic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.24" />
+
+    <!-- (following) Life Button -->
+    <!-- **need to update the onClick to the name of the page Jess chooses -->
+    <Button
+        android:id="@+id/LifeButton0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/yellow"
+        android:textColor="@color/yellow"
+        android:clickable="false"
+        android:onClick="onClickLife"
+        android:text="@string/life"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.24" />
+
+    <!-- (following) Event Button -->
+    <!-- **need to update the onClick to the name of the page Jess chooses -->
+    <Button
+        android:id="@+id/EventButton0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/yellow"
+        android:textColor="@color/yellow"
+        android:clickable="false"
+        android:onClick="onClickEvent"
+        android:text="@string/event"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.866"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.24" />
+
+    <!-- Explore section -->
     <TextView
         android:id="@+id/textView3"
         android:layout_width="326dp"
@@ -54,8 +135,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.465" />
 
+    <!-- Academic Button -->
+    <!-- **need to update the onClick to the name of the page Jess chooses -->
     <Button
-        android:id="@+id/AcademicButton"
+        android:id="@+id/AcademicButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red"
@@ -63,13 +146,15 @@
         android:text="@string/academic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.117"
+        app:layout_constraintHorizontal_bias="0.14"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.474" />
+        app:layout_constraintVertical_bias="0.472" />
 
+    <!-- Life Button -->
+    <!-- **need to update the onClick to the name of the page Jess chooses -->
     <Button
-        android:id="@+id/LifeButton"
+        android:id="@+id/LifeButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red"
@@ -77,13 +162,15 @@
         android:text="@string/life"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintHorizontal_bias="0.535"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.473" />
+        app:layout_constraintVertical_bias="0.472" />
 
+    <!-- Event Button -->
+    <!-- **need to update the onClick to the name of the page Jess chooses -->
     <Button
-        android:id="@+id/EventButton"
+        android:id="@+id/EventButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red"
@@ -91,11 +178,14 @@
         android:text="@string/event"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintHorizontal_bias="0.866"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.473" />
+        app:layout_constraintVertical_bias="0.472" />
 
+
+    <!-- FOOTER -->
+    <!-- footer background -->
     <View
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -106,6 +196,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <!-- profile button -->
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="60dp"
@@ -119,6 +210,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <!-- tree (home) button -->
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="60dp"
@@ -131,6 +223,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <!-- notification button -->
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="60dp"
