@@ -233,15 +233,15 @@
         app:layout_constraintVertical_bias="1.0" />
 
 
-    <!--    CHNAGE TO HOME PAGE BUTTON-->
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:backgroundTint="@color/darkred"
+        android:onClick="onProfileClick"
         android:src="@drawable/profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
@@ -251,7 +251,6 @@
         android:layout_height="60dp"
         android:backgroundTint="@color/darkred"
         android:src="@drawable/tree"
-        android:onClick="onHomeClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.532"
@@ -259,6 +258,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <!-- notification button -->
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="60dp"
@@ -267,7 +267,7 @@
         android:src="@drawable/bell"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.796"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />

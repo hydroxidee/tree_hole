@@ -93,7 +93,11 @@ public class Homepage extends AppCompatActivity {
 
     public void onExploreAcademicClick(View view)
     {
-
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Intent intent = new Intent(Homepage.this, AcademicScreen.class);
+            startActivity(intent);
+        }, 0);
     }
 
     public void onExploreLifeClick(View view)
