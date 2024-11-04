@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/yellow">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- LinearLayout for buttons at the top -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/exitButton"-->
+            <!--                android:layout_width="48dp"-->
+            <!--                android:layout_height="48dp"-->
+            <!--                android:layout_marginEnd="120dp"-->
+            <!--                android:background="?attr/selectableItemBackgroundBorderless"-->
+            <!--                android:contentDescription="Exit"-->
+            <!--                android:scaleType="centerInside"-->
+            <!--                android:src="@drawable/x"-->
+            <!--                app:tint="@color/darkred" />-->
+
+            <ImageButton
+                android:id="@+id/createButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Add"
+                android:scaleType="centerInside"
+                android:src="@drawable/plus"
+                app:tint="@color/darkred" />
+
+        </LinearLayout>
+
+        <!-- Content area in ConstraintLayout below buttons -->
+
+        <!-- Additional LinearLayout with TextView -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Academic"
+                android:textColor="@color/darkred"
+                android:textSize="40sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Box below "Event" text -->
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corner_background"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="106dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_corner_background"
+                android:backgroundTint="@color/semi_transparent_white"
+                android:text="First"
+                android:textAlignment="center"
+                android:textColor="@color/darkred"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="106dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_corner_background"
+                android:backgroundTint="@color/semi_transparent_white"
+                android:text="Second"
+                android:textAlignment="center"
+                android:textColor="@color/darkred"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="106dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_corner_background"
+                android:backgroundTint="@color/semi_transparent_white"
+                android:text="Third"
+                android:textAlignment="center"
+                android:textColor="@color/darkred"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="106dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_corner_background"
+                android:backgroundTint="@color/semi_transparent_white"
+                android:text="Fourth"
+                android:textAlignment="center"
+                android:textColor="@color/darkred"
+                android:textSize="30dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
