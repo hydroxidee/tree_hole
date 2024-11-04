@@ -12,31 +12,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TreeHole"
         tools:targetApi="31">
-
-<!--         Main Launcher Activity -->
         <activity
-            android:name=".EventPage"
+            android:name=".ProfilePage"
+            android:exported="false" />
+        <activity
+            android:name=".Homepage"
+            android:exported="false" />
+        <activity
+            android:name=".AddChangeUserScreen"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-<!--         EventPage Activity-->
-        <activity
-            android:name=".LifePage"
-            android:exported="true" />
-        <activity
-            android:name=".AcademicPage"
-            android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".LifePage"-->
-<!--            android:exported="true" />-->
-
-        <!-- PostDiscussion Activity (previously Post_discussion) -->
-        <activity
-            android:name=".Post_discussion"
-            android:exported="true" />
     </application>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"
+        tools:ignore="ManifestOrder" />
+
 </manifest>
