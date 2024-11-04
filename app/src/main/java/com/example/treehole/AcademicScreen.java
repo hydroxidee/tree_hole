@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,18 @@ public class AcademicScreen extends AppCompatActivity {
         // Set up the adapter and assign it to the ListView
         postAdapter = new PostAdapter(this, postList);
         listView.setAdapter(postAdapter);
+
+        // set notif bell
+        ImageButton bell = findViewById(R.id.pushNotifications);
+        if(UserInfo.isFollowingAcademic())
+        {
+            bell.setImageResource(R.drawable.alertbell);
+        }
+        else
+        {
+            bell.setImageResource(R.drawable.bell);
+        }
+
     }
 
     public void onProfileClick(View view) {
@@ -41,5 +54,34 @@ public class AcademicScreen extends AppCompatActivity {
             Intent intent = new Intent(AcademicScreen.this, ProfilePage.class);
             startActivity(intent);
         }, 0);
+    }
+
+    public void onHomeClick(View view)
+    {
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Intent intent = new Intent(AcademicScreen.this, Homepage.class);
+            startActivity(intent);
+        }, 0);
+    }
+
+    public void onNotificationClick(View view)
+    {
+
+    }
+
+    public void onNotifBellClick(View view)
+    {
+        ImageButton bell = findViewById(R.id.pushNotifications);
+        if(UserInfo.isFollowingAcademic())
+        {
+            UserInfo.unfollowAcademic();
+            bell.setImageResource(R.drawable.bell);
+        }
+        else
+        {
+            UserInfo.followAcademic();
+            bell.setImageResource(R.drawable.alertbell);
+        }
     }
 }
