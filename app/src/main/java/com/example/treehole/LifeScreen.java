@@ -26,10 +26,9 @@ public class LifeScreen extends AppCompatActivity {
                     String username = data.getStringExtra("username");
                     String timestamp = data.getStringExtra("timestamp");
                     String postText = data.getStringExtra("postText");
-                    String postTitle = data.getStringExtra("postTitle");
 
                     // Create a new Post object and add it to the list
-                    Post newPost = new Post(username, timestamp, postTitle,postText);
+                    Post newPost = new Post(username, timestamp,postText);
                     postList.add(newPost);
 
                     // Notify adapter of data change
@@ -46,15 +45,16 @@ public class LifeScreen extends AppCompatActivity {
         // Initialize ListView
         listView = findViewById(R.id.postListView);
 
-        // Initialize post list with sample data
+        // Create sample data for posts
         postList = new ArrayList<>();
-        postList.add(new Post("Username1", "2 mins ago", "first.","example"));
-        postList.add(new Post("Username2", "5 mins ago", "second.","example"));
-        postList.add(new Post("Username3", "10 mins ago", "third.","example"));
+        postList.add(new Post("Username1", "2 mins ago", "This is the first sample post."));
+        postList.add(new Post("Username2", "5 mins ago", "This is another example of a post."));
+        postList.add(new Post("Username3", "10 mins ago", "Here's some sample text for a post."));
 
         // Set up the adapter and assign it to the ListView
         postAdapter = new PostAdapter(this, postList);
         listView.setAdapter(postAdapter);
+
     }
 
     public void onPlusClick(View view) {
