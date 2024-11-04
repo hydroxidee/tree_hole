@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Scrollable Content -->
     <ScrollView
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/yellow"
@@ -13,28 +19,48 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:orientation="vertical">
 
-            <!-- Title Text -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Discussion"
-                android:textSize="40sp"
-                android:textColor="@color/darkred"
-                android:fontFamily="sans-serif-medium"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="50dp" />
-
-            <!-- Input Card -->
-
-
-            <!-- Post Button -->
-
+            <!-- Horizontal Layout for Discussion Text and Exit Button -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="444dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="20dp">
+
+                <!-- Title Text -->
+
+                <!-- Exit Button on the Right of Title -->
+
+                <ImageButton
+                    android:id="@+id/exitButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="50dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Exit"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/x"
+                    app:tint="@color/darkred" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Discussion"
+                    android:textColor="@color/darkred"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="40sp" />
+
+
+            </LinearLayout>
+
+            <!-- Input Card and Form Fields -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="379dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/rounded_corner_background"
                 android:backgroundTint="@color/semi_transparent_white"
@@ -47,12 +73,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Title"
-
-
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
-                <!-- Community Section -->
                 <EditText
                     android:id="@+id/title"
                     android:layout_width="match_parent"
@@ -60,11 +83,10 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/rounded_corner_background"
                     android:backgroundTint="@color/white"
-
                     android:hint="Title"
                     android:padding="10dp" />
 
-
+                <!-- Community Section -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,10 +105,10 @@
                         android:id="@+id/community"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginStart="8dp"
                         android:background="@drawable/rounded_corner_background"
                         android:backgroundTint="@color/white" />
-
                 </LinearLayout>
 
                 <!-- Content Field -->
@@ -134,23 +156,21 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!-- Post Button -->
             <Button
-                android:id = "@+id/post_button"
-                android:layout_width="192dp"
+                android:id="@+id/post_button"
+                android:layout_width="181dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/darkred"
+                android:paddingTop="8dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="16dp"
                 android:text="post"
                 android:textColor="@android:color/white"
-                android:paddingEnd = "20dp"
-                android:paddingTop = "8dp"
-                android:paddingBottom="16dp"
+                android:layout_gravity="center_horizontal"
                 android:textSize="30sp" />
         </LinearLayout>
     </ScrollView>
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

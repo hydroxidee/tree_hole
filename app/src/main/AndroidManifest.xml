@@ -12,18 +12,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TreeHole"
         tools:targetApi="31">
+
+<!--         Main Launcher Activity -->
         <activity
-            android:name=".SignUpScreen"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".EventPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+<!--         EventPage Activity-->
+        <activity
+            android:name=".LifePage"
+            android:exported="true" />
+        <activity
+            android:name=".AcademicPage"
+            android:exported="true" />
+<!--        <activity-->
+<!--            android:name=".LifePage"-->
+<!--            android:exported="true" />-->
+
+        <!-- PostDiscussion Activity (previously Post_discussion) -->
+        <activity
+            android:name=".Post_discussion"
+            android:exported="true" />
+    </application>
 </manifest>

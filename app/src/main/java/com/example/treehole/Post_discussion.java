@@ -1,17 +1,21 @@
 package com.example.treehole;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Post_discussion extends AppCompatActivity {
+
+    private static final String TAG = "Post_discussion";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +24,7 @@ public class Post_discussion extends AppCompatActivity {
 
         // Initialize Spinners
         Spinner communitySpinner = findViewById(R.id.community);
-        String[] communityOptions = {"Option", "Event", "Personal", "Life"};
+        String[] communityOptions = {"Option", "Event", "Academic", "Life"};
         ArrayAdapter<String> communityAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, communityOptions);
         communityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         communitySpinner.setAdapter(communityAdapter);
@@ -34,19 +38,17 @@ public class Post_discussion extends AppCompatActivity {
         // Retrieve EditText and Button components
         EditText titleEditText = findViewById(R.id.title);
         EditText contentEditText = findViewById(R.id.content);
-        Button postButton = findViewById(R.id.post_button); // Assuming you have set the button's id to "post_button"
+        Button postButton = findViewById(R.id.post_button);
 
-        // Set the button's click listener
+        // Set the post button's click listener
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the values entered by the user
                 String title = titleEditText.getText().toString();
                 String content = contentEditText.getText().toString();
                 String community = communitySpinner.getSelectedItem().toString();
                 String name = nameSpinner.getSelectedItem().toString();
 
-                // Create and display the AlertDialog with the entered information
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Post_discussion.this);
                 dialogBuilder.setTitle("Post Details");
                 dialogBuilder.setMessage("Title: " + title + "\n\n" +
@@ -57,5 +59,49 @@ public class Post_discussion extends AppCompatActivity {
                 dialogBuilder.show();
             }
         });
+
+        // Set the exit button's click listener to navigate back to the corresponding page
+        ImageButton exitButton = findViewById(R.id.exitButton);
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateBackBasedOnSelection();
+            }
+        });
+    }
+
+    // Method to handle navigation based on community selection
+    private void navigateBackBasedOnSelection() {
+        Spinner communitySpinner = findViewById(R.id.community);
+        String selectedCommunity = communitySpinner.getSelectedItem().toString();
+        Log.d(TAG, "Selected Community: " + selectedCommunity);
+
+        Intent intent = null;
+        switch (selectedCommunity) {
+            case "Event":
+                intent = new Intent(Post_discussion.this, EventPage.class);
+                break;
+            case "Academic":
+                intent = new Intent(Post_discussion.this, AcademicPage.class);
+                break;
+            case "Life":
+                intent = new Intent(Post_discussion.this, LifePage.class);
+                break;
+            default:
+                Toast.makeText(this, "Please select a valid community.", Toast.LENGTH_SHORT).show();
+                return;
+        }
+
+        if (intent != null) {
+            startActivity(intent);
+            finish(); // Ensure Post_discussion closes properly
+        }
+    }
+
+    // Override onBackPressed to handle back navigation in case exit button is not used
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        navigateBackBasedOnSelection();
     }
 }
