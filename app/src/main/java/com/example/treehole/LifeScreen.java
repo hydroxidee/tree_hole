@@ -14,7 +14,6 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,19 +23,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Objects;
 
 public class LifeScreen extends AppCompatActivity {
     private ListView listView;
     private PostAdapter postAdapter;
     private HashMap<String, Object> postHash;
-    public static List<Post> postList = new ArrayList<>();
+    public static List<Post> lifePostList = new ArrayList<>();
 
     private FirebaseDatabase root;
     private DatabaseReference reference;
@@ -54,8 +48,8 @@ public class LifeScreen extends AppCompatActivity {
                     // Create a new Post object and add it to the list
                     Post newPost = new Post(username, timestamp, postText,"Life");
                     postHash.put(timestamp, newPost.getPostHash());
-                    postList.add(newPost);
-                    postList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
+                    lifePostList.add(newPost);
+                    lifePostList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
                     // Notify adapter of data change
                     postAdapter.notifyDataSetChanged();
 
@@ -97,7 +91,7 @@ public class LifeScreen extends AppCompatActivity {
         listView = findViewById(R.id.postListView);
 
         postHash = new HashMap<String, Object>();
-        postList = new ArrayList<>();
+        lifePostList = new ArrayList<>();
 
         //gets all academic posts
         DatabaseReference userRef = reference.child("posts").child("life");
@@ -131,7 +125,7 @@ public class LifeScreen extends AppCompatActivity {
                         makePost(username, timestamp, text);
                     }
                     // Sort postList by timestamp in descending order (most recent first)
-                    postList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
+                    lifePostList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
 
                     // Notify adapter of data change after sorting
                     postAdapter.notifyDataSetChanged();
@@ -146,7 +140,7 @@ public class LifeScreen extends AppCompatActivity {
 
         userRef.addListenerForSingleValueEvent(eventListener);
         // Set up the adapter and assign it to the ListView
-        postAdapter = new PostAdapter(this, postList);
+        postAdapter = new PostAdapter(this, lifePostList);
         listView.setAdapter(postAdapter);
 
 
@@ -155,7 +149,7 @@ public class LifeScreen extends AppCompatActivity {
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Log.d("AcademicScreen", "Clicked post at position: " + position);
 
-            if (position >= 0 && position < postList.size()) {
+            if (position >= 0 && position < lifePostList.size()) {
                 Intent intent = new Intent(LifeScreen.this, PostDetail.class);
                 intent.putExtra("postIndex", position);
                 startActivity(intent);
@@ -211,7 +205,7 @@ public class LifeScreen extends AppCompatActivity {
         Post p = new Post(user, time, text,"Life");
 
         postHash.put(time, p);
-        postList.add(p);
+        lifePostList.add(p);
     }
 
 }

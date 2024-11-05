@@ -34,6 +34,7 @@ public class Post {
         this.commentList = new ArrayList<>();
     }
 
+
     // Getters
     public String getUsername() {
         return username;
@@ -90,7 +91,5 @@ public class Post {
         return postText;
     }
 
-    public HashMap<String, Object> getPostHash() {
-        return postHash;
-    }
+    public HashMap<String, Object> getPostHash() { return postHash; }
 }

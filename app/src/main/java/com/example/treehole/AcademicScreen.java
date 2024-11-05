@@ -36,7 +36,7 @@ public class AcademicScreen extends AppCompatActivity {
     private ListView listView;
     private PostAdapter postAdapter;
     private HashMap<String, Object> postHash;
-    public static List<Post> postList = new ArrayList<>();
+    public static List<Post> academicPostList;
 
     private FirebaseDatabase root;
     private DatabaseReference reference;
@@ -54,8 +54,8 @@ public class AcademicScreen extends AppCompatActivity {
                     // Create a new Post object and add it to the list
                     Post newPost = new Post(username, timestamp, postText,"Academic");
                     postHash.put(timestamp, newPost.getPostHash());
-                    postList.add(newPost);
-                    postList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
+                    academicPostList.add(newPost);
+                    academicPostList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
                     // Notify adapter of data change
                     postAdapter.notifyDataSetChanged();
 
@@ -97,7 +97,7 @@ public class AcademicScreen extends AppCompatActivity {
         listView = findViewById(R.id.postListView);
 
         postHash = new HashMap<String, Object>();
-        postList = new ArrayList<>();
+        academicPostList = new ArrayList<>();
 
         //gets all academic posts
         DatabaseReference userRef = reference.child("posts").child("academic");
@@ -131,7 +131,7 @@ public class AcademicScreen extends AppCompatActivity {
                         makePost(username, timestamp, text);
                     }
                     // Sort postList by timestamp in descending order (most recent first)
-                    postList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
+                    academicPostList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
 
                     // Notify adapter of data change after sorting
                     postAdapter.notifyDataSetChanged();
@@ -146,7 +146,7 @@ public class AcademicScreen extends AppCompatActivity {
 
         userRef.addListenerForSingleValueEvent(eventListener);
         // Set up the adapter and assign it to the ListView
-        postAdapter = new PostAdapter(this, postList);
+        postAdapter = new PostAdapter(this, academicPostList);
         listView.setAdapter(postAdapter);
 
 
@@ -155,7 +155,7 @@ public class AcademicScreen extends AppCompatActivity {
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Log.d("AcademicScreen", "Clicked post at position: " + position);
 
-            if (position >= 0 && position < postList.size()) {
+            if (position >= 0 && position < academicPostList.size()) {
                 Intent intent = new Intent(AcademicScreen.this, PostDetail.class);
                 intent.putExtra("postIndex", position);
                 startActivity(intent);
@@ -163,6 +163,7 @@ public class AcademicScreen extends AppCompatActivity {
                 Log.w("AcademicScreen", "Invalid position: " + position);
             }
         });
+
     }
 
     public void onPlusClick(View view) {
@@ -209,9 +210,8 @@ public class AcademicScreen extends AppCompatActivity {
     public void makePost(String user, String time, String text)
     {
         Post p = new Post(user, time, text,"Academic");
-
         postHash.put(time, p);
-        postList.add(p);
+        academicPostList.add(p);
     }
 
 }
