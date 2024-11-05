@@ -3,6 +3,7 @@ package com.example.treehole;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class Post {
@@ -10,10 +11,19 @@ public class Post {
     private String timestamp;
     private String postText;
 
+    private HashMap<String, Object> postHash;
+
     public Post(String username, String timestamp, String postText) {
         this.username = username;
         this.timestamp = timestamp;
         this.postText = postText;
+
+        postHash = new HashMap<String, Object>();
+
+        postHash.put("username", username);
+        postHash.put("timestamp", timestamp);
+        postHash.put("text", postText);
+
     }
 
     // Getters
@@ -54,4 +64,6 @@ public class Post {
     public String getText() {
         return postText;
     }
+
+    public HashMap<String, Object> getPostHash() { return postHash; }
 }
