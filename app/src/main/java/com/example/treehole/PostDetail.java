@@ -28,7 +28,7 @@ public class PostDetail extends AppCompatActivity {
     private EditText commentUsernameInput;
     private EditText commentContentInput;
     private Post selectedPost; // Reference to the selected post
-    private HashMap<String,Object> commentHash;
+    private HashMap<String, Object> commentHash;
     private List<Comment> comments;
 
     @Override
@@ -41,19 +41,33 @@ public class PostDetail extends AppCompatActivity {
         postTimeStamp = findViewById(R.id.timestamp);
         postText = findViewById(R.id.postContent);
 
-        // Get the post index from the Intent
+        // Get the post index and type from the Intent
         int postIndex = getIntent().getIntExtra("postIndex", -1);
+        String type = getIntent().getStringExtra("type");
         Log.d("PostDetail", "Received postIndex: " + postIndex);
 
-        // Retrieve the selected Post from AcademicScreen's postList
-        if (postIndex >= 0 && postIndex < AcademicScreen.academicPostList.size()) {
-            selectedPost = AcademicScreen.academicPostList.get(postIndex);
-        } else {
+        // Check the type and retrieve the appropriate post
+        if ("Academic".equals(type)) {
+            if (postIndex >= 0 && postIndex < AcademicScreen.academicPostList.size()) {
+                selectedPost = AcademicScreen.academicPostList.get(postIndex);
+            }
+        } else if ("Event".equals(type)) {
+            if (postIndex >= 0 && postIndex < EventScreen.eventPostList.size()) {
+                selectedPost = EventScreen.eventPostList.get(postIndex);
+            }
+        } else if ("Life".equals(type)) {
+            if (postIndex >= 0 && postIndex < LifeScreen.lifePostList.size()) {
+                selectedPost = LifeScreen.lifePostList.get(postIndex);
+            }
+        }
+
+        // Handle case where post is not found
+        if (selectedPost == null) {
             Toast.makeText(this, "Error loading post", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
-        // hello
+
         // Display the post data in TextViews
         postUsername.setText(selectedPost.getUsername());
         postTimeStamp.setText(selectedPost.getTimestamp());
@@ -123,7 +137,8 @@ public class PostDetail extends AppCompatActivity {
             startActivity(intent);
         }, 0);
     }
-    public void onExitClick(View view){
+
+    public void onExitClick(View view) {
         finish();
     }
 }

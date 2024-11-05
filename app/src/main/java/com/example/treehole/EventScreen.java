@@ -152,6 +152,7 @@ public class EventScreen extends AppCompatActivity {
             if (position >= 0 && position < eventPostList.size()) {
                 Intent intent = new Intent(EventScreen.this, PostDetail.class);
                 intent.putExtra("postIndex", position);
+                intent.putExtra("type","Event");
                 startActivity(intent);
             } else {
                 Log.w("EventScreen", "Invalid position: " + position);
