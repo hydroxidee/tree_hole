@@ -43,10 +43,11 @@ public class LifeScreen extends AppCompatActivity {
                     Intent data = result.getData();
                     String username = data.getStringExtra("username");
                     String timestamp = data.getStringExtra("timestamp");
-                    String postText = data.getStringExtra("postText");
+                    String postText = data.getStringExtra("postContent");
+                    String postTitle = data.getStringExtra("postTitle");
 
                     // Create a new Post object and add it to the list
-                    Post newPost = new Post(username, timestamp, postText,"Life");
+                    Post newPost = new Post(username, timestamp, postText,postTitle,"Life");
                     postHash.put(timestamp, newPost.getPostHash());
                     lifePostList.add(newPost);
                     lifePostList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
@@ -121,8 +122,8 @@ public class LifeScreen extends AppCompatActivity {
                         String text = postSnapshot.child("text").getValue(String.class);
                         String timestamp = postSnapshot.child("timestamp").getValue(String.class);
                         String username = postSnapshot.child("username").getValue(String.class);
-
-                        makePost(username, timestamp, text);
+                        String title = postSnapshot.child("title").getValue(String.class);
+                        makePost(username, timestamp, text, title);
                     }
                     // Sort postList by timestamp in descending order (most recent first)
                     lifePostList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
@@ -201,9 +202,9 @@ public class LifeScreen extends AppCompatActivity {
         }, 0);
     }
 
-    public void makePost(String user, String time, String text)
+    public void makePost(String user, String time, String text,String title)
     {
-        Post p = new Post(user, time, text,"Life");
+        Post p = new Post(user, time, text,title,"Life");
 
         postHash.put(time, p);
         lifePostList.add(p);

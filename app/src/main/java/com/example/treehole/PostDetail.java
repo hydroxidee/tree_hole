@@ -21,6 +21,7 @@ public class PostDetail extends AppCompatActivity {
     private TextView postUsername;
     private TextView postTimeStamp;
     private TextView postText;
+    private TextView postTitle;
     private ListView commentListView;
     private CommentAdapter commentAdapter;
     private EditText commentUsernameInput;
@@ -37,6 +38,7 @@ public class PostDetail extends AppCompatActivity {
         postUsername = findViewById(R.id.username);
         postTimeStamp = findViewById(R.id.timestamp);
         postText = findViewById(R.id.postContent);
+        postTitle = findViewById(R.id.postTitle);
 
         // Get the post index and type from the Intent
         int postIndex = getIntent().getIntExtra("postIndex", -1);
@@ -69,6 +71,7 @@ public class PostDetail extends AppCompatActivity {
         postUsername.setText(selectedPost.getUsername());
         postTimeStamp.setText(selectedPost.getTimestamp());
         postText.setText(selectedPost.getPostText());
+        postTitle.setText(selectedPost.getPostTitle());
 
         // Initialize ListView for comments and set adapter
         commentListView = findViewById(R.id.commentListView);

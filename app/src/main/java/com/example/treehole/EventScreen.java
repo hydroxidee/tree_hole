@@ -43,10 +43,11 @@ public class EventScreen extends AppCompatActivity {
                     Intent data = result.getData();
                     String username = data.getStringExtra("username");
                     String timestamp = data.getStringExtra("timestamp");
-                    String postText = data.getStringExtra("postText");
+                    String postText = data.getStringExtra("postContent");
+                    String postTitle = data.getStringExtra("postTitle");
 
                     // Create a new Post object and add it to the list
-                    Post newPost = new Post(username, timestamp, postText,"Event");
+                    Post newPost = new Post(username, timestamp, postText,postTitle,"Event");
                     postHash.put(timestamp, newPost.getPostHash());
                     eventPostList.add(newPost);
                     eventPostList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
@@ -121,8 +122,8 @@ public class EventScreen extends AppCompatActivity {
                         String text = postSnapshot.child("text").getValue(String.class);
                         String timestamp = postSnapshot.child("timestamp").getValue(String.class);
                         String username = postSnapshot.child("username").getValue(String.class);
-
-                        makePost(username, timestamp, text);
+                        String title = postSnapshot.child("title").getValue(String.class);
+                        makePost(username, timestamp, text,title);
                     }
                     // Sort postList by timestamp in descending order (most recent first)
                     eventPostList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
@@ -201,9 +202,9 @@ public class EventScreen extends AppCompatActivity {
         }, 0);
     }
 
-    public void makePost(String user, String time, String text)
+    public void makePost(String user, String time, String text, String title)
     {
-        Post p = new Post(user, time, text,"Event");
+        Post p = new Post(user, time, text,title,"Event");
 
         postHash.put(time, p);
         eventPostList.add(p);

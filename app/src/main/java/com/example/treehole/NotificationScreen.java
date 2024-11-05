@@ -107,7 +107,8 @@ public class NotificationScreen extends AppCompatActivity {
                     String text = postSnapshot.child("text").getValue(String.class);
                     String timestamp = postSnapshot.child("timestamp").getValue(String.class);
                     String username = postSnapshot.child("username").getValue(String.class);
-                    AddAcademicPost(username, timestamp, text);
+                    String title = postSnapshot.child("title").getValue(String.class);
+                    AddAcademicPost(username, timestamp, text,title);
                 }
 
                 // Load event posts after academic posts
@@ -131,7 +132,8 @@ public class NotificationScreen extends AppCompatActivity {
                     String text = postSnapshot.child("text").getValue(String.class);
                     String timestamp = postSnapshot.child("timestamp").getValue(String.class);
                     String username = postSnapshot.child("username").getValue(String.class);
-                    AddEventPost(username, timestamp, text);
+                    String title = postSnapshot.child("title").getValue(String.class);
+                    AddEventPost(username, timestamp, text,title);
                 }
 
                 // Load life posts after event posts
@@ -155,7 +157,8 @@ public class NotificationScreen extends AppCompatActivity {
                     String text = postSnapshot.child("text").getValue(String.class);
                     String timestamp = postSnapshot.child("timestamp").getValue(String.class);
                     String username = postSnapshot.child("username").getValue(String.class);
-                    AddLifePost(username, timestamp, text);
+                    String title = postSnapshot.child("title").getValue(String.class);
+                    AddLifePost(username, timestamp, text,title);
                 }
 
                 // Notify that all posts are loaded
@@ -169,16 +172,16 @@ public class NotificationScreen extends AppCompatActivity {
         });
     }
 
-    private void AddAcademicPost(String user, String time, String text) {
-        academicPosts.add(new Post(user, time, text, "Academic"));
+    private void AddAcademicPost(String user, String time, String text,String title) {
+        academicPosts.add(new Post(user, time, text, title,"Academic"));
     }
 
-    private void AddEventPost(String user, String time, String text) {
-        eventPosts.add(new Post(user, time, text, "Event"));
+    private void AddEventPost(String user, String time, String text, String title) {
+        eventPosts.add(new Post(user, time, text,title, "Event"));
     }
 
-    private void AddLifePost(String user, String time, String text) {
-        lifePosts.add(new Post(user, time, text, "Life"));
+    private void AddLifePost(String user, String time, String text, String title) {
+        lifePosts.add(new Post(user, time, text,title, "Life"));
     }
 
     private void addPostsToMainList(List<Object> posts) {

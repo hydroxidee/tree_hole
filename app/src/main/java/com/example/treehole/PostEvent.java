@@ -47,7 +47,8 @@ public class PostEvent extends AppCompatActivity {
         Intent resultIntent = new Intent();
         resultIntent.putExtra("username", postAs);
         resultIntent.putExtra("timestamp", timestamp);
-        resultIntent.putExtra("postText", title + "\n" + content);
+        resultIntent.putExtra("postTitle",title);
+        resultIntent.putExtra("postContent",content);
         setResult(RESULT_OK, resultIntent);
         finish();
     }

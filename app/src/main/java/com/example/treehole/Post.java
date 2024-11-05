@@ -12,22 +12,25 @@ public class Post {
     private String username;
     private String timestamp;
     private String postText;
+    private String postTitle;
     private String communityType;
     private List<Comment> commentList;
     private HashMap<String, Object> commentHash;
 
     private HashMap<String, Object> postHash;
 
-    public Post(String username, String timestamp, String postText, String communityType) {
+    public Post(String username, String timestamp, String postText, String postTitle,String communityType) {
         this.username = username;
         this.timestamp = timestamp;
         this.postText = postText;
+        this.postTitle = postTitle;
         this.communityType = communityType;
 
         postHash = new HashMap<>();
 
         postHash.put("username", username);
         postHash.put("timestamp", timestamp);
+        postHash.put("title",postTitle);
         postHash.put("text", postText);
         postHash.put("community", communityType);
 
@@ -47,6 +50,8 @@ public class Post {
     public String getPostText() {
         return postText;
     }
+
+    public String getPostTitle(){return postTitle;}
 
     public Date getParsedTimestamp() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -73,6 +78,9 @@ public class Post {
     // Setters (optional, if you need to modify fields after creation)
     public void setUsername(String username) {
         this.username = username;
+    }
+    public void setPostTitle(String title){
+        this.postTitle = title;
     }
     public void setCommentList(List<Comment> list){this.commentList = list;}
     public void setTimestamp(String timestamp) {

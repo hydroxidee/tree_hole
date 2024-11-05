@@ -38,6 +38,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         if (post != null) {
             username.setText(post.getUsername());
             timestamp.setText(post.getTimestamp());
+            postTitle.setText(post.getPostTitle());
             postContent.setText(post.getPostText());
 
             // Change background color based on community type

@@ -32,6 +32,7 @@ public class PostAcademic extends AppCompatActivity {
         EditText contentEditText = findViewById(R.id.content);
         Spinner postAsSpinner = findViewById(R.id.name);
 
+
         String title = titleEditText.getText().toString().trim();
         String content = contentEditText.getText().toString().trim();
         String postAs = postAsSpinner.getSelectedItem().toString();
@@ -46,7 +47,8 @@ public class PostAcademic extends AppCompatActivity {
         Intent resultIntent = new Intent();
         resultIntent.putExtra("username", postAs);
         resultIntent.putExtra("timestamp", timestamp);
-        resultIntent.putExtra("postText", title + "\n" + content);
+        resultIntent.putExtra("postTitle",title);
+        resultIntent.putExtra("postContent",content);
         setResult(RESULT_OK, resultIntent);
         finish();
     }
