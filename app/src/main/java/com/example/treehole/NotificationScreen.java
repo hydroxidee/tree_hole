@@ -124,6 +124,8 @@ public class NotificationScreen extends AppCompatActivity {
 
                         TextView temp = findViewById(R.id.titleText);
                         temp.setText(academicPosts.toString());
+
+                        temp.setText("Notifications");
                     }
                 }
             }
@@ -160,6 +162,8 @@ public class NotificationScreen extends AppCompatActivity {
 
                         TextView temp = findViewById(R.id.titleText);
                         temp.setText(eventPosts.toString());
+
+                        temp.setText("Notifications");
                     }
                 }
             }
@@ -196,6 +200,8 @@ public class NotificationScreen extends AppCompatActivity {
 
                         TextView temp = findViewById(R.id.titleText);
                         temp.setText(lifePosts.toString());
+
+                        temp.setText("Notifications");
                     }
                 }
             }
@@ -206,9 +212,6 @@ public class NotificationScreen extends AppCompatActivity {
             }
         };
         userRef.addListenerForSingleValueEvent(eventListener);
-
-        TextView temp = findViewById(R.id.titleText);
-        temp.setText("Notifications");
     }
 
     private void AddAcademicPost(String user, String time, String text)
