@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -11,19 +12,26 @@ public class Post {
     private String username;
     private String timestamp;
     private String postText;
-    private List<Comment> postComments;
+    private String communityType;
+    private List<Comment> commentList;
+    private HashMap<String, Object> commentHash;
 
-    // Constructor with comments
-    public Post(String username, String timestamp, String postText, List<Comment> comments) {
+    private HashMap<String, Object> postHash;
+
+    public Post(String username, String timestamp, String postText, String communityType) {
         this.username = username;
         this.timestamp = timestamp;
         this.postText = postText;
-        this.postComments = comments != null ? comments : new ArrayList<>();
-    }
+        this.communityType = communityType;
 
-    // Constructor without comments
-    public Post(String username, String timestamp, String postText) {
-        this(username, timestamp, postText, new ArrayList<>());
+        postHash = new HashMap<String, Object>();
+
+        postHash.put("username", username);
+        postHash.put("timestamp", timestamp);
+        postHash.put("text", postText);
+        postHash.put("community",communityType);
+
+        this.commentList = new ArrayList<>();
     }
 
     // Getters
@@ -38,12 +46,7 @@ public class Post {
     public String getPostText() {
         return postText;
     }
-
-    public List<Comment> getComments() {
-        return postComments;
-    }
-
-    public Date getParsedTimestamp() {
+    public Date getParsedTimestamp(){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         try {
             return format.parse(timestamp);
@@ -52,12 +55,12 @@ public class Post {
             return null;
         }
     }
+    public List<Comment> getComments(){return commentList;}
+    public String getCommunityType(){return communityType;}
 
-    // Method to add a comment
-    public void addComment(Comment comment) {
-        postComments.add(comment);
+    public void addComment(Comment comment){
+        commentList.add(comment);
     }
-
     // Setters (optional, if you need to modify fields after creation)
     public void setUsername(String username) {
         this.username = username;
@@ -66,11 +69,7 @@ public class Post {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
-
-    public void setPostComments(List<Comment> comments) {
-        this.postComments = comments;
-    }
-
+    public void addCommunityType(String type){this.communityType = type;}
     public void setPostText(String postText) {
         this.postText = postText;
     }
@@ -78,4 +77,6 @@ public class Post {
     public String getText() {
         return postText;
     }
+
+    public HashMap<String, Object> getPostHash() { return postHash; }
 }

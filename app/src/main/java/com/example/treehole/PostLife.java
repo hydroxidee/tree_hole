@@ -20,7 +20,8 @@ public class PostLife extends AppCompatActivity {
         setContentView(R.layout.post_life);
 
         Spinner nameSpinner = findViewById(R.id.name);
-        String[] nameOptions = {"Option", "Placeholder", "Anonymous"};
+        String username = UserInfo.GetUser();
+        String[] nameOptions = {"Option", username, "Anonymous"};
         ArrayAdapter<String> nameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nameOptions);
         nameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         nameSpinner.setAdapter(nameAdapter);
@@ -35,7 +36,7 @@ public class PostLife extends AppCompatActivity {
         String content = contentEditText.getText().toString().trim();
         String postAs = postAsSpinner.getSelectedItem().toString();
 
-        if (title.isEmpty() || content.isEmpty()) {
+        if (title.isEmpty() || content.isEmpty() || postAs == "Option") {
             Toast.makeText(PostLife.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
         }

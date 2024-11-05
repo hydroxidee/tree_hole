@@ -1,24 +1,48 @@
 package com.example.treehole;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Objects;
 
 public class EventScreen extends AppCompatActivity {
     private ListView listView;
     private PostAdapter postAdapter;
-    private List<Post> postList;
+    private HashMap<String, Object> postHash;
+    public static List<Post> postList = new ArrayList<>();
+
+    private FirebaseDatabase root;
+    private DatabaseReference reference;
 
     // Define ActivityResultLauncher to handle result from PostAcademic
-    private final ActivityResultLauncher<Intent> postAcademicLauncher = registerForActivityResult(
+    private final ActivityResultLauncher<Intent> postEventLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
@@ -28,11 +52,34 @@ public class EventScreen extends AppCompatActivity {
                     String postText = data.getStringExtra("postText");
 
                     // Create a new Post object and add it to the list
-                    Post newPost = new Post(username, timestamp,postText);
+                    Post newPost = new Post(username, timestamp, postText,"Event");
+                    postHash.put(timestamp, newPost.getPostHash());
                     postList.add(newPost);
-
+                    postList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
                     // Notify adapter of data change
                     postAdapter.notifyDataSetChanged();
+
+                    //add post to database
+                    DatabaseReference screenRef = reference.child("posts").child("event");
+                    ValueEventListener eventListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            //no posts under event exist
+                            if(!dataSnapshot.exists()) {
+                                screenRef.setValue(postHash);
+                            }
+                            else
+                            {
+                                screenRef.updateChildren(postHash);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.w(TAG, "loadPost:onCancelled", error.toException());
+                        }
+                    };
+                    screenRef.addListenerForSingleValueEvent(eventListener);
                 }
             }
     );
@@ -42,47 +89,85 @@ public class EventScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_page);
 
+        //database initialization
+        root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/");
+        reference = root.getReference();
+
         // Initialize ListView
         listView = findViewById(R.id.postListView);
 
-        // Create sample data for posts
+        postHash = new HashMap<String, Object>();
         postList = new ArrayList<>();
-        postList.add(new Post("Username1", "2 mins ago", "This is the first sample post."));
-        postList.add(new Post("Username2", "5 mins ago", "This is another example of a post."));
-        postList.add(new Post("Username3", "10 mins ago", "Here's some sample text for a post."));
 
+        //gets all event posts
+        DatabaseReference userRef = reference.child("posts").child("event");
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    ImageButton bell = findViewById(R.id.pushNotifications);
+                    bell.setImageResource(R.drawable.tree);
+
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        bell.setImageResource(R.drawable.profile);
+
+                        if(UserInfo.isFollowingEvent())
+                        {
+                            bell.setImageResource(R.drawable.alertbell);
+                        }
+                        else
+                        {
+                            bell.setImageResource(R.drawable.bell);
+                        }
+
+
+                        // Retrieve each post's data
+                        String text = postSnapshot.child("text").getValue(String.class);
+                        String timestamp = postSnapshot.child("timestamp").getValue(String.class);
+                        String username = postSnapshot.child("username").getValue(String.class);
+
+                        makePost(username, timestamp, text);
+                    }
+                    // Sort postList by timestamp in descending order (most recent first)
+                    postList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
+
+                    // Notify adapter of data change after sorting
+                    postAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "loadPost:onCancelled", error.toException());
+            }
+        };
+
+        userRef.addListenerForSingleValueEvent(eventListener);
         // Set up the adapter and assign it to the ListView
         postAdapter = new PostAdapter(this, postList);
         listView.setAdapter(postAdapter);
 
-        // set notif bell
-        ImageButton bell = findViewById(R.id.pushNotifications);
-        if(UserInfo.isFollowingEvent())
-        {
-            bell.setImageResource(R.drawable.alertbell);
-        }
-        else
-        {
-            bell.setImageResource(R.drawable.bell);
-        }
 
-        // Set an item click listener to open post details
+
+        // Set item click listener to open post details
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Post selectedPost = postList.get(position);
+            Log.d("AcademicScreen", "Clicked post at position: " + position);
 
-            // Create an intent to start PostDetailActivity and pass the post details
-            Intent intent = new Intent(EventScreen.this, PostDetail.class);
-            intent.putExtra("username", selectedPost.getUsername());
-            intent.putExtra("timestamp", selectedPost.getTimestamp());
-            intent.putExtra("postText", selectedPost.getText());
-
-            startActivity(intent);
+            if (position >= 0 && position < postList.size()) {
+                Intent intent = new Intent(EventScreen.this, PostDetail.class);
+                intent.putExtra("postIndex", position);
+                startActivity(intent);
+            } else {
+                Log.w("AcademicScreen", "Invalid position: " + position);
+            }
         });
     }
 
     public void onPlusClick(View view) {
         Intent intent = new Intent(EventScreen.this, PostEvent.class);
-        postAcademicLauncher.launch(intent);  // Launch PostAcademic with the launcher
+        postEventLauncher.launch(intent);  // Launch PostAcademic with the launcher
     }
     public void onProfileClick(View view){
         Handler handler = new Handler();
@@ -120,4 +205,13 @@ public class EventScreen extends AppCompatActivity {
             startActivity(intent);
         }, 0);
     }
+
+    public void makePost(String user, String time, String text)
+    {
+        Post p = new Post(user, time, text,"Event");
+
+        postHash.put(time, p);
+        postList.add(p);
+    }
+
 }

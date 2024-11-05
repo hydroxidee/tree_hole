@@ -4,7 +4,19 @@
     android:orientation="vertical"
     android:background="@color/yellow">
 
-    <!-- Include the post item layout for displaying post details -->
+
+    <Button
+        android:id="@+id/abovePostButton"
+        android:layout_width="63dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:backgroundTint="@color/semi_transparent_white"
+        android:onClick="onExitClick"
+        android:text="x"
+        android:textColor="@color/darkred"
+        android:textSize="25dp" />
+
     <include
         layout="@layout/post_item"
         android:id="@+id/postDetailSection"

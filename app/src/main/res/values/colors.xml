@@ -6,4 +6,7 @@
     <color name="darkred">#630000</color>
     <color name="yellow">#f7f3ad</color>
     <color name="semi_transparent_white">#80FFFFFF</color>
+    <color name="academicColor">#80c78252</color> <!-- 50% transparent -->
+    <color name="eventColor">#80d8bfe3</color>    <!-- 50% transparent -->
+    <color name="lifeColor">#80b1e3b9</color>     <!-- 50% transparent -->
 </resources>

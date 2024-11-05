@@ -3,6 +3,7 @@ package com.example.treehole;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -26,37 +28,44 @@ public class PostDetail extends AppCompatActivity {
     private EditText commentUsernameInput;
     private EditText commentContentInput;
     private Post selectedPost; // Reference to the selected post
+    private HashMap<String,Object> commentHash;
+    private List<Comment> comments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_detail);
 
-        // Initialize the TextViews inside post_item layout
+        // Initialize TextViews
         postUsername = findViewById(R.id.username);
         postTimeStamp = findViewById(R.id.timestamp);
         postText = findViewById(R.id.postContent);
 
-        // Get post data from intent (or retrieve post by ID if it's stored in a database)
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
-        String timestamp = intent.getStringExtra("timestamp");
-        String text = intent.getStringExtra("postText");
+        // Get the post index from the Intent
+        int postIndex = getIntent().getIntExtra("postIndex", -1);
+        Log.d("PostDetail", "Received postIndex: " + postIndex);
 
-        // Assuming you are creating a new Post object or retrieving it by ID
-        selectedPost = new Post(username, timestamp, text);
+        // Retrieve the selected Post from AcademicScreen's postList
+        if (postIndex >= 0 && postIndex < AcademicScreen.postList.size()) {
+            selectedPost = AcademicScreen.postList.get(postIndex);
+        } else {
+            Toast.makeText(this, "Error loading post", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
-        // Set the post data to TextViews
+        // Display the post data in TextViews
         postUsername.setText(selectedPost.getUsername());
         postTimeStamp.setText(selectedPost.getTimestamp());
         postText.setText(selectedPost.getPostText());
 
         // Initialize ListView for comments and set adapter
         commentListView = findViewById(R.id.commentListView);
-        commentAdapter = new CommentAdapter(this, selectedPost.getComments());
+        comments = selectedPost.getComments() != null ? selectedPost.getComments() : new ArrayList<>();
+        commentAdapter = new CommentAdapter(this, comments);
         commentListView.setAdapter(commentAdapter);
 
-        // Initialize the input fields for username and content
+        // Initialize input fields for adding comments
         commentUsernameInput = findViewById(R.id.commentUsername);
         commentContentInput = findViewById(R.id.commentContent);
     }
@@ -113,5 +122,8 @@ public class PostDetail extends AppCompatActivity {
             Intent intent = new Intent(PostDetail.this, Homepage.class);
             startActivity(intent);
         }, 0);
+    }
+    public void onExitClick(View view){
+        finish();
     }
 }

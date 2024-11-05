@@ -4,11 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import android.widget.ArrayAdapter;
+
+import com.example.treehole.Post;
+
 import java.util.List;
 
 public class PostAdapter extends ArrayAdapter<Post> {
@@ -31,10 +35,22 @@ public class PostAdapter extends ArrayAdapter<Post> {
         TextView postTitle = convertView.findViewById(R.id.postTitle);
         TextView postContent = convertView.findViewById(R.id.postContent);
 
-        assert post != null;
-        username.setText(post.getUsername());
-        timestamp.setText(post.getTimestamp());
-        postContent.setText(post.getPostText());
+        if (post != null) {
+            username.setText(post.getUsername());
+            timestamp.setText(post.getTimestamp());
+            postContent.setText(post.getPostText());
+
+            // Change background color based on community type
+            if ("Academic".equals(post.getCommunityType())) {
+                convertView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.academic_round_background));
+            }
+            if ("Life".equals(post.getCommunityType())) {
+                convertView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.life_round_background));
+            }
+            if ("Event".equals(post.getCommunityType())) {
+                convertView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.event_round_background));
+            }
+        }
 
         return convertView;
     }
