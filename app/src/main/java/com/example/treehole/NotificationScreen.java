@@ -16,7 +16,7 @@ import java.util.List;
 public class NotificationScreen extends AppCompatActivity {
     private ListView listView;
     private PostAdapter postAdapter;
-    private List<Post> postList;
+    private List<Object> postList;
 
 
     @Override
@@ -36,8 +36,10 @@ public class NotificationScreen extends AppCompatActivity {
         // Set up the adapter and assign it to the ListView
         // Sort the list by timestamp (newest to oldest)
         postList.sort((post1, post2) -> {
-            Date date1 = post1.getParsedTimestamp();
-            Date date2 = post2.getParsedTimestamp();
+            Post post11 = (Post) post1;
+            Post post22 = (Post) post2;
+            Date date1 = post11.getParsedTimestamp();
+            Date date2 = post22.getParsedTimestamp();
             if (date1 == null || date2 == null) {
                 return 0; // Handle null dates gracefully
             }
