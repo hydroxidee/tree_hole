@@ -143,6 +143,7 @@ public class AcademicScreen extends AppCompatActivity {
             if (position >= 0 && position < academicPostList.size()) {
                 Intent intent = new Intent(AcademicScreen.this, PostDetail.class);
                 intent.putExtra("postIndex", position);
+                intent.putExtra("type","Academic");
                 startActivity(intent);
             } else {
                 Log.w("AcademicScreen", "Invalid position: " + position);

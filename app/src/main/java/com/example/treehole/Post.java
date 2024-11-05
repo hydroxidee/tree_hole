@@ -72,7 +72,7 @@ public class Post {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    public void setCommentList(List<Comment> list){this.commentList = list;}
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }

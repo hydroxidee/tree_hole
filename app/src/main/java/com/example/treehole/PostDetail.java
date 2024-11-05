@@ -13,9 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,8 +26,7 @@ public class PostDetail extends AppCompatActivity {
     private EditText commentUsernameInput;
     private EditText commentContentInput;
     private Post selectedPost; // Reference to the selected post
-    private HashMap<String,Object> commentHash;
-    private List<Comment> comments;
+    private List<Comment> comments; // List for comments
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +38,33 @@ public class PostDetail extends AppCompatActivity {
         postTimeStamp = findViewById(R.id.timestamp);
         postText = findViewById(R.id.postContent);
 
-        // Get the post index from the Intent
+        // Get the post index and type from the Intent
         int postIndex = getIntent().getIntExtra("postIndex", -1);
+        String type = getIntent().getStringExtra("type");
         Log.d("PostDetail", "Received postIndex: " + postIndex);
 
-        // Retrieve the selected Post from AcademicScreen's postList
-        if (postIndex >= 0 && postIndex < AcademicScreen.academicPostList.size()) {
-            selectedPost = AcademicScreen.academicPostList.get(postIndex);
-        } else {
+        // Check the type and retrieve the appropriate post
+        if ("Academic".equals(type)) {
+            if (postIndex >= 0 && postIndex < AcademicScreen.academicPostList.size()) {
+                selectedPost = AcademicScreen.academicPostList.get(postIndex);
+            }
+        } else if ("Event".equals(type)) {
+            if (postIndex >= 0 && postIndex < EventScreen.eventPostList.size()) {
+                selectedPost = EventScreen.eventPostList.get(postIndex);
+            }
+        } else if ("Life".equals(type)) {
+            if (postIndex >= 0 && postIndex < LifeScreen.lifePostList.size()) {
+                selectedPost = LifeScreen.lifePostList.get(postIndex);
+            }
+        }
+
+        // Handle case where post is not found
+        if (selectedPost == null) {
             Toast.makeText(this, "Error loading post", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
-        // hello
+
         // Display the post data in TextViews
         postUsername.setText(selectedPost.getUsername());
         postTimeStamp.setText(selectedPost.getTimestamp());
@@ -61,7 +72,7 @@ public class PostDetail extends AppCompatActivity {
 
         // Initialize ListView for comments and set adapter
         commentListView = findViewById(R.id.commentListView);
-        comments = selectedPost.getComments() != null ? selectedPost.getComments() : new ArrayList<>();
+        comments = selectedPost.getComments();
         commentAdapter = new CommentAdapter(this, comments);
         commentListView.setAdapter(commentAdapter);
 
@@ -87,11 +98,11 @@ public class PostDetail extends AppCompatActivity {
             // Get the current timestamp
             String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
-            // Create a new Comment object and add it to the selected post
+            // Create a new Comment object and add it to the selected post's list
             Comment newComment = new Comment(username, timestamp, content);
-            selectedPost.addComment(newComment); // Add comment to the post's list
+            comments.add(newComment); // Add directly to the comments list
 
-            // Update the ListView by notifying the adapter
+            // Notify the adapter about data change
             commentAdapter.notifyDataSetChanged();
 
             // Clear the input fields
@@ -123,7 +134,8 @@ public class PostDetail extends AppCompatActivity {
             startActivity(intent);
         }, 0);
     }
-    public void onExitClick(View view){
+
+    public void onExitClick(View view) {
         finish();
     }
 }

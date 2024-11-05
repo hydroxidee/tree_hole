@@ -144,6 +144,7 @@ public class LifeScreen extends AppCompatActivity {
             if (position >= 0 && position < lifePostList.size()) {
                 Intent intent = new Intent(LifeScreen.this, PostDetail.class);
                 intent.putExtra("postIndex", position);
+                intent.putExtra("type","Life");
                 startActivity(intent);
             } else {
                 Log.w("LifeScreen", "Invalid position: " + position);
