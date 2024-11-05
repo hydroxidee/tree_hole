@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/yellow">
+
+    <!-- Include the post item layout for displaying post details -->
+    <include
+        layout="@layout/post_item"
+        android:id="@+id/postDetailSection"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        />
+
+    <!-- ListView for displaying comments -->
+
+    <!-- Bottom navigation bar -->
+
+    <ListView
+        android:id="@+id/commentListView"
+        android:layout_width="match_parent"
+        android:layout_height="469dp"
+        android:layout_weight="1"
+        android:background="@color/semi_transparent_white"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"
+        android:paddingBottom="8dp" />
+
+    <LinearLayout
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/darkred"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <!-- Profile button -->
+        <ImageButton
+            android:id="@+id/profileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/darkred"
+            android:onClick="onProfileClick"
+            android:src="@drawable/profile" />
+
+        <!-- Home button -->
+        <ImageButton
+            android:id="@+id/homeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/darkred"
+            android:onClick="onHomeClick"
+            android:src="@drawable/tree"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Notification button -->
+        <ImageButton
+            android:id="@+id/notificationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/darkred"
+            android:onClick="onNotificationClick"
+            android:src="@drawable/bell" />
+    </LinearLayout>
+
+</LinearLayout>

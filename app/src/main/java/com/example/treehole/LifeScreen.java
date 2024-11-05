@@ -65,6 +65,18 @@ public class LifeScreen extends AppCompatActivity {
         {
             bell.setImageResource(R.drawable.bell);
         }
+        // Set an item click listener to open post details
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Post selectedPost = postList.get(position);
+
+            // Create an intent to start PostDetailActivity and pass the post details
+            Intent intent = new Intent(LifeScreen.this, PostDetail.class);
+            intent.putExtra("username", selectedPost.getUsername());
+            intent.putExtra("timestamp", selectedPost.getTimestamp());
+            intent.putExtra("postText", selectedPost.getText());
+
+            startActivity(intent);
+        });
 
     }
 
