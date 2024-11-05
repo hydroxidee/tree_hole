@@ -64,7 +64,7 @@ public class LifeScreen extends AppCompatActivity {
                     ValueEventListener eventListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            //no posts under event exist
+                            //no posts under life exist
                             if(!dataSnapshot.exists()) {
                                 screenRef.setValue(postHash);
                             }
@@ -99,7 +99,7 @@ public class LifeScreen extends AppCompatActivity {
         postHash = new HashMap<String, Object>();
         postList = new ArrayList<>();
 
-        //gets all event posts
+        //gets all academic posts
         DatabaseReference userRef = reference.child("posts").child("life");
 
         ValueEventListener eventListener = new ValueEventListener() {
@@ -153,11 +153,14 @@ public class LifeScreen extends AppCompatActivity {
 
         // Set item click listener to open post details
         listView.setOnItemClickListener((parent, view, position, id) -> {
+            Log.d("AcademicScreen", "Clicked post at position: " + position);
 
             if (position >= 0 && position < postList.size()) {
                 Intent intent = new Intent(LifeScreen.this, PostDetail.class);
                 intent.putExtra("postIndex", position);
                 startActivity(intent);
+            } else {
+                Log.w("LifeScreen", "Invalid position: " + position);
             }
         });
     }

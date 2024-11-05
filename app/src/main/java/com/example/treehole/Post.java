@@ -24,12 +24,12 @@ public class Post {
         this.postText = postText;
         this.communityType = communityType;
 
-        postHash = new HashMap<String, Object>();
+        postHash = new HashMap<>();
 
         postHash.put("username", username);
         postHash.put("timestamp", timestamp);
         postHash.put("text", postText);
-        postHash.put("community",communityType);
+        postHash.put("community", communityType);
 
         this.commentList = new ArrayList<>();
     }
@@ -46,7 +46,8 @@ public class Post {
     public String getPostText() {
         return postText;
     }
-    public Date getParsedTimestamp(){
+
+    public Date getParsedTimestamp() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         try {
             return format.parse(timestamp);
@@ -55,12 +56,19 @@ public class Post {
             return null;
         }
     }
-    public List<Comment> getComments(){return commentList;}
-    public String getCommunityType(){return communityType;}
 
-    public void addComment(Comment comment){
+    public List<Comment> getComments() {
+        return commentList;
+    }
+
+    public String getCommunityType() {
+        return communityType;
+    }
+
+    public void addComment(Comment comment) {
         commentList.add(comment);
     }
+
     // Setters (optional, if you need to modify fields after creation)
     public void setUsername(String username) {
         this.username = username;
@@ -69,7 +77,11 @@ public class Post {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
-    public void addCommunityType(String type){this.communityType = type;}
+
+    public void addCommunityType(String type) {
+        this.communityType = type;
+    }
+
     public void setPostText(String postText) {
         this.postText = postText;
     }
@@ -78,5 +90,7 @@ public class Post {
         return postText;
     }
 
-    public HashMap<String, Object> getPostHash() { return postHash; }
+    public HashMap<String, Object> getPostHash() {
+        return postHash;
+    }
 }
