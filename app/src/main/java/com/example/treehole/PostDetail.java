@@ -46,14 +46,14 @@ public class PostDetail extends AppCompatActivity {
         Log.d("PostDetail", "Received postIndex: " + postIndex);
 
         // Retrieve the selected Post from AcademicScreen's postList
-        if (postIndex >= 0 && postIndex < AcademicScreen.postList.size()) {
-            selectedPost = AcademicScreen.postList.get(postIndex);
+        if (postIndex >= 0 && postIndex < AcademicScreen.academicPostList.size()) {
+            selectedPost = AcademicScreen.academicPostList.get(postIndex);
         } else {
             Toast.makeText(this, "Error loading post", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
-
+        // hello
         // Display the post data in TextViews
         postUsername.setText(selectedPost.getUsername());
         postTimeStamp.setText(selectedPost.getTimestamp());
