@@ -46,24 +46,22 @@ public class EventScreen extends AppCompatActivity {
                     String postText = data.getStringExtra("postText");
 
                     // Create a new Post object and add it to the list
-                    Post newPost = new Post(username, timestamp, postText,"Event");
+                    Post newPost = new Post(username, timestamp, postText, "Event");
                     postHash.put(timestamp, newPost.getPostHash());
                     eventPostList.add(newPost);
                     eventPostList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
                     // Notify adapter of data change
                     postAdapter.notifyDataSetChanged();
 
-                    //add post to database
+                    // Add post to database
                     DatabaseReference screenRef = reference.child("posts").child("event");
                     ValueEventListener eventListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            //no posts under event exist
-                            if(!dataSnapshot.exists()) {
+                            // No posts under event exist
+                            if (!dataSnapshot.exists()) {
                                 screenRef.setValue(postHash);
-                            }
-                            else
-                            {
+                            } else {
                                 screenRef.updateChildren(postHash);
                             }
                         }
@@ -83,39 +81,34 @@ public class EventScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_page);
 
-        //database initialization
+        // Database initialization
         root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/");
         reference = root.getReference();
 
         // Initialize ListView
         listView = findViewById(R.id.postListView);
 
-        postHash = new HashMap<String, Object>();
+        postHash = new HashMap<>();
         eventPostList = new ArrayList<>();
 
-        //gets all event posts
+        // Get all event posts
         DatabaseReference userRef = reference.child("posts").child("event");
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists())
-                {
+                if (dataSnapshot.exists()) {
                     ImageButton bell = findViewById(R.id.pushNotifications);
                     bell.setImageResource(R.drawable.tree);
 
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         bell.setImageResource(R.drawable.profile);
 
-                        if(UserInfo.isFollowingEvent())
-                        {
+                        if (UserInfo.isFollowingEvent()) {
                             bell.setImageResource(R.drawable.alertbell);
-                        }
-                        else
-                        {
+                        } else {
                             bell.setImageResource(R.drawable.bell);
                         }
-
 
                         // Retrieve each post's data
                         String text = postSnapshot.child("text").getValue(String.class);
@@ -143,8 +136,6 @@ public class EventScreen extends AppCompatActivity {
         postAdapter = new PostAdapter(this, eventPostList);
         listView.setAdapter(postAdapter);
 
-
-
         // Set item click listener to open post details
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Log.d("EventScreen", "Clicked post at position: " + position);
@@ -163,14 +154,16 @@ public class EventScreen extends AppCompatActivity {
         Intent intent = new Intent(EventScreen.this, PostEvent.class);
         postEventLauncher.launch(intent);  // Launch PostAcademic with the launcher
     }
-    public void onProfileClick(View view){
+
+    public void onProfileClick(View view) {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             Intent intent = new Intent(EventScreen.this, ProfilePage.class);
             startActivity(intent);
         }, 0);
     }
-    public void onHomeClick(View view){
+
+    public void onHomeClick(View view) {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             Intent intent = new Intent(EventScreen.this, Homepage.class);
@@ -178,21 +171,18 @@ public class EventScreen extends AppCompatActivity {
         }, 0);
     }
 
-    public void onNotifBellClick(View view)
-    {
+    public void onNotifBellClick(View view) {
         ImageButton bell = findViewById(R.id.pushNotifications);
-        if(UserInfo.isFollowingEvent())
-        {
+        if (UserInfo.isFollowingEvent()) {
             UserInfo.unfollowEvent();
             bell.setImageResource(R.drawable.bell);
-        }
-        else
-        {
+        } else {
             UserInfo.followEvent();
             bell.setImageResource(R.drawable.alertbell);
         }
     }
-    public void onNotificationClick(View view){
+
+    public void onNotificationClick(View view) {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             Intent intent = new Intent(EventScreen.this, NotificationScreen.class);
@@ -200,12 +190,10 @@ public class EventScreen extends AppCompatActivity {
         }, 0);
     }
 
-    public void makePost(String user, String time, String text)
-    {
-        Post p = new Post(user, time, text,"Event");
+    public void makePost(String user, String time, String text) {
+        Post p = new Post(user, time, text, "Event");
 
         postHash.put(time, p);
         eventPostList.add(p);
     }
-
 }

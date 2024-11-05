@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,24 +47,22 @@ public class LifeScreen extends AppCompatActivity {
                     String postText = data.getStringExtra("postText");
 
                     // Create a new Post object and add it to the list
-                    Post newPost = new Post(username, timestamp, postText,"Life");
+                    Post newPost = new Post(username, timestamp, postText, "Life");
                     postHash.put(timestamp, newPost.getPostHash());
                     lifePostList.add(newPost);
                     lifePostList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
                     // Notify adapter of data change
                     postAdapter.notifyDataSetChanged();
 
-                    //add post to database
+                    // Add post to database
                     DatabaseReference screenRef = reference.child("posts").child("life");
                     ValueEventListener eventListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            //no posts under life exist
-                            if(!dataSnapshot.exists()) {
+                            // No posts under life exist
+                            if (!dataSnapshot.exists()) {
                                 screenRef.setValue(postHash);
-                            }
-                            else
-                            {
+                            } else {
                                 screenRef.updateChildren(postHash);
                             }
                         }
@@ -83,39 +82,34 @@ public class LifeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.life_page);
 
-        //database initialization
+        // Database initialization
         root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/");
         reference = root.getReference();
 
         // Initialize ListView
         listView = findViewById(R.id.postListView);
 
-        postHash = new HashMap<String, Object>();
+        postHash = new HashMap<>();
         lifePostList = new ArrayList<>();
 
-        //gets all academic posts
+        // Get all life posts
         DatabaseReference userRef = reference.child("posts").child("life");
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists())
-                {
+                if (dataSnapshot.exists()) {
                     ImageButton bell = findViewById(R.id.pushNotifications);
                     bell.setImageResource(R.drawable.tree);
 
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         bell.setImageResource(R.drawable.profile);
 
-                        if(UserInfo.isFollowingLife())
-                        {
+                        if (UserInfo.isFollowingLife()) {
                             bell.setImageResource(R.drawable.alertbell);
-                        }
-                        else
-                        {
+                        } else {
                             bell.setImageResource(R.drawable.bell);
                         }
-
 
                         // Retrieve each post's data
                         String text = postSnapshot.child("text").getValue(String.class);
@@ -140,14 +134,12 @@ public class LifeScreen extends AppCompatActivity {
 
         userRef.addListenerForSingleValueEvent(eventListener);
         // Set up the adapter and assign it to the ListView
-        postAdapter = new PostAdapter(this, lifePostList);
+        postAdapter = new PostAdapter(this, Collections.singletonList(lifePostList));
         listView.setAdapter(postAdapter);
-
-
 
         // Set item click listener to open post details
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Log.d("AcademicScreen", "Clicked post at position: " + position);
+            Log.d("LifeScreen", "Clicked post at position: " + position);
 
             if (position >= 0 && position < lifePostList.size()) {
                 Intent intent = new Intent(LifeScreen.this, PostDetail.class);
@@ -163,14 +155,16 @@ public class LifeScreen extends AppCompatActivity {
         Intent intent = new Intent(LifeScreen.this, PostLife.class);
         postLifeLauncher.launch(intent);  // Launch PostAcademic with the launcher
     }
-    public void onProfileClick(View view){
+
+    public void onProfileClick(View view) {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             Intent intent = new Intent(LifeScreen.this, ProfilePage.class);
             startActivity(intent);
         }, 0);
     }
-    public void onHomeClick(View view){
+
+    public void onHomeClick(View view) {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             Intent intent = new Intent(LifeScreen.this, Homepage.class);
@@ -178,21 +172,18 @@ public class LifeScreen extends AppCompatActivity {
         }, 0);
     }
 
-    public void onNotifBellClick(View view)
-    {
+    public void onNotifBellClick(View view) {
         ImageButton bell = findViewById(R.id.pushNotifications);
-        if(UserInfo.isFollowingLife())
-        {
+        if (UserInfo.isFollowingLife()) {
             UserInfo.unfollowLife();
             bell.setImageResource(R.drawable.bell);
-        }
-        else
-        {
+        } else {
             UserInfo.followLife();
             bell.setImageResource(R.drawable.alertbell);
         }
     }
-    public void onNotificationClick(View view){
+
+    public void onNotificationClick(View view) {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             Intent intent = new Intent(LifeScreen.this, NotificationScreen.class);
@@ -200,12 +191,10 @@ public class LifeScreen extends AppCompatActivity {
         }, 0);
     }
 
-    public void makePost(String user, String time, String text)
-    {
-        Post p = new Post(user, time, text,"Life");
+    public void makePost(String user, String time, String text) {
+        Post p = new Post(user, time, text, "Life");
 
         postHash.put(time, p);
         lifePostList.add(p);
     }
-
 }

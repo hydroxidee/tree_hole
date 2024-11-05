@@ -25,7 +25,6 @@ public class Post {
         this.communityType = communityType;
 
         postHash = new HashMap<>();
-
         postHash.put("username", username);
         postHash.put("timestamp", timestamp);
         postHash.put("text", postText);
@@ -33,7 +32,6 @@ public class Post {
 
         this.commentList = new ArrayList<>();
     }
-
 
     // Getters
     public String getUsername() {

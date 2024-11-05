@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +42,9 @@ public class NotificationScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.notification);
+        SetAllLists();
 
         listView = findViewById(R.id.postListView);
         noPostsMessage = findViewById(R.id.noPostsMessage); // Initialize the noPostsMessage TextView
@@ -85,7 +88,7 @@ public class NotificationScreen extends AppCompatActivity {
             listView.setVisibility(View.VISIBLE);
 
             // Set up the adapter and display posts
-            postAdapter = new PostAdapter(this, postList);
+            postAdapter = new PostAdapter(this, Collections.singletonList(postList));
             listView.setAdapter(postAdapter);
         }
     }
@@ -204,4 +207,127 @@ public class NotificationScreen extends AppCompatActivity {
             startActivity(intent);
         }, 0);
     }
+
+    @SuppressLint("SetTextI18n")
+    public void SetAllLists() {
+        root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/");
+        reference = root.getReference();
+
+        academicPosts = new ArrayList<>();
+        lifePosts = new ArrayList<>();
+        eventPosts = new ArrayList<>();
+
+        DatabaseReference userRef = reference.child("posts").child("academic");
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ImageButton bell = findViewById(R.id.notificationButton);
+                    bell.setImageResource(R.drawable.tree);
+                    bell.setImageResource(R.drawable.profile);
+                    bell.setImageResource(R.drawable.tree);
+                    bell.setImageResource(R.drawable.profile);
+                    bell.setImageResource(R.drawable.tree);
+                    bell.setImageResource(R.drawable.profile);
+
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        // Retrieve each post's data
+                        String text = postSnapshot.child("text").getValue(String.class);
+                        String timestamp = postSnapshot.child("timestamp").getValue(String.class);
+                        String username = postSnapshot.child("username").getValue(String.class);
+
+                        AddAcademicPost(username, timestamp, text);
+
+                        TextView temp = findViewById(R.id.titleText);
+                        temp.setText(academicPosts.toString());
+
+                        temp.setText("Notifications");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "loadPost:onCancelled", error.toException());
+            }
+        };
+        userRef.addListenerForSingleValueEvent(eventListener);
+
+        userRef = reference.child("posts").child("event");
+
+        eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ImageButton bell = findViewById(R.id.notificationButton);
+                    bell.setImageResource(R.drawable.tree);
+                    bell.setImageResource(R.drawable.profile);
+                    bell.setImageResource(R.drawable.tree);
+                    bell.setImageResource(R.drawable.profile);
+                    bell.setImageResource(R.drawable.tree);
+                    bell.setImageResource(R.drawable.profile);
+
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        // Retrieve each post's data
+                        String text = postSnapshot.child("text").getValue(String.class);
+                        String timestamp = postSnapshot.child("timestamp").getValue(String.class);
+                        String username = postSnapshot.child("username").getValue(String.class);
+
+                        AddEventPost(username, timestamp, text);
+
+                        TextView temp = findViewById(R.id.titleText);
+                        temp.setText(eventPosts.toString());
+
+                        temp.setText("Notifications");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "loadPost:onCancelled", error.toException());
+            }
+        };
+        userRef.addListenerForSingleValueEvent(eventListener);
+
+        userRef = reference.child("posts").child("life");
+
+        eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ImageButton bell = findViewById(R.id.notificationButton);
+                    bell.setImageResource(R.drawable.tree);
+                    bell.setImageResource(R.drawable.profile);
+                    bell.setImageResource(R.drawable.tree);
+                    bell.setImageResource(R.drawable.profile);
+                    bell.setImageResource(R.drawable.tree);
+                    bell.setImageResource(R.drawable.profile);
+
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        // Retrieve each post's data
+                        String text = postSnapshot.child("text").getValue(String.class);
+                        String timestamp = postSnapshot.child("timestamp").getValue(String.class);
+                        String username = postSnapshot.child("username").getValue(String.class);
+
+                        AddLifePost(username, timestamp, text);
+
+                        TextView temp = findViewById(R.id.titleText);
+                        temp.setText(lifePosts.toString());
+
+                        temp.setText("Notifications");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "loadPost:onCancelled", error.toException());
+            }
+        };
+        userRef.addListenerForSingleValueEvent(eventListener);
+    }
+
+
 }
