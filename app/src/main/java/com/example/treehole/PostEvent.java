@@ -43,11 +43,12 @@ public class PostEvent extends AppCompatActivity {
         }
 
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-
+//hello
         Intent resultIntent = new Intent();
         resultIntent.putExtra("username", postAs);
         resultIntent.putExtra("timestamp", timestamp);
-        resultIntent.putExtra("postText", title + "\n" + content);
+        resultIntent.putExtra("postTitle",title);
+        resultIntent.putExtra("postContent",content);
         setResult(RESULT_OK, resultIntent);
         finish();
     }

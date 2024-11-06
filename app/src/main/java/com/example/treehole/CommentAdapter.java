@@ -30,13 +30,13 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
         TextView username = convertView.findViewById(R.id.commentUsername);
         TextView timestamp = convertView.findViewById(R.id.commentTimestamp);
         TextView commentText = convertView.findViewById(R.id.commentText);
-
+//hello
         // Populate the data into the TextViews
         assert comment != null;
         username.setText(comment.getUsername());
         timestamp.setText(comment.getTimestamp());
         commentText.setText(comment.getCommentText());
-
+        // hello
         return convertView;
     }
 }

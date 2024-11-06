@@ -9,7 +9,7 @@
     tools:context=".MainActivity"
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="-9dp">
-
+    <!--uj-->
     <TextView
         android:id="@+id/titleName"
         android:layout_width="344dp"

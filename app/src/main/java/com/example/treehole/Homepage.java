@@ -31,7 +31,7 @@ public class Homepage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-      
+
         Button academicButton = findViewById(R.id.AcademicButton0);
         if(UserInfo.isFollowingAcademic())
         {
@@ -49,7 +49,7 @@ public class Homepage extends AppCompatActivity {
             academicButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
             academicButton.setTextColor(Color.parseColor("#F7F3AD"));
         }
-
+//hello
         Button lifeButton = findViewById(R.id.LifeButton0);
         if(UserInfo.isFollowingLife())
         {
@@ -140,7 +140,7 @@ public class Homepage extends AppCompatActivity {
         if(UserInfo.isFollowingEvent())
         {
             Handler handler = new Handler();
-          
+
             handler.postDelayed(() -> {
                 Intent intent = new Intent(Homepage.this, EventScreen.class);
                 startActivity(intent);
