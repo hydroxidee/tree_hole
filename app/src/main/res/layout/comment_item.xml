@@ -39,7 +39,7 @@
     </LinearLayout>
 
     <!-- Post Content -->
-
+    <!--uj-->
     <TextView
         android:id="@+id/commentText"
         android:layout_width="match_parent"

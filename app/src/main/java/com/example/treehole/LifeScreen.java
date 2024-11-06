@@ -198,6 +198,7 @@ public class LifeScreen extends AppCompatActivity {
         // Display the notification
         notificationManager.notify(1, builder.build());
     }
+    //hello
         public void onProfileClick(View view){
         Handler handler = new Handler();
         handler.postDelayed(() -> {

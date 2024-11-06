@@ -16,7 +16,7 @@ public class Post {
     private String communityType;
     private List<Comment> commentList;
     private HashMap<String, Object> commentHash;
-
+    //hello
     private HashMap<String, Object> postHash;
 
     public Post(String username, String timestamp, String postText, String postTitle,String communityType) {

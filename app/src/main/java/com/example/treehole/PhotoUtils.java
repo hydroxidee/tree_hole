@@ -18,7 +18,7 @@ public class PhotoUtils {
         assert temp != null;
         return BitMapToBase64(temp);
     }
-
+    //hello
     //converts stored image to bitmap 64
     public static Bitmap Base64ToBitMap(String base64Image) {
         byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);

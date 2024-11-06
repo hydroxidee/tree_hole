@@ -18,7 +18,7 @@ public class PostAcademic extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_academic);
-
+//hello
         Spinner nameSpinner = findViewById(R.id.name);
         String username = UserInfo.GetUser();
         String[] nameOptions = {"Option", username, "Anonymous"};

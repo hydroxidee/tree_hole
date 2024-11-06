@@ -42,7 +42,7 @@ public class PostLife extends AppCompatActivity {
         }
 
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-
+//hello
         Intent resultIntent = new Intent();
         resultIntent.putExtra("username", postAs);
         resultIntent.putExtra("timestamp", timestamp);

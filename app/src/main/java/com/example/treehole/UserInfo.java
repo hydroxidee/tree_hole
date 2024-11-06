@@ -15,7 +15,7 @@ public class UserInfo {
     static String username = "";
     static String firstName = "";
     static HashMap<String, Integer> roleTypes;
-
+    //hello
     //communities
     static boolean followingAcademic = false;
     static boolean followingLife = false;

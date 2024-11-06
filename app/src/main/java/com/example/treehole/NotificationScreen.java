@@ -66,7 +66,7 @@ public class NotificationScreen extends AppCompatActivity {
                 intent.putExtra("postContent", selectedPost.getPostText());
                 intent.putExtra("postTitle", selectedPost.getPostTitle());
                 intent.putExtra("type", selectedPost.getCommunityType()); // Type of the post
-
+//hello
                 startActivity(intent);
             } else {
                 Log.w("NotificationScreen", "Invalid position: " + position);

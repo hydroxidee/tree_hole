@@ -38,7 +38,7 @@ public class PostDetail extends AppCompatActivity {
     private CommentAdapter commentAdapter;
     private List<Comment> comments;
     private HashMap<String, Object> commentHash;
-
+    //hello
     private FirebaseDatabase root;
     private DatabaseReference reference;
     private DatabaseReference commentRef;  // Reference to comments in Firebase

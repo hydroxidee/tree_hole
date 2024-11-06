@@ -49,7 +49,7 @@ public class Homepage extends AppCompatActivity {
             academicButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
             academicButton.setTextColor(Color.parseColor("#F7F3AD"));
         }
-
+//hello
         Button lifeButton = findViewById(R.id.LifeButton0);
         if(UserInfo.isFollowingLife())
         {

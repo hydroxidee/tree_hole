@@ -188,7 +188,7 @@ public class AcademicScreen extends AppCompatActivity {
             showAcademicNotification();
         }
     }
-
+//hello
     private void showAcademicNotification() {
         String channelId = "academic_posts_channel";
         String channelName = "Academic Posts";

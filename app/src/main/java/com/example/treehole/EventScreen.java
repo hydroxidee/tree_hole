@@ -182,7 +182,7 @@ public class EventScreen extends AppCompatActivity {
         String channelId = "event_posts_channel";
         String channelName = "Event Posts";
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
+//hello
         // Create the notification channel if running on Android 8.0 or higher
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);

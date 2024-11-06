@@ -40,7 +40,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
             timestamp.setText(post.getTimestamp());
             postTitle.setText(post.getPostTitle());
             postContent.setText(post.getPostText());
-
+//hello
             // Change background color based on community type
             if ("Academic".equals(post.getCommunityType())) {
                 convertView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.academic_round_background));
