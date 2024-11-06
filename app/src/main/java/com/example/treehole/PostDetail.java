@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +34,7 @@ import java.util.Locale;
 public class PostDetail extends AppCompatActivity {
     private TextView postUsername, postTimeStamp, postText, postTitle;
     private ListView commentListView;
-    private EditText commentUsernameInput, commentContentInput;
+    private EditText  commentContentInput;
     private CommentAdapter commentAdapter;
     private List<Comment> comments;
     private HashMap<String, Object> commentHash;
@@ -41,6 +43,7 @@ public class PostDetail extends AppCompatActivity {
     private DatabaseReference reference;
     private DatabaseReference commentRef;  // Reference to comments in Firebase
     private String communityType, timestamp;
+    private Spinner nameSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,16 @@ public class PostDetail extends AppCompatActivity {
         postTimeStamp = findViewById(R.id.timestamp);
         postText = findViewById(R.id.postContent);
         postTitle = findViewById(R.id.postTitle);
+
+        // Initialize Spinner
+        nameSpinner = findViewById(R.id.commentUsername);
+        String name = UserInfo.GetUser();
+        String[] nameOptions = {"Option",name, "Anonymous"};
+        ArrayAdapter<String> nameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nameOptions);
+        nameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        nameSpinner.setAdapter(nameAdapter);
+
+        commentContentInput = findViewById(R.id.commentContent);
 
         // Get post details from Intent
         String username = getIntent().getStringExtra("username");
@@ -103,64 +116,62 @@ public class PostDetail extends AppCompatActivity {
         commentRef.addListenerForSingleValueEvent(eventListener);
         commentAdapter = new CommentAdapter(this, comments);
         commentListView.setAdapter(commentAdapter);
-//        // Initialize ListView for comments
 //
 
-        // Initialize input fields for adding comments
-        commentUsernameInput = findViewById(R.id.commentUsername);
-        commentContentInput = findViewById(R.id.commentContent);
+//        // Initialize input fields for adding comments
+//        commentUsernameInput = findViewById(R.id.commentUsername);
 
     }
 
-    // Method to load comments from Firebase
-    private void loadComments() {
-        Log.d(TAG, "Loading comments from: " + commentRef.toString()); // Log the commentRef path
-
-        commentRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    comments.clear(); // Clear existing comments
-
-                    for (DataSnapshot commentSnapshot : snapshot.getChildren()) {
-                        String content = commentSnapshot.child("content").getValue(String.class);
-                        String username = commentSnapshot.child("username").getValue(String.class);
-                        String timestamp = commentSnapshot.child("timestamp").getValue(String.class);
-
-                        // Log each comment data
-                        Log.d(TAG, "Fetched comment - username: " + username + ", timestamp: " + timestamp + ", content: " + content);
-
-                        if (content != null && username != null && timestamp != null) {
-                            Comment comment = new Comment(username, timestamp, content);
-                            comments.add(comment);
-                        }
-                    }
-
-                    // Sort comments by timestamp in descending order
-                    comments.sort((comment1, comment2) -> comment2.getParsedTimestamp().compareTo(comment1.getParsedTimestamp()));
-
-                    // Notify the adapter of data change
-                    commentAdapter.notifyDataSetChanged();
-                } else {
-                    Log.d(TAG, "No comments found for this post.");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "Failed to load comments: ", error.toException());
-            }
-        });
-    }
+//    // Method to load comments from Firebase
+//    private void loadComments() {
+//        Log.d(TAG, "Loading comments from: " + commentRef.toString()); // Log the commentRef path
+//
+//        commentRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    comments.clear(); // Clear existing comments
+//
+//                    for (DataSnapshot commentSnapshot : snapshot.getChildren()) {
+//                        String content = commentSnapshot.child("content").getValue(String.class);
+//                        String username = commentSnapshot.child("username").getValue(String.class);
+//                        String timestamp = commentSnapshot.child("timestamp").getValue(String.class);
+//
+//                        // Log each comment data
+//                        Log.d(TAG, "Fetched comment - username: " + username + ", timestamp: " + timestamp + ", content: " + content);
+//
+//                        if (content != null && username != null && timestamp != null) {
+//                            Comment comment = new Comment(username, timestamp, content);
+//                            comments.add(comment);
+//                        }
+//                    }
+//
+//                    // Sort comments by timestamp in descending order
+//                    comments.sort((comment1, comment2) -> comment2.getParsedTimestamp().compareTo(comment1.getParsedTimestamp()));
+//
+//                    // Notify the adapter of data change
+//                    commentAdapter.notifyDataSetChanged();
+//                } else {
+//                    Log.d(TAG, "No comments found for this post.");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.w(TAG, "Failed to load comments: ", error.toException());
+//            }
+//        });
+//    }
 
 
     // Method to handle adding a new comment
     public void onPlusClick(View view) {
-        String username = commentUsernameInput.getText().toString().trim();
+        String username = nameSpinner.getSelectedItem().toString().trim();
         String content = commentContentInput.getText().toString().trim();
 
-        if (username.isEmpty() || content.isEmpty()) {
-            Toast.makeText(this, "Please enter your nickname and comment.", Toast.LENGTH_SHORT).show();
+        if (username.isEmpty() || "Option".equals(username) || content.isEmpty()) {
+            Toast.makeText(this, "Please enter valid nickname and comment.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -173,7 +184,6 @@ public class PostDetail extends AppCompatActivity {
         commentRef.child(timestamp).setValue(newComment.getCommentHash()).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 commentAdapter.notifyDataSetChanged();
-                commentUsernameInput.setText("");
                 commentContentInput.setText("");
                 Toast.makeText(this, "Comment added successfully", Toast.LENGTH_SHORT).show();
             } else {

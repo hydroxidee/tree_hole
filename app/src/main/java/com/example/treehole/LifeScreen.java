@@ -2,7 +2,11 @@ package com.example.treehole;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -15,6 +19,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -169,8 +174,31 @@ public class LifeScreen extends AppCompatActivity {
     public void onPlusClick(View view) {
         Intent intent = new Intent(LifeScreen.this, PostLife.class);
         postLifeLauncher.launch(intent);  // Launch PostAcademic with the launcher
+        if(UserInfo.isFollowingLife())
+            showLifeNotification();
     }
-    public void onProfileClick(View view){
+    private void showLifeNotification() {
+        String channelId = "life_posts_channel";
+        String channelName = "Life Posts";
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Create the notification channel if running on Android 8.0 or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        // Build the notification
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.alertbell) // Replace with your app's notification icon
+                .setContentTitle("Life")
+                .setContentText("Life has a new post")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+        // Display the notification
+        notificationManager.notify(1, builder.build());
+    }
+        public void onProfileClick(View view){
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             Intent intent = new Intent(LifeScreen.this, ProfilePage.class);

@@ -32,6 +32,12 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Objects;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import androidx.core.app.NotificationCompat;
+import android.os.Build;
+
 public class AcademicScreen extends AppCompatActivity {
     private ListView listView;
     private PostAdapter postAdapter;
@@ -178,7 +184,34 @@ public class AcademicScreen extends AppCompatActivity {
     public void onPlusClick(View view) {
         Intent intent = new Intent(AcademicScreen.this, PostAcademic.class);
         postAcademicLauncher.launch(intent);  // Launch PostAcademic with the launcher
+        if(UserInfo.isFollowingAcademic()){
+            showAcademicNotification();
+        }
     }
+
+    private void showAcademicNotification() {
+        String channelId = "academic_posts_channel";
+        String channelName = "Academic Posts";
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Create the notification channel if running on Android 8.0 or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        // Build the notification
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.alertbell) // Replace with your app's notification icon
+                .setContentTitle("Academic")
+                .setContentText("Academic has a new post")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+        // Display the notification
+        notificationManager.notify(1, builder.build());
+    }
+
     public void onProfileClick(View view){
         Handler handler = new Handler();
         handler.postDelayed(() -> {

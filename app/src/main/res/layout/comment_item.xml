@@ -48,5 +48,7 @@
         android:layout_marginBottom="8dp"
         android:text="Content of Post"/>
 
+
     <!-- Post Text Content -->
+
 </LinearLayout>

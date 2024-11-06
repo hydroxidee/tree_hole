@@ -59,14 +59,12 @@
             android:paddingStart="8dp">
 
             <!-- Input field for username -->
-            <EditText
+            <Spinner
                 android:id="@+id/commentUsername"
                 android:layout_width="157dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_corner"
                 android:backgroundTint="@color/semi_transparent_white"
-                android:hint="Enter your name"
-                android:inputType="textPersonName"
                 android:padding="8dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/darkred" />

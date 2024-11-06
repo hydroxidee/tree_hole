@@ -18,14 +18,14 @@
         android:layout_height="94dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:text="Notification"
+        android:text="Subscription"
         android:textColor="@color/darkred"
         android:textSize="40sp" />
     <TextView
         android:id="@+id/noPostsMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No notifications available"
+        android:text="No subscription post available"
         android:textSize="18sp"
         android:textColor="@android:color/darker_gray"
         android:gravity="center"
