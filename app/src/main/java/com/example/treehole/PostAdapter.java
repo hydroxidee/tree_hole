@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,9 +16,9 @@ import com.example.treehole.Post;
 
 import java.util.List;
 
-public class PostAdapter extends ArrayAdapter<Object> {
+public class PostAdapter extends ArrayAdapter<Post> {
 
-    public PostAdapter(Context context, List<Object> postList) {
+    public PostAdapter(Context context, List<Post> postList) {
         super(context, 0, postList);
     }
 
@@ -28,8 +29,7 @@ public class PostAdapter extends ArrayAdapter<Object> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.post_item, parent, false);
         }
 
-        Post post = (Post) getItem(position);
-
+        Post post = getItem(position);
         TextView username = convertView.findViewById(R.id.username);
         TextView timestamp = convertView.findViewById(R.id.timestamp);
         TextView postTitle = convertView.findViewById(R.id.postTitle);
@@ -38,8 +38,9 @@ public class PostAdapter extends ArrayAdapter<Object> {
         if (post != null) {
             username.setText(post.getUsername());
             timestamp.setText(post.getTimestamp());
+            postTitle.setText(post.getPostTitle());
             postContent.setText(post.getPostText());
-
+//hello
             // Change background color based on community type
             if ("Academic".equals(post.getCommunityType())) {
                 convertView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.academic_round_background));

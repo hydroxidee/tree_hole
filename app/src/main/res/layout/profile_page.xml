@@ -9,7 +9,7 @@
     tools:context=".ProfilePage"
     tools:layout_editor_absoluteX="-1dp"
     tools:layout_editor_absoluteY="23dp">
-
+    <!--uj-->
     <TextView
         android:layout_width="326dp"
         android:layout_height="67dp"

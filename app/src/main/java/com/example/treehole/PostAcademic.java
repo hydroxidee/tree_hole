@@ -18,7 +18,7 @@ public class PostAcademic extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_academic);
-
+//hello
         Spinner nameSpinner = findViewById(R.id.name);
         String username = UserInfo.GetUser();
         String[] nameOptions = {"Option", username, "Anonymous"};
@@ -31,6 +31,7 @@ public class PostAcademic extends AppCompatActivity {
         EditText titleEditText = findViewById(R.id.title);
         EditText contentEditText = findViewById(R.id.content);
         Spinner postAsSpinner = findViewById(R.id.name);
+
 
         String title = titleEditText.getText().toString().trim();
         String content = contentEditText.getText().toString().trim();
@@ -46,7 +47,8 @@ public class PostAcademic extends AppCompatActivity {
         Intent resultIntent = new Intent();
         resultIntent.putExtra("username", postAs);
         resultIntent.putExtra("timestamp", timestamp);
-        resultIntent.putExtra("postText", title + "\n" + content);
+        resultIntent.putExtra("postTitle",title);
+        resultIntent.putExtra("postContent",content);
         setResult(RESULT_OK, resultIntent);
         finish();
     }
