@@ -133,7 +133,7 @@ public class EventScreen extends AppCompatActivity {
 
         userRef.addListenerForSingleValueEvent(eventListener);
         // Set up the adapter and assign it to the ListView
-        postAdapter = new PostAdapter(this, eventPostList);
+        //postAdapter = new PostAdapter(this, eventPostList);
         listView.setAdapter(postAdapter);
 
         // Set item click listener to open post details
