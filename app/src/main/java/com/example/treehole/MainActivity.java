@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         if(Objects.equals(info != null ? info.get("password") : null, password))
                         {
                             updateUserFollowingBools(notifs);
-                            SignIn(shortUser);
+                            SignIn(shortUser, (String) info.get("first"));
                         }
                         else
                         {
@@ -147,10 +147,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // allows user to sign in
-    private void SignIn(String user) {
+    private void SignIn(String user, String firstName) {
         TextView updateMsg = findViewById(R.id.updateMessage);
 
         UserInfo.SetUser(user);
+        UserInfo.setFirstName(firstName);
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
