@@ -133,7 +133,7 @@ public class AcademicScreen extends AppCompatActivity {
 
         userRef.addListenerForSingleValueEvent(eventListener);
         // Set up the adapter and assign it to the ListView
-        //postAdapter = new PostAdapter(this, academicPostList);
+        postAdapter = new PostAdapter(this, academicPostList);
         listView.setAdapter(postAdapter);
 
         // Set item click listener to open post details
