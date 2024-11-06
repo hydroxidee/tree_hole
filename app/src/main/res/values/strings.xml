@@ -44,4 +44,5 @@
         <item>Faculty</item>
         <item>Staff</item>
     </string-array>
+    <string name="speechBubble">Hi!</string>
 </resources>
