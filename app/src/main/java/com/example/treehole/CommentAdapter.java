@@ -36,7 +36,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
         username.setText(comment.getUsername());
         timestamp.setText(comment.getTimestamp());
         commentText.setText(comment.getCommentText());
-
+    // hello
         return convertView;
     }
 }
