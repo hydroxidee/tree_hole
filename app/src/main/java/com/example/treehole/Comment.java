@@ -34,4 +34,14 @@ public class Comment {
     public void setTimestamp(String timestamp) {this.timestamp = timestamp;}
     public void setCommentText(String commentText){this.commentText = commentText;}
     public HashMap<String, Object> getCommentHash() { return commentHash; }
+
+    public Date getParsedTimestamp() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        try {
+            return format.parse(timestamp);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -146,14 +146,19 @@ public class EventScreen extends AppCompatActivity {
 
 
 
-        // Set item click listener to open post details
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Log.d("EventScreen", "Clicked post at position: " + position);
+            Log.d("AcademicScreen", "Clicked post at position: " + position);
 
             if (position >= 0 && position < eventPostList.size()) {
+                Post selectedPost = eventPostList.get(position);
+
                 Intent intent = new Intent(EventScreen.this, PostDetail.class);
                 intent.putExtra("postIndex", position);
-                intent.putExtra("type","Event");
+                intent.putExtra("type", selectedPost.getCommunityType());
+                intent.putExtra("username",selectedPost.getUsername());
+                intent.putExtra("timestamp", selectedPost.getTimestamp());
+                intent.putExtra("postContent", selectedPost.getPostText());
+                intent.putExtra("postTitle", selectedPost.getPostTitle());
                 startActivity(intent);
             } else {
                 Log.w("EventScreen", "Invalid position: " + position);

@@ -158,9 +158,15 @@ public class AcademicScreen extends AppCompatActivity {
             Log.d("AcademicScreen", "Clicked post at position: " + position);
 
             if (position >= 0 && position < academicPostList.size()) {
+                Post selectedPost = academicPostList.get(position);
+
                 Intent intent = new Intent(AcademicScreen.this, PostDetail.class);
                 intent.putExtra("postIndex", position);
-                intent.putExtra("type","Academic");
+                intent.putExtra("type", selectedPost.getCommunityType());
+                intent.putExtra("username",selectedPost.getUsername());
+                intent.putExtra("timestamp", selectedPost.getTimestamp());
+                intent.putExtra("postContent", selectedPost.getPostText());
+                intent.putExtra("postTitle", selectedPost.getPostTitle());
                 startActivity(intent);
             } else {
                 Log.w("AcademicScreen", "Invalid position: " + position);

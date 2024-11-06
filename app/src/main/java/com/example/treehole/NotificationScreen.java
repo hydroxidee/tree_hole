@@ -12,8 +12,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,9 +21,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class NotificationScreen extends AppCompatActivity {
     private ListView listView;
@@ -46,51 +47,62 @@ public class NotificationScreen extends AppCompatActivity {
         listView = findViewById(R.id.postListView);
         noPostsMessage = findViewById(R.id.noPostsMessage); // Initialize the noPostsMessage TextView
 
-        // Initialize post lists
         academicPosts = new ArrayList<>();
         lifePosts = new ArrayList<>();
         eventPosts = new ArrayList<>();
         postList = new ArrayList<>();
 
-        // Call SetAllLists and handle the data once loaded
         SetAllLists(this::onDataLoaded);
+
+        // Set item click listener to open post details
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            if (position >= 0 && position < postList.size()) {
+                Post selectedPost = postList.get(position);
+
+                // Create an Intent to start PostDetail with post details
+                Intent intent = new Intent(NotificationScreen.this, PostDetail.class);
+                intent.putExtra("username", selectedPost.getUsername());
+                intent.putExtra("timestamp", selectedPost.getTimestamp());
+                intent.putExtra("postContent", selectedPost.getPostText());
+                intent.putExtra("postTitle", selectedPost.getPostTitle());
+                intent.putExtra("type", selectedPost.getCommunityType()); // Type of the post
+
+                startActivity(intent);
+            } else {
+                Log.w("NotificationScreen", "Invalid position: " + position);
+            }
+        });
     }
 
-    // Callback method when data is loaded
     private void onDataLoaded() {
-        // Clear main postList and add posts according to user subscriptions
         postList.clear();
+        long currentTime = System.currentTimeMillis();
+        long time24HoursAgo = currentTime - (24 * 60 * 60 * 1000); // 24 hours in milliseconds
 
         if (UserInfo.isFollowingAcademic()) {
-            addPostsToMainList(academicPosts);
+            addPostsToMainList(academicPosts, time24HoursAgo);
         }
         if (UserInfo.isFollowingEvent()) {
-            addPostsToMainList(eventPosts);
+            addPostsToMainList(eventPosts, time24HoursAgo);
         }
         if (UserInfo.isFollowingLife()) {
-            addPostsToMainList(lifePosts);
+            addPostsToMainList(lifePosts, time24HoursAgo);
         }
 
-        // Sort postList by timestamp (newest first)
         postList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
 
-        // Check if there are posts to display
         if (postList.isEmpty()) {
-            // If postList is empty, show noPostsMessage and hide listView
             noPostsMessage.setVisibility(View.VISIBLE);
             listView.setVisibility(View.GONE);
         } else {
-            // If there are posts, show listView and hide noPostsMessage
             noPostsMessage.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
 
-            // Set up the adapter and display posts
             postAdapter = new PostAdapter(this, postList);
             listView.setAdapter(postAdapter);
         }
     }
 
-    // Update SetAllLists to accept a callback
     @SuppressLint("SetTextI18n")
     public void SetAllLists(Runnable onComplete) {
         root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/");
@@ -99,7 +111,6 @@ public class NotificationScreen extends AppCompatActivity {
         DatabaseReference eventRef = reference.child("posts").child("event");
         DatabaseReference lifeRef = reference.child("posts").child("life");
 
-        // Load academic posts
         academicRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -108,10 +119,9 @@ public class NotificationScreen extends AppCompatActivity {
                     String timestamp = postSnapshot.child("timestamp").getValue(String.class);
                     String username = postSnapshot.child("username").getValue(String.class);
                     String title = postSnapshot.child("title").getValue(String.class);
-                    AddAcademicPost(username, timestamp, text,title);
+                    AddAcademicPost(username, timestamp, text, title);
                 }
 
-                // Load event posts after academic posts
                 loadEventPosts(onComplete);
             }
 
@@ -122,7 +132,6 @@ public class NotificationScreen extends AppCompatActivity {
         });
     }
 
-    // Helper method to load event posts
     private void loadEventPosts(Runnable onComplete) {
         DatabaseReference eventRef = reference.child("posts").child("event");
         eventRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -133,10 +142,9 @@ public class NotificationScreen extends AppCompatActivity {
                     String timestamp = postSnapshot.child("timestamp").getValue(String.class);
                     String username = postSnapshot.child("username").getValue(String.class);
                     String title = postSnapshot.child("title").getValue(String.class);
-                    AddEventPost(username, timestamp, text,title);
+                    AddEventPost(username, timestamp, text, title);
                 }
 
-                // Load life posts after event posts
                 loadLifePosts(onComplete);
             }
 
@@ -147,7 +155,6 @@ public class NotificationScreen extends AppCompatActivity {
         });
     }
 
-    // Helper method to load life posts
     private void loadLifePosts(Runnable onComplete) {
         DatabaseReference lifeRef = reference.child("posts").child("life");
         lifeRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -158,10 +165,9 @@ public class NotificationScreen extends AppCompatActivity {
                     String timestamp = postSnapshot.child("timestamp").getValue(String.class);
                     String username = postSnapshot.child("username").getValue(String.class);
                     String title = postSnapshot.child("title").getValue(String.class);
-                    AddLifePost(username, timestamp, text,title);
+                    AddLifePost(username, timestamp, text, title);
                 }
 
-                // Notify that all posts are loaded
                 onComplete.run();
             }
 
@@ -172,22 +178,32 @@ public class NotificationScreen extends AppCompatActivity {
         });
     }
 
-    private void AddAcademicPost(String user, String time, String text,String title) {
-        academicPosts.add(new Post(user, time, text, title,"Academic"));
+    private void AddAcademicPost(String user, String time, String text, String title) {
+        academicPosts.add(new Post(user, time, text, title, "Academic"));
     }
 
     private void AddEventPost(String user, String time, String text, String title) {
-        eventPosts.add(new Post(user, time, text,title, "Event"));
+        eventPosts.add(new Post(user, time, text, title, "Event"));
     }
 
     private void AddLifePost(String user, String time, String text, String title) {
-        lifePosts.add(new Post(user, time, text,title, "Life"));
+        lifePosts.add(new Post(user, time, text, title, "Life"));
     }
 
-    private void addPostsToMainList(List<Object> posts) {
+    private void addPostsToMainList(List<Object> posts, long time24HoursAgo) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
         for (Object obj : posts) {
             if (obj instanceof Post) {
-                postList.add((Post) obj);
+                Post post = (Post) obj;
+                try {
+                    Date postDate = dateFormat.parse(post.getTimestamp());
+                    if (postDate != null && postDate.getTime() >= time24HoursAgo) {
+                        postList.add(post);
+                    }
+                } catch (ParseException e) {
+                    Log.e(TAG, "Error parsing post timestamp", e);
+                }
             }
         }
     }
