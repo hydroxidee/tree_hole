@@ -96,6 +96,9 @@
         app:layout_constraintVertical_bias="0.24" />
 
     <!-- Explore section -->
+
+    <!-- Academic Button -->
+    <!-- **need to update the onClick to the name of the page Jess chooses -->
     <TextView
         android:id="@+id/textView3"
         android:layout_width="326dp"
@@ -106,13 +109,11 @@
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.465" />
 
-    <!-- Academic Button -->
-    <!-- **need to update the onClick to the name of the page Jess chooses -->
     <Button
         android:id="@+id/AcademicButton1"
         android:layout_width="wrap_content"
