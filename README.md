@@ -16,26 +16,42 @@ This README file provides all the necessary instructions to set up and run the a
 
 <h2>Setup Instructions</h2>
 
-Clone the Repository
+<ol>
 
-git clone git@github.com:hydroxidee/tree_hole.git
+  <li>Clone the Repository</li>
 
-Navigate to the root directory of the project after cloning.
+  <ol>
 
-Open the Project in Android Studio
+  <li>git clone git@github.com:hydroxidee/tree_hole.git</li>
+  
+  </ol>
 
-Create a new virtual device:
+  <li>Navigate to the root directory of the project after cloning.</li>
 
-Device: Select Pixel 2.
+  <li>Open the Project in Android Studio</li>
 
-System Image: Choose an Android system image with API Level 24.
+  <li>Create a new virtual device:</li>
 
-Build and Run the App
+  <ol>
 
-Select the configured Pixel 2 API 24 AVD to launch the emulator.
+  <li>Device: Select Pixel 2.</li>
+
+  </ol>
+
+  <li>System Image: Choose an Android system image with API Level 24.</li>
+
+  <li>Build and Run the App</li>
+
+  <li>Select the configured Pixel 2 API 24 AVD to launch the emulator.</li>
+  
+</ol>
+
+
 
 <h2>Contributors</h2>
 
 Rachel Oh - ryoh@usc.edu
+•
 Erika Lee - erikal@usc.edu
+•
 Jessica Hahm - hahmj@usc.edu
