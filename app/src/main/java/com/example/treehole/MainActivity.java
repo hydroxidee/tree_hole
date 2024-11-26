@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     // database information
     private FirebaseDatabase root;
     private DatabaseReference reference;
+    private boolean happened;
 
     // user's information
     EditText userInput;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/");
+        root.setPersistenceEnabled(true);
         reference = root.getReference();
 
         // checks if sign up page was visited, and the results of that.
@@ -96,10 +98,12 @@ public class MainActivity extends AppCompatActivity {
             String shortUser = username.substring(0, username.indexOf("@"));
             DatabaseReference userRef = reference.child("users").child(shortUser);
 
+            happened = false;
             ValueEventListener eventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
+                        happened = true;
                         HashMap<String, Object> info = (HashMap<String, Object>) dataSnapshot.getValue();
                         HashMap<String, Long> notifs = (HashMap<String, Long>) info.get("notifs");
                         TextView updateMsg = findViewById(R.id.updateMessage);
@@ -124,6 +128,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
             userRef.addListenerForSingleValueEvent(eventListener);
+
+            if(!happened)
+            {
+                TextView updateMsg = findViewById(R.id.updateMessage);
+                updateMsg.setText("** System Down, please wait and try again");
+            }
         }
     }
 
@@ -147,9 +157,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // allows user to sign in
+    @SuppressLint("SetTextI18n")
     private void SignIn(String user, String firstName) {
         TextView updateMsg = findViewById(R.id.updateMessage);
 
+        updateMsg.setText("Successfully Signed In");
         UserInfo.SetUser(user);
         UserInfo.setFirstName(firstName);
 
@@ -157,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(() -> {
             Intent intent = new Intent(MainActivity.this, Homepage.class);
             startActivity(intent);
-        }, 0);
+        }, 500);
     }
 
     // prints different sign in errors
