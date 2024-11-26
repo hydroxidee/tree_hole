@@ -8,16 +8,16 @@
       <SelectionState runConfigName="LogInSuccessTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="LogInFailTests">
+      <SelectionState runConfigName="SignUpErrorTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="testFirebaseFail()">
+      <SelectionState runConfigName="bioLongTest()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="testAnonymousPost()">
+      <SelectionState runConfigName="invalidEmail()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="EventPostTest">
+      <SelectionState runConfigName="invalidIDTest()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

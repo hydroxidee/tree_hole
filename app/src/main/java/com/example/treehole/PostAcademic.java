@@ -40,6 +40,10 @@ public class PostAcademic extends AppCompatActivity {
         if (title.isEmpty() || content.isEmpty() || postAs == "Option") {
             Toast.makeText(PostAcademic.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
+        } else if (content.length() > 1000)
+        {
+            Toast.makeText(PostAcademic.this, "Content too long (under 1000 characters)", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
