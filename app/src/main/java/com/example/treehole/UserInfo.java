@@ -5,51 +5,84 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-//class stores the username (first part of usc email) so that it can be used once the user logs in
 public class UserInfo {
-    private static FirebaseDatabase root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/"); ;
-    private static DatabaseReference reference = root.getReference();
+    private static FirebaseDatabase root;
+    private static DatabaseReference reference;
 
     static HashMap<String, Object> notifs;
 
     static String username = "";
     static String firstName = "";
     static HashMap<String, Integer> roleTypes;
-    //hello
-    //communities
+
+    // Communities
     static boolean followingAcademic = false;
     static boolean followingLife = false;
     static boolean followingEvent = false;
 
-    // stores username
-    public static void SetUser(String name)
-    {
+    static {
+        initializeNotifs();
+    }
+
+    // Set a mock DatabaseReference instance for testing
+    public static void setDatabaseReference(DatabaseReference mockDatabaseReference) {
+        reference = mockDatabaseReference;
+    }
+
+    // Set a mock FirebaseDatabase instance for testing
+    public static void setFirebaseDatabase(FirebaseDatabase mockFirebaseDatabase) {
+        root = mockFirebaseDatabase;
+        reference = mockFirebaseDatabase.getReference();
+    }
+
+    // Ensure Firebase is lazily initialized for production
+    private static void ensureFirebaseInitialized() {
+        if (reference == null) { // Add this check
+            if (root == null) {
+                root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/");
+            }
+            reference = root.getReference();
+        }
+    }
+
+    // Initialize the notifications map
+    public static void initializeNotifs() {
+        notifs = new HashMap<>();
+        notifs.put("academic", 0);
+        notifs.put("life", 0);
+        notifs.put("event", 0);
+    }
+
+    // Store the username
+    public static void SetUser(String name) {
         username = name;
     }
 
-    // gets username
-    public static String GetUser()
-    {
+    // Get the username
+    public static String GetUser() {
         return username;
     }
 
-    public static void setFirstName(String name) { firstName = name; }
+    // Set the user's first name
+    public static void setFirstName(String name) {
+        firstName = name;
+    }
 
-    public static String getFirstName() { return firstName; }
+    // Get the user's first name
+    public static String getFirstName() {
+        return firstName;
+    }
 
-    // returns the index of the different roles (for dropdown menu)
-    public static int getRoleIndex(String role)
-    {
-        if(roleTypes == null)
-        {
+    // Get the role index for dropdown menu
+    public static int getRoleIndex(String role) {
+        if (roleTypes == null) {
             initializeRoles();
         }
         return roleTypes.get(role);
     }
 
-    //initializes roles and role indexes
-    private static void initializeRoles()
-    {
+    // Initialize roles and their indices
+    private static void initializeRoles() {
         roleTypes = new HashMap<>();
         roleTypes.put("Undergrad Student", 0);
         roleTypes.put("Graduate Student", 1);
@@ -57,81 +90,66 @@ public class UserInfo {
         roleTypes.put("Staff", 3);
     }
 
-    //set following academic
-    public static void followAcademic(){
-        followingAcademic=true;
-
+    // Follow the Academic community
+    public static void followAcademic() {
+        ensureFirebaseInitialized();
+        followingAcademic = true;
         notifs.put("academic", 1);
-
         reference.child("users").child(GetUser()).child("notifs").updateChildren(notifs);
     }
 
-    public static void unfollowAcademic(){
-
-        followingAcademic=false;
-
+    // Unfollow the Academic community
+    public static void unfollowAcademic() {
+        ensureFirebaseInitialized();
+        followingAcademic = false;
         notifs.put("academic", 0);
-
         reference.child("users").child(GetUser()).child("notifs").updateChildren(notifs);
     }
 
-    public static boolean isFollowingAcademic()
-    {
-
+    // Check if the user is following the Academic community
+    public static boolean isFollowingAcademic() {
         return followingAcademic;
     }
 
-    //set following life
-    public static void followLife(){
-
-        followingLife=true;
-
+    // Follow the Life community
+    public static void followLife() {
+        ensureFirebaseInitialized();
+        followingLife = true;
         notifs.put("life", 1);
-
         reference.child("users").child(GetUser()).child("notifs").updateChildren(notifs);
     }
 
-    public static void unfollowLife(){
-        followingLife=false;
-
+    // Unfollow the Life community
+    public static void unfollowLife() {
+        ensureFirebaseInitialized();
+        followingLife = false;
         notifs.put("life", 0);
-
         reference.child("users").child(GetUser()).child("notifs").updateChildren(notifs);
     }
 
-    public static boolean isFollowingLife()
-    {
+    // Check if the user is following the Life community
+    public static boolean isFollowingLife() {
         return followingLife;
     }
 
-    //set following event
-    public static void followEvent(){
-        followingEvent=true;
-
+    // Follow the Event community
+    public static void followEvent() {
+        ensureFirebaseInitialized();
+        followingEvent = true;
         notifs.put("event", 1);
-
         reference.child("users").child(GetUser()).child("notifs").updateChildren(notifs);
     }
 
-    public static void unfollowEvent(){
-        followingEvent=false;
-
+    // Unfollow the Event community
+    public static void unfollowEvent() {
+        ensureFirebaseInitialized();
+        followingEvent = false;
         notifs.put("event", 0);
-
         reference.child("users").child(GetUser()).child("notifs").updateChildren(notifs);
     }
 
-    public static boolean isFollowingEvent()
-    {
+    // Check if the user is following the Event community
+    public static boolean isFollowingEvent() {
         return followingEvent;
-    }
-
-    public static void initializeNotifs()
-    {
-        notifs = new HashMap<>();
-
-        notifs.put("academic", 0);
-        notifs.put("life", 0);
-        notifs.put("event", 0);
     }
 }
