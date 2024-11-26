@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/yellow"
     tools:context=".MainActivity">
-
+    <!--uj-->
     <TextView
         android:id="@+id/textView"
         android:layout_width="150dp"
@@ -159,9 +159,51 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.472" />
 
+    <!-- raccoon GIF -->
+    <ImageView
+        android:id="@+id/raccoonImage"
+        android:layout_width="175dp"
+        android:layout_height="177dp"
+        android:src="@drawable/raccoon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.237"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.812" />
+
+    <ImageView
+        android:id="@+id/speechBubbleImage"
+        android:layout_width="175dp"
+        android:layout_height="118dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/speechbubble"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.881"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.668" />
 
     <!-- FOOTER -->
     <!-- footer background -->
+
+    <TextView
+        android:id="@+id/speechBubbleText"
+        android:layout_width="152dp"
+        android:layout_height="37dp"
+        android:gravity="center"
+        android:text="@string/speechBubble"
+        android:textColor="@color/red"
+        android:textSize="20sp"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.648" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -173,9 +215,6 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <!-- profile button -->
-
-    <!-- tree (home) button -->
-
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="60dp"
@@ -189,6 +228,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <!-- tree (home) button -->
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="60dp"

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp">
-    <!--uj-->
+
     <!-- Profile and Post Info -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,12 +13,6 @@
         android:gravity="center_vertical"
         android:paddingBottom="8dp">
 
-        <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:scaleType="centerCrop"
-            android:layout_marginEnd="8dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -26,7 +20,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/username"
+                android:id="@+id/commentUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Username"
@@ -35,7 +29,7 @@
                 android:textColor="@color/darkred" />
 
             <TextView
-                android:id="@+id/timestamp"
+                android:id="@+id/commentTimestamp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Just now"
@@ -45,21 +39,16 @@
     </LinearLayout>
 
     <!-- Post Content -->
+    <!--uj-->
     <TextView
-        android:id="@+id/postTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Title of Post"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/postContent"
+        android:id="@+id/commentText"
         android:layout_width="match_parent"
         android:layout_height="124dp"
         android:scaleType="centerCrop"
         android:layout_marginBottom="8dp"
         android:text="Content of Post"/>
 
+
     <!-- Post Text Content -->
+
 </LinearLayout>

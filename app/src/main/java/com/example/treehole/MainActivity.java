@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     // user's information
     EditText userInput;
     EditText passInput;
-
+    //hello
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                         if(Objects.equals(info != null ? info.get("password") : null, password))
                         {
                             updateUserFollowingBools(notifs);
-                            SignIn(shortUser);
+                            SignIn(shortUser, (String) info.get("first"));
                         }
                         else
                         {
@@ -158,11 +158,12 @@ public class MainActivity extends AppCompatActivity {
 
     // allows user to sign in
     @SuppressLint("SetTextI18n")
-    private void SignIn(String user) {
+    private void SignIn(String user, String firstName) {
         TextView updateMsg = findViewById(R.id.updateMessage);
 
         updateMsg.setText("Successfully Signed In");
         UserInfo.SetUser(user);
+        UserInfo.setFirstName(firstName);
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {

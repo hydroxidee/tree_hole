@@ -1,38 +1,85 @@
 package com.example.treehole;
 
+import static android.content.ContentValues.TAG;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class EventScreen extends AppCompatActivity {
     private ListView listView;
     private PostAdapter postAdapter;
-    private List<Post> postList;
+    private HashMap<String, Object> postHash;
+    public static List<Post> eventPostList = new ArrayList<>();
+
+    private FirebaseDatabase root;
+    private DatabaseReference reference;
 
     // Define ActivityResultLauncher to handle result from PostAcademic
-    private final ActivityResultLauncher<Intent> postAcademicLauncher = registerForActivityResult(
+    private final ActivityResultLauncher<Intent> postEventLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     Intent data = result.getData();
                     String username = data.getStringExtra("username");
                     String timestamp = data.getStringExtra("timestamp");
-                    String postText = data.getStringExtra("postText");
+                    String postText = data.getStringExtra("postContent");
+                    String postTitle = data.getStringExtra("postTitle");
 
                     // Create a new Post object and add it to the list
-                    Post newPost = new Post(username, timestamp,postText);
-                    postList.add(newPost);
-
+                    Post newPost = new Post(username, timestamp, postText,postTitle,"Event");
+                    postHash.put(timestamp, newPost.getPostHash());
+                    eventPostList.add(newPost);
+                    eventPostList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
                     // Notify adapter of data change
                     postAdapter.notifyDataSetChanged();
+
+                    //add post to database
+                    DatabaseReference screenRef = reference.child("posts").child("event");
+                    ValueEventListener eventListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            //no posts under event exist
+                            if(!dataSnapshot.exists()) {
+                                screenRef.setValue(postHash);
+                            }
+                            else
+                            {
+                                screenRef.updateChildren(postHash);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.w(TAG, "loadPost:onCancelled", error.toException());
+                        }
+                    };
+                    screenRef.addListenerForSingleValueEvent(eventListener);
                 }
             }
     );
@@ -42,35 +89,118 @@ public class EventScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_page);
 
+        //database initialization
+        root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/");
+        reference = root.getReference();
+
         // Initialize ListView
         listView = findViewById(R.id.postListView);
 
-        // Create sample data for posts
-        postList = new ArrayList<>();
-        postList.add(new Post("Username1", "2 mins ago", "This is the first sample post."));
-        postList.add(new Post("Username2", "5 mins ago", "This is another example of a post."));
-        postList.add(new Post("Username3", "10 mins ago", "Here's some sample text for a post."));
+        postHash = new HashMap<String, Object>();
+        eventPostList = new ArrayList<>();
 
+        //gets all event posts
+        DatabaseReference userRef = reference.child("posts").child("event");
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    ImageButton bell = findViewById(R.id.pushNotifications);
+                    bell.setImageResource(R.drawable.tree);
+
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        bell.setImageResource(R.drawable.profile);
+
+                        if(UserInfo.isFollowingEvent())
+                        {
+                            bell.setImageResource(R.drawable.alertbell);
+                        }
+                        else
+                        {
+                            bell.setImageResource(R.drawable.bell);
+                        }
+
+
+                        // Retrieve each post's data
+                        String text = postSnapshot.child("text").getValue(String.class);
+                        String timestamp = postSnapshot.child("timestamp").getValue(String.class);
+                        String username = postSnapshot.child("username").getValue(String.class);
+                        String title = postSnapshot.child("title").getValue(String.class);
+                        makePost(username, timestamp, text,title);
+                    }
+                    // Sort postList by timestamp in descending order (most recent first)
+                    eventPostList.sort((post1, post2) -> post2.getParsedTimestamp().compareTo(post1.getParsedTimestamp()));
+
+                    // Notify adapter of data change after sorting
+                    postAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "loadPost:onCancelled", error.toException());
+            }
+        };
+
+        userRef.addListenerForSingleValueEvent(eventListener);
         // Set up the adapter and assign it to the ListView
-        postAdapter = new PostAdapter(this, postList);
+        postAdapter = new PostAdapter(this, eventPostList);
         listView.setAdapter(postAdapter);
 
-        // set notif bell
-        ImageButton bell = findViewById(R.id.pushNotifications);
-        if(UserInfo.isFollowingEvent())
-        {
-            bell.setImageResource(R.drawable.alertbell);
-        }
-        else
-        {
-            bell.setImageResource(R.drawable.bell);
-        }
+
+
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Log.d("AcademicScreen", "Clicked post at position: " + position);
+
+            if (position >= 0 && position < eventPostList.size()) {
+                Post selectedPost = eventPostList.get(position);
+
+                Intent intent = new Intent(EventScreen.this, PostDetail.class);
+                intent.putExtra("postIndex", position);
+                intent.putExtra("type", selectedPost.getCommunityType());
+                intent.putExtra("username",selectedPost.getUsername());
+                intent.putExtra("timestamp", selectedPost.getTimestamp());
+                intent.putExtra("postContent", selectedPost.getPostText());
+                intent.putExtra("postTitle", selectedPost.getPostTitle());
+                startActivity(intent);
+            } else {
+                Log.w("EventScreen", "Invalid position: " + position);
+            }
+        });
     }
 
     public void onPlusClick(View view) {
         Intent intent = new Intent(EventScreen.this, PostEvent.class);
-        postAcademicLauncher.launch(intent);  // Launch PostAcademic with the launcher
+        postEventLauncher.launch(intent);  // Launch PostAcademic with the launcher
+        if(UserInfo.isFollowingEvent())
+            showEventNotification();
     }
+
+    private void showEventNotification() {
+        String channelId = "event_posts_channel";
+        String channelName = "Event Posts";
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//hello
+        // Create the notification channel if running on Android 8.0 or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        // Build the notification
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.alertbell) // Replace with your app's notification icon
+                .setContentTitle("Event")
+                .setContentText("Event has a new post")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+        // Display the notification
+        notificationManager.notify(1, builder.build());
+    }
+
     public void onProfileClick(View view){
         Handler handler = new Handler();
         handler.postDelayed(() -> {
@@ -107,4 +237,13 @@ public class EventScreen extends AppCompatActivity {
             startActivity(intent);
         }, 0);
     }
+
+    public void makePost(String user, String time, String text, String title)
+    {
+        Post p = new Post(user, time, text,title,"Event");
+
+        postHash.put(time, p);
+        eventPostList.add(p);
+    }
+
 }

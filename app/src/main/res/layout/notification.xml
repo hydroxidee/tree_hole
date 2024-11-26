@@ -11,17 +11,26 @@
     <!-- ListView for displaying posts -->
 
     <!-- Bottom navigation with ImageButtons -->
-
+    <!--uj-->
     <TextView
         android:id="@+id/titleText"
         android:layout_width="match_parent"
         android:layout_height="94dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:text="Notification"
+        android:text="Subscription"
         android:textColor="@color/darkred"
         android:textSize="40sp" />
-
+    <TextView
+        android:id="@+id/noPostsMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No subscription post available"
+        android:textSize="18sp"
+        android:textColor="@android:color/darker_gray"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
     <ListView
         android:id="@+id/postListView"
         android:layout_width="match_parent"
@@ -31,6 +40,7 @@
         android:layout_marginBottom="2dp"
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
+        android:background="@drawable/round_corner"
         android:dividerHeight="16dp"
         android:padding="16dp" />
 

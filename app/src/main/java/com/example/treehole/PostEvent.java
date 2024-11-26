@@ -20,7 +20,9 @@ public class PostEvent extends AppCompatActivity {
         setContentView(R.layout.post_event);
 
         Spinner nameSpinner = findViewById(R.id.name);
-        String[] nameOptions = {"Option", "Placeholder", "Anonymous"};
+
+        String username = UserInfo.GetUser();
+        String[] nameOptions = {"Option", username, "Anonymous"};
         ArrayAdapter<String> nameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nameOptions);
         nameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         nameSpinner.setAdapter(nameAdapter);
@@ -35,17 +37,18 @@ public class PostEvent extends AppCompatActivity {
         String content = contentEditText.getText().toString().trim();
         String postAs = postAsSpinner.getSelectedItem().toString();
 
-        if (title.isEmpty() || content.isEmpty()) {
+        if (title.isEmpty() || content.isEmpty() || postAs == "Option") {
             Toast.makeText(PostEvent.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-
+//hello
         Intent resultIntent = new Intent();
         resultIntent.putExtra("username", postAs);
         resultIntent.putExtra("timestamp", timestamp);
-        resultIntent.putExtra("postText", title + "\n" + content);
+        resultIntent.putExtra("postTitle",title);
+        resultIntent.putExtra("postContent",content);
         setResult(RESULT_OK, resultIntent);
         finish();
     }
