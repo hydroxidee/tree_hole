@@ -34,6 +34,7 @@ public class LogInFailTests {
                 .perform(typeText(EMAIL_NO_EXIST), closeSoftKeyboard());
         onView(withId(R.id.passInput))
                 .perform(typeText(PASS_SUCCESS), closeSoftKeyboard());
+
         onView(withId(R.id.toSignIn)).perform(click());
 
         // Check that the text was changed.

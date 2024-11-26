@@ -1,3 +1,4 @@
+
 package com.example.treehole;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,7 @@ public class LoginManager {
     public LoginManager(DatabaseReference reference) {
         this.reference = reference;
     }
-// default constructor
+    // default constructor
     public LoginManager() {
         this.reference = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/").getReference();
     }

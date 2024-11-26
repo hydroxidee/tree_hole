@@ -1,202 +1,116 @@
 package com.example.treehole;
 
-import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
-import java.util.Objects;
-
 public class MainActivity extends AppCompatActivity {
-    // database information
-    private FirebaseDatabase root;
-    private DatabaseReference reference;
-    private boolean happened;
 
-    // user's information
-    EditText userInput;
-    EditText passInput;
-    //hello
+    // User input fields
+    private EditText userInput;
+    private EditText passInput;
+    private TextView updateMsg;
+
+    // Login manager instance
+    private LoginManager loginManager;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        // Adjusting for system bars (optional, based on your layout)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/");
-        reference = root.getReference();
+        // Initialize LoginManager
+        loginManager = new LoginManager();
+        // Initialize UI elements
+        updateMsg = findViewById(R.id.updateMessage);
+        userInput = findViewById(R.id.userInput);
+        passInput = findViewById(R.id.passInput);
 
-        // checks if sign up page was visited, and the results of that.
+        // Check for any updates from Sign Up or Sign Out actions
         int update = getIntent().getIntExtra("update", -1);
-        TextView updateMsg = findViewById(R.id.updateMessage);
-
-        if(update == -1) {
+        if (update == -1) {
             updateMsg.setText("");
-        }
-        else if (update == 1)
-        {
+        } else if (update == 1) {
             updateMsg.setText("Sign Up Successful! Please Sign In");
-        }
-        else if (update == 0)
-        {
+        } else if (update == 0) {
             updateMsg.setText("Account already exists. Please Sign In");
-        }
-        else if(update == 2)
-        {
+        } else if (update == 2) {
             updateMsg.setText("Successfully Signed Out");
         }
     }
 
-    // navigates to sign up page
+    // Navigates to the Sign Up page
     public void onSignUpClick(View view) {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             Intent intent = new Intent(MainActivity.this, AddChangeUserScreen.class);
-            //makes Add Change User Screen a Sign Up screen
+            // Makes AddChangeUserScreen a Sign Up screen
             intent.putExtra("type", 0);
             startActivity(intent);
         }, 0);
     }
 
-    // signs the user in
+    // Handles Sign In button click
     public void onSignInClick(View view) {
-        //retrieves sign in information
-        userInput = findViewById(R.id.userInput);
-        passInput = findViewById(R.id.passInput);
+        // Retrieves sign-in information
+        String username = userInput.getText().toString().trim();
+        String password = passInput.getText().toString().trim();
 
-        String username = userInput.getText().toString();
-        String password = passInput.getText().toString();
-
-        if(validateEmail(username)) {
-            String shortUser = username.substring(0, username.indexOf("@"));
-            DatabaseReference userRef = reference.child("users").child(shortUser);
-
-            happened = false;
-            ValueEventListener eventListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        happened = true;
-                        HashMap<String, Object> info = (HashMap<String, Object>) dataSnapshot.getValue();
-                        HashMap<String, Long> notifs = (HashMap<String, Long>) info.get("notifs");
-                        TextView updateMsg = findViewById(R.id.updateMessage);
-                        // checks if password is correct
-                        if(Objects.equals(info != null ? info.get("password") : null, password))
-                        {
-                            updateUserFollowingBools(notifs);
-                            SignIn(shortUser, (String) info.get("first"));
-                        }
-                        else
-                        {
-                            SignInError(1);
-                        }
-                    } else {
-                        SignInError(0);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.w(TAG, "loadPost:onCancelled", error.toException());
-                }
-            };
-            userRef.addListenerForSingleValueEvent(eventListener);
-
-            if(!happened)
-            {
-                TextView updateMsg = findViewById(R.id.updateMessage);
-                updateMsg.setText("** System Down, please wait and try again");
+        // Calls the login method from LoginManager
+        loginManager.login(username, password, new LoginManager.LoginCallback() {
+            @Override
+            public void onSuccess(String user, String firstName) {
+                updateMsg.setText("Successfully Signed In");
+                UserInfo.SetUser(user);
+                UserInfo.setFirstName(firstName);
+                navigateToHomepage();
             }
-        }
+
+            @Override
+            public void onError(int errorType) {
+                switch (errorType) {
+                    case LoginManager.ERROR_INVALID_EMAIL:
+                        updateMsg.setText("** Invalid Email");
+                        break;
+                    case LoginManager.ERROR_USER_NOT_EXIST:
+                        updateMsg.setText("** User does not exist, please sign up");
+                        break;
+                    case LoginManager.ERROR_INCORRECT_PASSWORD:
+                        updateMsg.setText("** Incorrect Password");
+                        break;
+                    default:
+                        updateMsg.setText("** System Down, please try again later");
+                        break;
+                }
+            }
+        });
     }
 
-    //ensures that inputted email is formatted correctly and a USC email
-    @SuppressLint("SetTextI18n")
-    private boolean validateEmail(String email) {
-        boolean validUser = true;
-        TextView updateMsg = findViewById(R.id.updateMessage);
-
-        if(email.isEmpty() || !email.matches("^[a-zA-Z0-9._%+-]+@usc\\.edu$"))
-        {
-            validUser = false;
-            updateMsg.setText("** Invalid Email");
-        }
-        else
-        {
-            updateMsg.setText("");
-        }
-
-        return validUser;
-    }
-
-    // allows user to sign in
-    @SuppressLint("SetTextI18n")
-    private void SignIn(String user, String firstName) {
-        TextView updateMsg = findViewById(R.id.updateMessage);
-
-        updateMsg.setText("Successfully Signed In");
-        UserInfo.SetUser(user);
-        UserInfo.setFirstName(firstName);
-
+    // Navigates to the Homepage after successful login
+    private void navigateToHomepage() {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             Intent intent = new Intent(MainActivity.this, Homepage.class);
             startActivity(intent);
         }, 500);
-    }
-
-    // prints different sign in errors
-    @SuppressLint("SetTextI18n")
-    private void SignInError(int type) {
-        TextView updateMsg = findViewById(R.id.updateMessage);
-        if(type == 0)
-            updateMsg.setText("** User does not exist, please sign up");
-        else if(type == 1)
-            updateMsg.setText("** Incorrect Password");
-    }
-
-    private void updateUserFollowingBools(HashMap<String, Long> bools)
-    {
-        UserInfo.initializeNotifs();
-        if(bools.get("academic") == 1)
-        {
-            UserInfo.followAcademic();
-        }
-
-        if(bools.get("life") == 1)
-        {
-            UserInfo.followLife();
-        }
-
-        if(bools.get("event") == 1)
-        {
-            UserInfo.followEvent();
-        }
     }
 }

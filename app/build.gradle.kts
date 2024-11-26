@@ -40,9 +40,18 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
+//    implementation(libs.core)
+//    implementation(libs.espresso.intents)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.glide)
+    testImplementation("org.robolectric:robolectric:4.10")
+    testImplementation("androidx.test:core:1.5.0")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation ("org.mockito:mockito-core:4.2.0")
+    testImplementation ("org.mockito:mockito-inline:4.2.0")
 
 }
+
+
