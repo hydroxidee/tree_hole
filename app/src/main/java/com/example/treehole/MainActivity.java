@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         root = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/");
-        root.setPersistenceEnabled(true);
         reference = root.getReference();
 
         // checks if sign up page was visited, and the results of that.
