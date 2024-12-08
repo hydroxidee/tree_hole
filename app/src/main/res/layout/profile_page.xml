@@ -5,25 +5,36 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f7f3ad"
+    android:background="@color/white"
     tools:context=".ProfilePage"
     tools:layout_editor_absoluteX="-1dp"
     tools:layout_editor_absoluteY="23dp">
-    <!--uj-->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/darkred"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:layout_width="326dp"
         android:layout_height="67dp"
         android:gravity="center"
         android:text="@string/profile"
-        android:textColor="#990000"
-        android:textSize="50sp"
+        android:textColor="@color/white"
+        android:textSize="40sp"
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.009" />
+        app:layout_constraintVertical_bias="0.024" />
 
     <TextView
         android:id="@+id/userMsg"
@@ -43,7 +54,7 @@
     <TextView
         android:layout_width="362dp"
         android:layout_height="38dp"
-        android:background="#ffe354"
+        android:background="@color/yellow"
         android:gravity="center"
         android:textSize="50sp"
         android:typeface="sans"
@@ -154,7 +165,7 @@
     <TextView
         android:layout_width="367dp"
         android:layout_height="145dp"
-        android:background="#ffe354"
+        android:background="@color/yellow"
         android:gravity="center"
         android:textSize="50sp"
         android:typeface="sans"
@@ -200,6 +211,7 @@
         android:onClick="onEditClick"
         android:text="@string/edit_profile"
         android:textSize="11sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.211"
@@ -215,6 +227,7 @@
         android:onClick="onSignOutClick"
         android:text="@string/sign_out"
         android:textSize="11sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.818"
@@ -239,6 +252,7 @@
         android:backgroundTint="@color/darkred"
         android:onClick="onProfileClick"
         android:src="@drawable/profile"
+        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.238"
@@ -252,6 +266,7 @@
         android:backgroundTint="@color/darkred"
         android:src="@drawable/tree"
         android:onClick="onHomeClick"
+        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.532"
@@ -266,6 +281,7 @@
         android:backgroundTint="@color/darkred"
         android:onClick="onNotificationClick"
         android:src="@drawable/bell"
+        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.796"

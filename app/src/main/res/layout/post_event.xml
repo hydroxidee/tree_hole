@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellow"
+    android:background="@color/white"
     android:padding="16dp">
     <!--uj-->
     <!-- Header Section with Exit Button and Title -->
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
         android:background="@drawable/round_corner"
-        android:backgroundTint="@color/semi_transparent_white"
+        android:backgroundTint="@color/semi_transparent_yellow"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/round_corner"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/semi_transparent_darkyellow"
             android:hint="Title"
             android:padding="10dp" />
 
@@ -89,7 +89,7 @@
             android:layout_height="150dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/round_corner"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/semi_transparent_darkyellow"
             android:gravity="top"
             android:hint="Type here"
             android:padding="10dp" />
@@ -114,7 +114,7 @@
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/round_corner"
-                android:backgroundTint="@color/white" />
+                android:backgroundTint="@color/semi_transparent_darkyellow" />
         </LinearLayout>
     </LinearLayout>
 
@@ -128,7 +128,7 @@
         android:paddingTop="8dp"
         android:paddingBottom="16dp"
         android:text="Post"
-        android:textColor="@android:color/white"
+        android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
