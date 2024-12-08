@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
         android:background="@drawable/round_corner"
-        android:backgroundTint="@color/semi_transparent_yellow"
+        android:backgroundTint="@color/semi_transparent_darkyellow"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/round_corner"
-            android:backgroundTint="@color/semi_transparent_darkyellow"
+            android:backgroundTint="@color/lightyellow"
             android:hint="Title"
             android:padding="10dp" />
 
@@ -89,7 +89,7 @@
             android:layout_height="150dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/round_corner"
-            android:backgroundTint="@color/semi_transparent_darkyellow"
+            android:backgroundTint="@color/lightyellow"
             android:gravity="top"
             android:hint="Type here"
             android:padding="10dp" />
@@ -114,7 +114,7 @@
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/round_corner"
-                android:backgroundTint="@color/semi_transparent_darkyellow" />
+                android:backgroundTint="@color/lightyellow" />
         </LinearLayout>
     </LinearLayout>
 
