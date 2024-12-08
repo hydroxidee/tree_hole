@@ -1,8 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/yellow">
+    android:background="@color/white">
 
 
     <Button
@@ -30,7 +31,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:backgroundTint="@color/semi_transparent_white"
+        android:backgroundTint="@color/semi_transparent_yellow"
         android:background="@drawable/round_corner"
         android:layout_marginBottom="10dp"
         android:layout_marginStart="10dp"
@@ -64,7 +65,7 @@
                 android:layout_width="157dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_corner"
-                android:backgroundTint="@color/semi_transparent_white"
+                android:backgroundTint="@color/semi_transparent_darkyellow"
                 android:padding="8dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/darkred" />
@@ -75,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_corner"
-                android:backgroundTint="@color/semi_transparent_white"
+                android:backgroundTint="@color/semi_transparent_darkyellow"
                 android:hint="Enter your content"
                 android:inputType="textMultiLine"
                 android:maxLines="2"
@@ -91,7 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/semi_transparent_white"
+        android:background="@color/semi_transparent_yellow"
         android:divider="@android:color/transparent"
         android:dividerHeight="8dp"
         android:paddingBottom="8dp" />
@@ -113,7 +114,8 @@
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/darkred"
             android:onClick="onProfileClick"
-            android:src="@drawable/profile" />
+            android:src="@drawable/profile"
+            app:tint="@color/white"/>
 
         <!-- Home button -->
         <ImageButton
@@ -123,7 +125,8 @@
             android:backgroundTint="@color/darkred"
             android:onClick="onHomeClick"
             android:src="@drawable/tree"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginEnd="16dp"
+            app:tint="@color/white"/>
 
         <!-- Notification button -->
         <ImageButton
@@ -132,7 +135,8 @@
             android:layout_height="60dp"
             android:backgroundTint="@color/darkred"
             android:onClick="onNotificationClick"
-            android:src="@drawable/bell" />
+            android:src="@drawable/bell"
+            app:tint="@color/white"/>
     </LinearLayout>
 
 </LinearLayout>

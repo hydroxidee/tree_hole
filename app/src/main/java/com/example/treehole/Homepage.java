@@ -59,8 +59,8 @@ public class Homepage extends AppCompatActivity {
             academicButton.setClickable(false);
             academicButton.setEnabled(false);
 
-            academicButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
-            academicButton.setTextColor(Color.parseColor("#F7F3AD"));
+            academicButton.setBackgroundColor(Color.parseColor("#fcfcf0"));
+            academicButton.setTextColor(Color.parseColor("#fcfcf0"));
         }
 //hello
         Button lifeButton = findViewById(R.id.LifeButton0);
@@ -77,8 +77,8 @@ public class Homepage extends AppCompatActivity {
             lifeButton.setClickable(false);
             lifeButton.setEnabled(false);
 
-            lifeButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
-            lifeButton.setTextColor(Color.parseColor("#F7F3AD"));
+            lifeButton.setBackgroundColor(Color.parseColor("#fcfcf0"));
+            lifeButton.setTextColor(Color.parseColor("#fcfcf0"));
         }
 
         Button eventButton = findViewById(R.id.EventButton0);
@@ -95,8 +95,8 @@ public class Homepage extends AppCompatActivity {
             eventButton.setClickable(false);
             eventButton.setEnabled(false);
 
-            eventButton.setBackgroundColor(Color.parseColor("#F7F3AD"));
-            eventButton.setTextColor(Color.parseColor("#F7F3AD"));
+            eventButton.setBackgroundColor(Color.parseColor("#fcfcf0"));
+            eventButton.setTextColor(Color.parseColor("#fcfcf0"));
         }
 
 
