@@ -54,7 +54,7 @@
     <TextView
         android:layout_width="362dp"
         android:layout_height="38dp"
-        android:background="@color/yellow"
+        android:background="@color/semi_transparent_yellow"
         android:gravity="center"
         android:textSize="50sp"
         android:typeface="sans"
@@ -165,7 +165,7 @@
     <TextView
         android:layout_width="367dp"
         android:layout_height="145dp"
-        android:background="@color/yellow"
+        android:background="@color/semi_transparent_yellow"
         android:gravity="center"
         android:textSize="50sp"
         android:typeface="sans"

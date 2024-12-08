@@ -5,10 +5,11 @@
     <color name="red">#990000</color>
     <color name="darkred">#770101</color>
     <color name="yellow">#f7f3ad</color>
+    <color name="lightyellow">#FFFBC9</color>
     <color name="semi_transparent_white">#80FFFFFF</color>
     <color name="semi_transparent_yellow">#80FFEC9D</color>
-    <color name="semi_transparent_darkyellow">#80FFE77F</color>
-    <color name="academicColor">#80c78252</color> <!-- 50% transparent -->
-    <color name="eventColor">#80d8bfe3</color>    <!-- 50% transparent -->
-    <color name="lifeColor">#80b1e3b9</color>     <!-- 50% transparent -->
+    <color name="semi_transparent_darkyellow">#80FBE272</color>
+    <color name="academicColor">#80E7A291</color> <!-- 50% transparent -->
+    <color name="eventColor">#80E1CCE9</color>    <!-- 50% transparent -->
+    <color name="lifeColor">#80C2E9C8</color>     <!-- 50% transparent -->
 </resources>
