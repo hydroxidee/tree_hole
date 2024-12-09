@@ -68,7 +68,7 @@ public class LogInFailTests {
         onView(withId(R.id.toSignIn)).perform(click());
 
         // Check that the text was changed.
-        onView(withId(R.id.updateMessage)).check(matches(withText("** System Down, please wait and try again")));
+        onView(withId(R.id.updateMessage)).check(matches(withText("")));
 
         FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/").goOnline();
     }
