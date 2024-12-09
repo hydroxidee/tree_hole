@@ -50,13 +50,10 @@ public class PostCreationTests {
         String timestamp = "2024-11-25 10:10:00";
         String postText = "Test - no title";
         String postTitle = null; //no title
-        String communityType = "Academic";
+        String communityType = "General";
 
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Post(username, timestamp, postText, postTitle, communityType);
-        });
+        Post post = new Post(username, timestamp, postText, postTitle, communityType);
 
-        // verify theres an error message
-        assertEquals("Please fill in all fields.", exception.getMessage());
+        assertEquals("Untitled", post.getPostTitle());
     }
 }

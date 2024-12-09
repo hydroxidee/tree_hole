@@ -60,6 +60,7 @@ public class AcademicPostTest {
         DatabaseReference reference = FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/").getReference("posts").child("academic").child(timestamp);
 
         Query query = reference.orderByChild("username").equalTo("Anonymous");
+
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
