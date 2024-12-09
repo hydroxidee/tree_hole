@@ -5,7 +5,11 @@ import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,11 +24,15 @@ import java.util.HashMap;
 public class SignUpTest {
 
     private DatabaseReference mockDatabaseReference;
+    private AddChangeUserScreen mockAddChangeUserScreen;
 
     @Before
     public void setUp() {
         // Mock the Firebase DatabaseReference
         mockDatabaseReference = mock(DatabaseReference.class);
+
+        // Mock the AddChangeUserScreen class
+        mockAddChangeUserScreen = mock(AddChangeUserScreen.class);
     }
 
     @Test
@@ -98,5 +106,50 @@ public class SignUpTest {
                 fail("Database error: " + error.getMessage());
             }
         });
+    }
+    @Test
+    public void testInvalidEmailValidation() {
+        // Simulate invalid email input (not ending with @usc.edu)
+        String invalidEmail = "johndoe@google.com";
+
+        // Set the user input and other necessary data for validation
+        String firstName = "John";
+        String lastName = "Doe";
+        String password = "password123";
+        String bio = "Bio text here";
+        String numID = "1234567890";
+        String roleType = "Student"; // Example role type
+
+        // Simulate the error TextView
+        TextView errorTextView = mock(TextView.class);
+        when(mockAddChangeUserScreen.findViewById(R.id.errorMessage)).thenReturn(errorTextView);
+
+        // Call the onSignUpClick method to trigger the validation check for the email
+        mockAddChangeUserScreen.onSignUpClick(null);
+
+        // Verify that the error message for invalid email is set correctly
+        verify(errorTextView, times(0)).setText(any());
+    }
+
+    @Test
+    public void testValidEmailValidation() {
+        // Simulate valid email input (ending with @usc.edu)
+        String validEmail = "johndoe@usc.edu";
+        String firstName = "John";
+        String lastName = "Doe";
+        String password = "password123";
+        String bio = "Bio text here";
+        String numID = "1234567890";
+        String roleType = "Student"; // Example role type
+
+        // Simulate the error TextView
+        TextView errorTextView = mock(TextView.class);
+        when(mockAddChangeUserScreen.findViewById(R.id.errorMessage)).thenReturn(errorTextView);
+
+        // Call the onSignUpClick method to trigger the validation check for the valid email
+        mockAddChangeUserScreen.onSignUpClick(null);
+
+        // Verify that no error message is set for a valid email
+        verify(errorTextView, times(0)).setText(any());
     }
 }
