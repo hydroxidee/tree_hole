@@ -16,20 +16,25 @@ public class Post {
     private String communityType;
     private List<Comment> commentList;
     private HashMap<String, Object> commentHash;
-    //hello
     private HashMap<String, Object> postHash;
 
     public Post(String username, String timestamp, String postText, String postTitle,String communityType) {
         // make sure there are no null inputs
-        if (username == null || timestamp == null || postText == null || postTitle == null || communityType == null) {
-            throw new IllegalArgumentException("Please fill in all fields.");
-        }
+//        if (username == null || timestamp == null || postText == null || postTitle == null || communityType == null) {
+//            throw new IllegalArgumentException("Please fill in all fields.");
+//        }
 
-        this.username = username;
-        this.timestamp = timestamp;
-        this.postText = postText;
-        this.postTitle = postTitle;
-        this.communityType = communityType;
+        this.username = (username != null) ? username : "Anonymous";
+        this.timestamp = (timestamp != null) ? timestamp : new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+        this.postText = (postText != null) ? postText : "";
+        this.postTitle = (postTitle != null) ? postTitle : "Untitled"; // Default to "Untitled" if title is null
+        this.communityType = (communityType != null) ? communityType : "General"; // Default to "General" if communityType is null
+
+//        this.username = username;
+//        this.timestamp = timestamp;
+//        this.postText = postText;
+//        this.postTitle = postTitle;
+//        this.communityType = communityType;
 
         postHash = new HashMap<>();
 
