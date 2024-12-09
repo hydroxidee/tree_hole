@@ -46,6 +46,8 @@ This README file provides all the necessary instructions to set up and run the a
   
 </ol>
 
+Following the 2.4 assignment, we have improved the individual UIs of the different group pages for increased user experience and added a reply - to - reply functionality
+
 
 
 <h2>Contributors</h2>
