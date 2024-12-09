@@ -52,11 +52,8 @@ public class PostCreationTests {
         String postTitle = null; //no title
         String communityType = "General";
 
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Post(username, timestamp, postText, postTitle, communityType);
-        });
+        Post post = new Post(username, timestamp, postText, postTitle, communityType);
 
-        // verify theres an error message
-        assertEquals("Please fill in all fields.", exception.getMessage());
+        assertEquals("Untitled", post.getPostTitle());
     }
 }
