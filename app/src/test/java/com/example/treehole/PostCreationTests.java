@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class PostCreationTests {
 
-    public static final String USERNAME = erikal;
+    public static final String USERNAME = "erikal";
     
     @Test
     public void testPostWithValidDetails() {
