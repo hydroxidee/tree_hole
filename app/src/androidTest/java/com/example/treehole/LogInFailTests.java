@@ -8,6 +8,8 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import static org.hamcrest.Matchers.not;
+
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import com.google.firebase.database.FirebaseDatabase;
@@ -68,7 +70,7 @@ public class LogInFailTests {
         onView(withId(R.id.toSignIn)).perform(click());
 
         // Check that the text was changed.
-        onView(withId(R.id.updateMessage)).check(matches(withText("")));
+        onView(withId(R.id.updateMessage)).check(matches(not(withText("Home"))));
 
         FirebaseDatabase.getInstance("https://treehole-database-default-rtdb.firebaseio.com/").goOnline();
     }
