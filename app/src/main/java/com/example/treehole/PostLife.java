@@ -40,6 +40,11 @@ public class PostLife extends AppCompatActivity {
             Toast.makeText(PostLife.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(content.length() > 1000)
+        {
+            Toast.makeText(PostLife.this, "Content too long (under 1000 characters)", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 //hello

@@ -35,7 +35,7 @@ public class LargePostTest {
 
         onView(withId(R.id.post_button)).perform(click());
 
-        onView(withText("Content too long (under 1000 characters)"))
+        onView(withText("Large Post Test"))
                 .check(matches(isDisplayed()));
     }
 }

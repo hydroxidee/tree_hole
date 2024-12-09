@@ -223,6 +223,11 @@ public class AddChangeUserScreen extends AppCompatActivity {
             ValueEventListener eventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    Boolean connected = dataSnapshot.getValue(Boolean.class);
+                    if (connected != null && connected) {
+                        TextView success = findViewById(R.id.pictureSuccess);
+                        success.setText("** System Down, please wait and try again");
+                    }
                     //sign in - create new user
                     if(type == 0 && !dataSnapshot.exists()) {
                         //create new user
