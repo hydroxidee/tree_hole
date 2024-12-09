@@ -20,6 +20,11 @@ public class Post {
     private HashMap<String, Object> postHash;
 
     public Post(String username, String timestamp, String postText, String postTitle,String communityType) {
+        // make sure there are no null inputs
+        if (username == null || timestamp == null || postText == null || postTitle == null || communityType == null) {
+            throw new IllegalArgumentException("Please fill in all fields.");
+        }
+
         this.username = username;
         this.timestamp = timestamp;
         this.postText = postText;

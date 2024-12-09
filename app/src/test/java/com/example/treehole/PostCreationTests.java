@@ -50,7 +50,7 @@ public class PostCreationTests {
         String timestamp = "2024-11-25 10:10:00";
         String postText = "Test - no title";
         String postTitle = null; //no title
-        String communityType = "General";
+        String communityType = "Academic";
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             new Post(username, timestamp, postText, postTitle, communityType);
